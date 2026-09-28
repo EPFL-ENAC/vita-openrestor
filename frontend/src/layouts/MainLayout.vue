@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="hHh LpR lFf">
+    <q-layout>
         <q-header>
             <q-toolbar class="q-px-md">
                 <q-img
@@ -36,57 +36,13 @@
             </q-toolbar>
         </q-header>
 
-        <q-drawer v-model="leftDrawerOpen" :breakpoint="0" :width="314" bordered>
-            <q-list padding>
-                <q-item v-ripple clickable to="/" exact>
-                    <q-item-section avatar>
-                        <q-icon name="chat" />
-                    </q-item-section>
-                    <q-item-section>{{ t('navigation.chats') }}</q-item-section>
-                </q-item>
-
-                <q-item v-ripple clickable to="/profile">
-                    <q-item-section avatar>
-                        <q-icon name="person" />
-                    </q-item-section>
-                    <q-item-section>{{ t('navigation.profile') }}</q-item-section>
-                </q-item>
-
-                <q-item v-if="authStore.isAdmin" v-ripple clickable to="/dashboard">
-                    <q-item-section avatar>
-                        <q-icon name="dashboard" />
-                    </q-item-section>
-                    <q-item-section>{{ t('navigation.dashboard') }}</q-item-section>
-                </q-item>
-            </q-list>
-        </q-drawer>
-
         <q-page-container>
-            <q-banner v-if="showDisclaimer" class="bg-amber-2 text-brown-10">
-                <template #avatar>
-                    <q-icon name="warning_amber" />
-                </template>
-
-                {{ t('disclaimer.message') }}
-
-                <template #action>
-                    <q-btn
-                        flat
-                        round
-                        dense
-                        icon="close"
-                        :aria-label="t('disclaimer.dismiss')"
-                        @click="showDisclaimer = false"
-                    />
-                </template>
-            </q-banner>
             <router-view />
         </q-page-container>
     </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from 'src/stores/auth';
@@ -101,8 +57,6 @@ const localeOptions: { value: AppLocale; labelKey: string }[] = [
 const { locale, t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore();
-const leftDrawerOpen = ref(true);
-const showDisclaimer = ref(true);
 
 function selectLocale(nextLocale: AppLocale): void {
     locale.value = nextLocale;

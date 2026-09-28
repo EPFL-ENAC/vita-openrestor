@@ -4,15 +4,7 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/',
         component: () => import('layouts/MainLayout.vue'),
-        children: [
-            { path: '', component: () => import('pages/IndexPage.vue') },
-            { path: 'profile', component: () => import('pages/ProfilePage.vue') },
-            {
-                path: 'dashboard',
-                component: () => import('pages/DashboardPage.vue'),
-                meta: { requiresAdmin: true },
-            },
-        ],
+        children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
     },
     {
         path: '/signin',

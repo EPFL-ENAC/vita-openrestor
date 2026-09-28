@@ -12,7 +12,7 @@ export default defineConfig((ctx) => {
         // app boot file (/src/boot)
         // --> boot files are part of "main.js"
         // https://v2.quasar.dev/quasar-cli-vite/boot-files
-        boot: ['sentry', 'i18n', 'qmarkdown', 'colada'],
+        boot: ['sentry', 'i18n'],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
         css: ['app.scss'],
@@ -119,7 +119,7 @@ export default defineConfig((ctx) => {
             // directives: [],
 
             // Quasar plugins
-            plugins: ['Dialog', 'Notify'],
+            plugins: [],
         },
 
         // animations: 'all', // --- includes all animations
@@ -215,7 +215,7 @@ export default defineConfig((ctx) => {
             builder: {
                 // https://www.electron.build/configuration
 
-                appId: 'esstech-humconnect',
+                appId: 'esstech-openrestor',
             },
         },
 

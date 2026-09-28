@@ -1,4 +1,4 @@
-# Vita OpenRestor Dashboard
+# VITA OpenRestor Dashboard
 
 Dashboard for the OpenRestore benchmark: leaderboard of submitted models and a data
 download section _(WIP — repository is an initialized skeleton)_.

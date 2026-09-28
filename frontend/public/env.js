@@ -3,7 +3,7 @@ window.env = {
     API_PATH: '',
     KEYCLOAK_URL: 'https://enac-it-sso2.epfl.ch',
     KEYCLOAK_REALM: 'external',
-    AUTH_CLIENT_ID: 'humconnect-dev',
+    AUTH_CLIENT_ID: 'openrestor',
     SENTRY_ENVIRONMENT: 'local',
     SENTRY_RATE: '0.00',
 };

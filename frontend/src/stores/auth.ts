@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import type { KeycloakProfile } from 'keycloak-js';
 import { keycloak } from 'src/boot/api';
 
-const ADMIN_ROLE = 'humconnect-admin';
+const ADMIN_ROLE = 'admin';
 
 interface FetchApiOptions {
     retries?: number;

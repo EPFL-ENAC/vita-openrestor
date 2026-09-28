@@ -1,6 +1,6 @@
-# HumConnect (esstech-humconnect)
+# OpenRestor
 
-Dataset annotation tools for the Humanitarian OpenStreetMap - Nepal project
+Leaderboard of submitted models and data download
 
 ## Install the dependencies
 
