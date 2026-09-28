@@ -1,7 +1,7 @@
 env_path=../.env
 
 install:
-    uv sync
+	uv sync
 
 run:
 	uv run dotenv -f "$(env_path)" run uvicorn api.main:app --reload

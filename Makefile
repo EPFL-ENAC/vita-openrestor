@@ -1,13 +1,13 @@
 install:
-    cd backend && make install
-    cd frontend && npm install
-    test -f .env || cp .env.example .env
+	cd backend && make install
+	cd frontend && npm install
+	test -f .env || cp .env.example .env
 
 run-backend:
 	cd backend && make run
 
 run-frontend:
-	cd frontend && npm run dev
+	cd frontend && bash -c 'trap "exit 0" INT TERM HUP; while true; do npm run dev; code=$$?; if [ "$$code" -eq 0 ] || [ "$$code" -ge 128 ]; then break; fi; echo "npm run dev exited unexpectedly (code $$code), restarting..."; sleep 1; done'
 
 run-db:
 	docker compose up -d
@@ -15,9 +15,21 @@ run-db:
 stop-db:
 	docker compose down
 
-reset-db:
+drop-db:
 	docker compose down --volumes
 	docker compose up -d
+
+db-upgrade:
+	cd backend && make db-upgrade
+
+db-downgrade:
+	cd backend && make db-downgrade
+
+db-revision:
+	cd backend && make db-revision name="$(name)"
+
+run-all:
+	make run-db && trap 'kill "$${backend_pid}" "$${frontend_pid}" 2>/dev/null; make stop-db' INT TERM HUP && { make run-backend & backend_pid=$$!; make run-frontend & frontend_pid=$$!; wait; }
 
 test:
 	cd backend && make test
