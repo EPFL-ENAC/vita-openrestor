@@ -39,6 +39,12 @@ make run-frontend
 
 The website will be available at http://localhost:9000.
 
+Alternatively, you can run the backend, database, and frontend in a single command:
+
+```bash
+make run-all
+```
+
 ## Project structure
 
 - `backend/` — FastAPI application (Python 3.13, uv, alembic migrations, pytest)
