@@ -1,0 +1,42 @@
+{
+    "submissions": [
+        {
+            "id": "wavemend",
+            "modelId": "wavemend",
+            "modelName": "WaveMend",
+            "status": "approved",
+            "submittedAt": "2026-10-10"
+        }
+    ],
+    "details": {
+        "wavemend": {
+            "id": "wavemend",
+            "modelId": "wavemend",
+            "card": {
+                "name": "WaveMend",
+                "authors": "[Authors]",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainingData": "[Additional training data]",
+                "codeRepo": "https://example.org/code",
+                "dataRepo": "https://example.org/weights",
+                "paper": "https://example.org/paper",
+                "licence": "MIT"
+            },
+            "dockerfile": {
+                "name": "Dockerfile",
+                "sizeBytes": 1980,
+                "uploadedAt": "2026-10-10"
+            },
+            "snrGain": 14.2,
+            "listening": 4.41,
+            "review": {
+                "openedAt": "2026-10-11",
+                "decidedAt": "2026-10-12",
+                "reviewer": "[owner]",
+                "rank": 1
+            },
+            "failure": null
+        }
+    }
+}

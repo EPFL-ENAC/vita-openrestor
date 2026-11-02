@@ -1,0 +1,319 @@
+{
+    "release": "v0.1",
+    "models": [
+        {
+            "id": "wavemend",
+            "name": "WaveMend",
+            "lab": "Sample Lab A",
+            "card": {
+                "approvedAt": "2026-10-12",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainedOn": "[training data]",
+                "links": {
+                    "code": "https://example.org/code",
+                    "weights": "https://example.org/weights",
+                    "paper": "https://example.org/paper"
+                }
+            }
+        },
+        {
+            "id": "restorformer",
+            "name": "RestorFormer",
+            "lab": "Sample Lab B",
+            "card": {
+                "approvedAt": "2026-09-30",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainedOn": "[training data]",
+                "links": {
+                    "code": "https://example.org/code",
+                    "weights": "https://example.org/weights",
+                    "paper": "https://example.org/paper"
+                }
+            }
+        },
+        {
+            "id": "spectrafix",
+            "name": "SpectraFix",
+            "lab": "Sample Lab C",
+            "card": {
+                "approvedAt": "2026-09-30",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainedOn": "[training data]",
+                "links": {
+                    "code": "https://example.org/code",
+                    "weights": "https://example.org/weights",
+                    "paper": "https://example.org/paper"
+                }
+            }
+        },
+        {
+            "id": "cleartone-v2",
+            "name": "ClearTone v2",
+            "lab": "Sample Lab D",
+            "card": {
+                "approvedAt": "2026-09-30",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainedOn": "[training data]",
+                "links": {
+                    "code": "https://example.org/code",
+                    "weights": "https://example.org/weights",
+                    "paper": "https://example.org/paper"
+                }
+            }
+        },
+        {
+            "id": "denoisenet-l",
+            "name": "DeNoiseNet-L",
+            "lab": "Sample Lab A",
+            "card": {
+                "approvedAt": "2026-09-30",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainedOn": "[training data]",
+                "links": {
+                    "code": "https://example.org/code",
+                    "weights": "https://example.org/weights",
+                    "paper": "https://example.org/paper"
+                }
+            }
+        },
+        {
+            "id": "echopatch",
+            "name": "EchoPatch",
+            "lab": "Sample Lab E",
+            "card": {
+                "approvedAt": "2026-09-30",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainedOn": "[training data]",
+                "links": {
+                    "code": "https://example.org/code",
+                    "weights": "https://example.org/weights",
+                    "paper": "https://example.org/paper"
+                }
+            }
+        },
+        {
+            "id": "baseline-unet",
+            "name": "Baseline U-Net",
+            "lab": "OpenRestor team",
+            "card": {
+                "approvedAt": "2026-09-30",
+                "architecture": "[Architecture]",
+                "parameters": "[Parameter count]",
+                "trainedOn": "[training data]",
+                "links": {
+                    "code": "https://example.org/code",
+                    "weights": "https://example.org/weights",
+                    "paper": null
+                }
+            }
+        }
+    ],
+    "tracks": [
+        {
+            "trackId": "synthetic-simple",
+            "scores": {
+                "wavemend": [14.2, 4.41],
+                "restorformer": [13.6, 4.38],
+                "spectrafix": [12.9, 4.12],
+                "cleartone-v2": [11.7, 4.05],
+                "denoisenet-l": [10.8, 3.96],
+                "echopatch": [9.4, 3.71],
+                "baseline-unet": [7.1, 3.4]
+            },
+            "samples": [
+                {
+                    "id": "syntheticsimple_0412",
+                    "degradation": "lowpass",
+                    "severity": "medium",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "syntheticsimple_0413",
+                    "degradation": "reverb_real",
+                    "severity": "high",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "syntheticsimple_0414",
+                    "degradation": "codec",
+                    "severity": "low",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "syntheticsimple_0415",
+                    "degradation": "clipping",
+                    "severity": "medium",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "syntheticsimple_0416",
+                    "degradation": "hum",
+                    "severity": "high",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "syntheticsimple_0417",
+                    "degradation": "neural_codec",
+                    "severity": "medium",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "syntheticsimple_0418",
+                    "degradation": "dropouts_glitches",
+                    "severity": "low",
+                    "durationSeconds": 30
+                }
+            ],
+            "categories": [
+                "lowpass",
+                "highpass",
+                "spectral_eq",
+                "reverb",
+                "codec",
+                "neural_codec",
+                "clipping",
+                "saturation_overdrive",
+                "low_sample_rate",
+                "hum",
+                "noise",
+                "dropouts_glitches",
+                "pitch_speed_instability",
+                "compression",
+                "channel_damage"
+            ],
+            "sampleScores": {
+                "wavemend": [14.9, 14.9, 14.5, 14.2, 13.7, 13, 13],
+                "restorformer": [14.5, 14, 14.1, 13.3, 13.3, 12.6, 12.1],
+                "spectrafix": [14, 13.5, 13.1, 12.8, 12.3, 12.1, 11.6],
+                "cleartone-v2": [12.5, 12.5, 12.1, 11.3, 11.3, 10.6, 10.6],
+                "denoisenet-l": [11.8, 11.3, 11.4, 10.6, 10.1, 9.9, 9.4],
+                "echopatch": [10.1, 10.1, 9.7, 9.4, 8.9, 8.2, 8.2],
+                "baseline-unet": [8, 7.5, 7.6, 6.8, 6.8, 6.1, 5.6]
+            }
+        },
+        {
+            "trackId": "synthetic-blind",
+            "scores": {
+                "wavemend": [11.3, 4.02],
+                "restorformer": [11.9, 4.1],
+                "spectrafix": [10.2, 3.88],
+                "cleartone-v2": [9.8, 3.79],
+                "denoisenet-l": [10.4, 3.84],
+                "echopatch": [7.6, 3.42],
+                "baseline-unet": [5.2, 3.05]
+            },
+            "samples": [
+                {
+                    "id": "synthetic_0087",
+                    "degradation": "random mix",
+                    "severity": "high",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "synthetic_0088",
+                    "degradation": "random mix",
+                    "severity": "medium",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "synthetic_0089",
+                    "degradation": "random mix",
+                    "severity": "low",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "synthetic_0090",
+                    "degradation": "random mix",
+                    "severity": "high",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "synthetic_0091",
+                    "degradation": "random mix",
+                    "severity": "medium",
+                    "durationSeconds": 30
+                }
+            ],
+            "categories": [
+                "lowpass",
+                "highpass",
+                "reverb",
+                "codec",
+                "clipping",
+                "hum",
+                "noise",
+                "dropouts_glitches",
+                "compression"
+            ],
+            "sampleScores": {
+                "wavemend": [12, 12, 11.6, 11.3, 10.8],
+                "restorformer": [12.8, 12.3, 12.4, 11.6, 11.6],
+                "spectrafix": [11.3, 10.8, 10.4, 10.1, 9.6],
+                "cleartone-v2": [10.6, 10.6, 10.2, 9.4, 9.4],
+                "denoisenet-l": [11.4, 10.9, 11, 10.2, 9.7],
+                "echopatch": [8.3, 8.3, 7.9, 7.6, 7.1],
+                "baseline-unet": [6.1, 5.6, 5.7, 4.9, 4.9]
+            }
+        },
+        {
+            "trackId": "real-blind",
+            "scores": {
+                "wavemend": [8.1, 3.92],
+                "restorformer": [7.4, 3.85],
+                "spectrafix": [8.6, 3.97],
+                "cleartone-v2": [6.9, 3.61],
+                "denoisenet-l": [6.2, 3.52],
+                "echopatch": [5.8, 3.33],
+                "baseline-unet": [3.9, 2.88]
+            },
+            "samples": [
+                {
+                    "id": "real_0019",
+                    "degradation": "real",
+                    "severity": "unknown",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "real_0020",
+                    "degradation": "real",
+                    "severity": "unknown",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "real_0021",
+                    "degradation": "real",
+                    "severity": "unknown",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "real_0022",
+                    "degradation": "real",
+                    "severity": "unknown",
+                    "durationSeconds": 30
+                },
+                {
+                    "id": "real_0023",
+                    "degradation": "real",
+                    "severity": "unknown",
+                    "durationSeconds": 30
+                }
+            ],
+            "categories": [],
+            "sampleScores": {
+                "wavemend": [8.8, 8.8, 8.4, 8.1, 7.6],
+                "restorformer": [8.3, 7.8, 7.9, 7.1, 7.1],
+                "spectrafix": [9.7, 9.2, 8.8, 8.5, 8],
+                "cleartone-v2": [7.7, 7.7, 7.3, 6.5, 6.5],
+                "denoisenet-l": [7.2, 6.7, 6.8, 6, 5.5],
+                "echopatch": [6.5, 6.5, 6.1, 5.8, 5.3],
+                "baseline-unet": [4.8, 4.3, 4.4, 3.6, 3.6]
+            }
+        }
+    ]
+}

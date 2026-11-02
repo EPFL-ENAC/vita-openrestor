@@ -1,70 +1,60 @@
 <template>
-    <q-layout>
-        <q-header>
-            <q-toolbar class="q-px-md">
-                <q-img
-                    src="/epfl.svg"
-                    alt="EPFL logo"
-                    class="logo q-mr-sm"
-                    no-spinner
-                    style="width: 96px"
-                />
-                <q-toolbar-title> {{ t('appTitle') }} </q-toolbar-title>
-                <q-btn-dropdown
-                    flat
-                    dense
-                    no-caps
-                    icon="language"
-                    :label="locale === 'fr' ? 'FR' : 'EN'"
-                    :aria-label="t('language.label')"
-                >
-                    <q-list>
-                        <q-item
-                            v-for="option in localeOptions"
-                            :key="option.value"
-                            v-close-popup
-                            clickable
-                            @click="selectLocale(option.value)"
-                        >
-                            <q-item-section>{{ t(option.labelKey) }}</q-item-section>
-                        </q-item>
-                    </q-list>
-                </q-btn-dropdown>
-                <q-btn flat round icon="logout" @click="logout">
-                    <q-tooltip>{{ t('auth.logout') }}</q-tooltip>
-                </q-btn>
-            </q-toolbar>
+    <q-layout view="hHh LpR fFf">
+        <q-header v-if="!isDesktop">
+            <mobile-header />
         </q-header>
+
+        <q-drawer
+            v-if="isDesktop"
+            :model-value="true"
+            side="left"
+            behavior="desktop"
+            :width="288"
+            bordered
+            persistent
+            class="bg-sunken"
+        >
+            <app-sidebar />
+        </q-drawer>
 
         <q-page-container>
             <router-view />
         </q-page-container>
+
+        <q-footer v-if="showPlayer || !isDesktop" class="bg-transparent">
+            <audio-player v-if="showPlayer" :compact="!isDesktop" />
+            <primary-nav v-if="!isDesktop" layout="bottom" />
+        </q-footer>
     </q-layout>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { useAuthStore } from 'src/stores/auth';
+import { computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useQuasar } from 'quasar';
+import AppSidebar from 'components/layout/AppSidebar.vue';
+import MobileHeader from 'components/layout/MobileHeader.vue';
+import PrimaryNav from 'components/layout/PrimaryNav.vue';
+import AudioPlayer from 'components/player/AudioPlayer.vue';
+import { usePlayerStore } from 'src/stores/player';
 
-type AppLocale = 'en-US' | 'fr';
+const $q = useQuasar();
+const route = useRoute();
+const player = usePlayerStore();
 
-const localeOptions: { value: AppLocale; labelKey: string }[] = [
-    { value: 'en-US', labelKey: 'language.english' },
-    { value: 'fr', labelKey: 'language.french' },
-];
-
-const { locale, t } = useI18n();
-const router = useRouter();
-const authStore = useAuthStore();
-
-function selectLocale(nextLocale: AppLocale): void {
-    locale.value = nextLocale;
-    localStorage.setItem('app-locale', nextLocale);
-}
-
-async function logout() {
-    await authStore.logout();
-    await router.push('/signin');
-}
+// Desktop shell (sidebar) from Quasar's md breakpoint; below it, mobile header + bottom navigation
+const isDesktop = computed(() => $q.screen.gt.sm);
+// The player appears once a sound is loaded (it stays while paused), on the pages that
+// play sound: datasets and leaderboard (see route meta.hidePlayer)
+const showPlayer = computed(() => route.meta.hidePlayer !== true && player.track !== null);
+// A page without the player has no way to stop the sound, so leaving for one pauses it.
+// The player comes back, paused, on the next page that shows it.
+watch(
+    () => route.meta.hidePlayer === true,
+    (hidden) => {
+        if (hidden) {
+            player.pause();
+        }
+    },
+);
 </script>

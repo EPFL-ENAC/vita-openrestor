@@ -1,8 +1,60 @@
 // app global css in SCSS form
 
-$border-color: rgba(0, 0, 0, 0.15);
+$font-body: 'Inter', sans-serif;
+$font-display: 'Roboto', sans-serif;
+
+// Dark native controls; scrollbars blend into the page instead of the browser's light grey
+html {
+    color-scheme: dark;
+}
+
+* {
+    scrollbar-color: var(--or-bg-badge) transparent;
+}
 
 body {
-    font-family: 'Google Sans Flex', sans-serif;
+    font-family: $font-body;
     user-select: none;
+}
+
+// The design sets the brand name and some titles in Roboto Black
+h2,
+h3,
+.text-h2,
+.text-h3,
+.font-display {
+    font-family: $font-display;
+}
+
+.text-overline {
+    text-transform: uppercase;
+}
+
+// Thin red line at the top of the content (desktop) or of the mobile header
+.release-accent {
+    height: 3px;
+    background: var(--q-primary);
+}
+
+// Mobile (below Quasar's sm breakpoint): the design's 390px frames use smaller titles
+@media (max-width: $breakpoint-xs-max) {
+    h1,
+    .text-h1 {
+        font-size: 2rem; // 32px
+        letter-spacing: -0.011em;
+    }
+
+    h3,
+    .text-h3 {
+        font-size: 1.1875rem; // 19px
+    }
+
+    h4,
+    .text-h4 {
+        font-size: 1.125rem; // 18px
+    }
+
+    .text-subtitle1 {
+        font-size: 0.9375rem; // 15px
+    }
 }

@@ -40,7 +40,6 @@ function getInitialLocale(): MessageLanguages {
 export default defineBoot(({ app }) => {
     const i18n = createI18n<{ message: MessageSchema }, MessageLanguages>({
         locale: getInitialLocale(),
-        legacy: false,
         messages,
     });
 
