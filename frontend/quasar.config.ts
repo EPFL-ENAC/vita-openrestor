@@ -15,7 +15,7 @@ export default defineConfig((ctx) => {
         boot: ['sentry', 'i18n'],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
-        css: ['app.scss'],
+        css: ['theme.scss', 'app.scss'],
 
         // https://github.com/quasarframework/quasar/tree/dev/extras
         extras: [
@@ -27,7 +27,6 @@ export default defineConfig((ctx) => {
             // 'line-awesome',
             // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-            'roboto-font', // optional, you are not bound to it
             'material-icons', // optional, you are not bound to it
             'material-symbols-rounded',
             'material-symbols-outlined',
@@ -106,7 +105,10 @@ export default defineConfig((ctx) => {
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
         framework: {
-            config: {},
+            config: {
+                // The design is dark only for now; use 'auto' once a light theme exists (see src/css/theme.scss)
+                dark: true,
+            },
 
             // iconSet: 'material-icons', // Quasar icon set
             // lang: 'en-US', // Quasar language pack

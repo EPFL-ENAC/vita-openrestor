@@ -1,0 +1,5 @@
+{
+    "original": "/mock/audio/original.wav",
+    "degraded": "/mock/audio/degraded.wav",
+    "restored": "/mock/audio/restored.wav"
+}

@@ -1,21 +1,236 @@
 // Quasar SCSS (& Sass) Variables
 // --------------------------------------------------
-// EPFL-aligned color palette
+// Values come from the Figma "Mockup" page (file 0199_OpenRestor), desktop 1440px and mobile 390px.
+@use 'sass:map';
 
-// EPFL red (exact brand color)
-$primary: #ff0000;
-$secondary: #4f8fcc;
-$accent: #00a79f;
+// Theme colors: the single source for every neutral color. theme.scss emits each key as a
+// CSS custom property (--or-<key>). A light theme adds a $theme-light map with the same keys.
+$theme-dark: (
+    // page background
+    'bg-page': #111111,
+    // sidebar, desktop audio player, mobile bottom navigation
+    'bg-sunken': #0b0b0b,
+    // side panels (compare, checks)
+    'bg-panel': #0f0f0f,
+    // navigation items, podium cards, locked values, mobile audio player
+    'bg-surface': #1b1b1b,
+    // cards: Dockerfile, model card, score summary
+    'bg-raised': #202020,
+    // inputs, chips, secondary buttons
+    'bg-control': #292929,
+    // method badges
+    'bg-badge': #303030,
+    // dividers, card outlines
+    'border': #272727,
+    // faint divider between sidebar sections
+    'border-subtle': rgba(255, 255, 255, 0.08),
+    // outlined action buttons
+    'border-strong': #777777,
+    // empty part of progress bars
+    'progress-track': #555555,
+    'text': #ffffff,
+    'text-soft': #dddddd,
+    // secondary text, table headers
+    'text-muted': #aaaaaa,
+    // section labels
+    'text-subtle': #8c8c8c,
+    // input placeholders
+    'text-placeholder': #777777,
+    // text on the white selected segment
+    'text-on-accent': #000000,
+    'waveform': #888888,
+    'waveform-dim': #777777,
+    // waveform when nothing is playing
+    'waveform-idle': #505050,
+    // winner podium card
+    'bg-winner': #211515,
+    // success notice (approved submission)
+    'bg-success': #0e1f17,
+    'border-success': #1f5c3f,
+    'text-success': #a8d9c0,
+    // locked badge outline
+    'border-locked': #727272
+);
 
-$dark: #1d1d1d;
-$dark-page: #121212;
+// Brand colors. Quasar also exposes them at runtime as --q-<name>, so a theme can override them.
+$primary: #ff0000; // primary actions, active navigation, playback progress
+$secondary: map.get(
+    $theme-dark,
+    'bg-control'
+); // neutral filled controls: chips, secondary buttons, inputs
+$accent: map.get($theme-dark, 'text'); // selected segment of a segmented control
 
-$positive: #21ba45;
-$negative: #ff0000;
-$info: #31ccec;
-$warning: #f2c037;
+$positive: #42c78a;
+$negative: $primary;
+$warning: #f6cb55;
+$info: map.get($theme-dark, 'text-muted');
 
-$generic-border-radius: 6px;
-$separator-color: rgba(0, 0, 0, 0.1);
-$button-border-radius: 6px;
+// Dark mode base colors used by Quasar components
+$dark-page: map.get($theme-dark, 'bg-page');
+$dark: map.get($theme-dark, 'bg-surface');
+$separator-dark-color: map.get($theme-dark, 'border');
+
+// Typography. Font families are set in app.scss; mobile sizes are overridden in app.scss.
+$body-font-size: 14px;
+$body-line-height: 1.25;
+
+$h1: (
+    size: 3rem,
+    line-height: 1.25,
+    letter-spacing: -0.013em,
+    weight: 800,
+); // 48px page title
+$h2: (
+    size: 1.5rem,
+    line-height: 1.25,
+    letter-spacing: -0.009em,
+    weight: 900,
+); // 24px, Roboto
+$h3: (
+    size: 1.375rem,
+    line-height: 1.25,
+    letter-spacing: -0.007em,
+    weight: 900,
+); // 22px, Roboto
+$h4: (
+    size: 1.25rem,
+    line-height: 1.25,
+    letter-spacing: -0.007em,
+    weight: 800,
+); // 20px section title
+$h5: (
+    size: 1.125rem,
+    line-height: 1.25,
+    letter-spacing: -0.003em,
+    weight: 800,
+); // 18px card title, key value
+$h6: (
+    size: 1rem,
+    line-height: 1.25,
+    letter-spacing: -0.003em,
+    weight: 800,
+); // 16px
+$subtitle1: (
+    size: 1rem,
+    line-height: 1.25,
+    letter-spacing: -0.003em,
+    weight: 400,
+); // 16px
+$subtitle2: (
+    size: 0.875rem,
+    line-height: 1.25,
+    letter-spacing: -0.003em,
+    weight: 700,
+); // 14px label
+$body1: (
+    size: 0.875rem,
+    line-height: 1.25,
+    letter-spacing: -0.003em,
+    weight: 400,
+); // 14px
+$body2: (
+    size: 0.8125rem,
+    line-height: 1.4,
+    letter-spacing: normal,
+    weight: 400,
+); // 13px paragraph
+$caption: (
+    size: 0.75rem,
+    line-height: 1.25,
+    letter-spacing: -0.003em,
+    weight: 400,
+); // 12px
+$overline: (
+    size: 0.6875rem,
+    line-height: 1.25,
+    letter-spacing: 0.06em,
+    weight: 700,
+); // 11px, uppercase
+
+$text-weights: (
+    'thin': 100,
+    'light': 300,
+    'regular': 400,
+    'medium': 500,
+    'semibold': 600,
+    'bold': 700,
+    'bolder': 800,
+    'black': 900,
+);
+
+// Spacing: q-pa-*, q-ma-*, q-gutter-*. Quasar's xs/sm/md/lg names keep their usual values;
+// sm-md (12px) and md-lg (20px) are added because the design uses them often.
+$space-base: 16px;
+$space-none: (
+    x: 0,
+    y: 0,
+);
+$space-xxs: (
+    x: 2px,
+    y: 2px,
+);
+$space-xs: (
+    x: 4px,
+    y: 4px,
+);
+$space-sm: (
+    x: 8px,
+    y: 8px,
+);
+$space-sm-md: (
+    x: 12px,
+    y: 12px,
+);
+$space-md: (
+    x: 16px,
+    y: 16px,
+);
+$space-md-lg: (
+    x: 20px,
+    y: 20px,
+);
+$space-lg: (
+    x: 24px,
+    y: 24px,
+);
+$space-xl: (
+    x: 32px,
+    y: 32px,
+);
+$spaces: (
+    'none': $space-none,
+    'xxs': $space-xxs,
+    'xs': $space-xs,
+    'sm': $space-sm,
+    'sm-md': $space-sm-md,
+    'md': $space-md,
+    'md-lg': $space-md-lg,
+    'lg': $space-lg,
+    'xl': $space-xl,
+);
+
+// Gutters (q-gutter-*, q-col-gutter-*) use the same sizes as spacing
+$flex-gutter: (
+    'none': 0,
+    'xxs': 2px,
+    'xs': 4px,
+    'sm': 8px,
+    'sm-md': 12px,
+    'md': 16px,
+    'md-lg': 20px,
+    'lg': 24px,
+    'xl': 32px,
+);
+
+// Corner radius
+$radius-xs: 2px; // progress tracks
+$radius-sm: 4px; // inputs, locked values
+$radius-md: 6px; // list rows, navigation items
+$radius-lg: 8px; // cards, panels
+$radius-xl: 10px; // badges
+$radius-pill: 100px; // buttons, chips, toggles
+
+$generic-border-radius: $radius-sm;
+$button-border-radius: $radius-pill;
+$button-rounded-border-radius: $radius-pill;
 $button-padding: 8px 16px;
