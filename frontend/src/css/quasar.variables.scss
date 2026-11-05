@@ -1,21 +1,105 @@
-// Quasar SCSS (& Sass) Variables
-// --------------------------------------------------
-// EPFL-aligned color palette
+// Quasar SCSS variables. This file only maps the decision tokens to Quasar's variable names.
+// Change values in tokens/_decisions.scss (purpose) or tokens/_options.scss (raw values).
+@use 'sass:map';
+@use 'tokens/decisions' as dec;
 
-// EPFL red (exact brand color)
-$primary: #ff0000;
-$secondary: #4f8fcc;
-$accent: #00a79f;
+// Brand colors. Quasar also exposes them at runtime as --q-<name>, so a theme can override them.
+$primary: dec.$color-primary;
+$secondary: map.get(dec.$theme-dark, 'bg-control'); // chips, secondary buttons, inputs
+$accent: map.get(dec.$theme-dark, 'text'); // selected segment of a segmented control
+$positive: dec.$color-positive;
+$negative: dec.$color-primary;
+$warning: dec.$color-warning;
+$info: map.get(dec.$theme-dark, 'text-muted');
 
-$dark: #1d1d1d;
-$dark-page: #121212;
+// Dark mode base colors used by Quasar components
+$dark-page: map.get(dec.$theme-dark, 'bg-page');
+$dark: map.get(dec.$theme-dark, 'bg-surface');
+$separator-dark-color: map.get(dec.$theme-dark, 'border');
 
-$positive: #21ba45;
-$negative: #ff0000;
-$info: #31ccec;
-$warning: #f2c037;
+// Typography. Font families and mobile sizes are set in app.scss.
+$body-font-size: dec.$text-size-base;
+$body-line-height: dec.$text-line-height-base;
+$h1: dec.$text-page-title;
+$h2: dec.$text-display-lg;
+$h3: dec.$text-display-md;
+$h4: dec.$text-section-title;
+$h5: dec.$text-card-title;
+$h6: dec.$text-title-sm;
+$subtitle1: dec.$text-subtitle;
+$subtitle2: dec.$text-label;
+$body1: dec.$text-body;
+$body2: dec.$text-paragraph;
+$caption: dec.$text-caption;
+$overline: dec.$text-overline;
+$text-weights: dec.$text-weights;
 
-$generic-border-radius: 6px;
-$separator-color: rgba(0, 0, 0, 0.1);
-$button-border-radius: 6px;
-$button-padding: 8px 16px;
+// Spacing: q-pa-*, q-ma-*, q-gutter-*. Quasar's xs/sm/md/lg names keep their usual values.
+// sm-md (12px) and md-lg (20px) are added because the design uses them often.
+$space-base: dec.$spacing-md;
+$space-none: (
+    x: 0,
+    y: 0,
+);
+$space-xxs: (
+    x: dec.$spacing-xxs,
+    y: dec.$spacing-xxs,
+);
+$space-xs: (
+    x: dec.$spacing-xs,
+    y: dec.$spacing-xs,
+);
+$space-sm: (
+    x: dec.$spacing-sm,
+    y: dec.$spacing-sm,
+);
+$space-sm-md: (
+    x: dec.$spacing-sm-md,
+    y: dec.$spacing-sm-md,
+);
+$space-md: (
+    x: dec.$spacing-md,
+    y: dec.$spacing-md,
+);
+$space-md-lg: (
+    x: dec.$spacing-md-lg,
+    y: dec.$spacing-md-lg,
+);
+$space-lg: (
+    x: dec.$spacing-lg,
+    y: dec.$spacing-lg,
+);
+$space-xl: (
+    x: dec.$spacing-xl,
+    y: dec.$spacing-xl,
+);
+$spaces: (
+    'none': $space-none,
+    'xxs': $space-xxs,
+    'xs': $space-xs,
+    'sm': $space-sm,
+    'sm-md': $space-sm-md,
+    'md': $space-md,
+    'md-lg': $space-md-lg,
+    'lg': $space-lg,
+    'xl': $space-xl,
+);
+
+// Gutters (q-gutter-*, q-col-gutter-*) use the same sizes as spacing
+$flex-gutter: (
+    'none': 0,
+    'xxs': dec.$spacing-xxs,
+    'xs': dec.$spacing-xs,
+    'sm': dec.$spacing-sm,
+    'sm-md': dec.$spacing-sm-md,
+    'md': dec.$spacing-md,
+    'md-lg': dec.$spacing-md-lg,
+    'lg': dec.$spacing-lg,
+    'xl': dec.$spacing-xl,
+);
+
+// Corner radius
+$generic-border-radius: dec.$radius-sm;
+$button-border-radius: dec.$radius-pill;
+$button-rounded-border-radius: dec.$radius-pill;
+$button-padding: dec.$button-padding-y dec.$button-padding-x;

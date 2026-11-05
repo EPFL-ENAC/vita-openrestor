@@ -1,0 +1,51 @@
+// Theme colors as CSS custom properties (--or-*), switched by Quasar's body--dark / body--light class.
+// The values live in tokens/_decisions.scss.
+//
+// Adding a light theme:
+//   1. Add a $theme-light map with the same keys as $theme-dark in tokens/_decisions.scss.
+//   2. Emit it under body.body--light (same loop as below), and override the brand colors
+//      that come from the dark theme there (--q-secondary, --q-accent, --q-info).
+//   3. Change `framework.config.dark` in quasar.config.ts to 'auto', or toggle it with $q.dark.
+@use 'tokens/decisions' as dec;
+
+@mixin theme-vars($theme) {
+    @each $name, $value in $theme {
+        --or-#{$name}: #{$value};
+    }
+}
+
+body.body--dark {
+    @include theme-vars(dec.$theme-dark);
+}
+
+:root {
+    --or-radius-xs: #{dec.$radius-xs};
+    --or-radius-sm: #{dec.$radius-sm};
+    --or-radius-md: #{dec.$radius-md};
+    --or-radius-lg: #{dec.$radius-lg};
+    --or-radius-xl: #{dec.$radius-xl};
+    --or-radius-pill: #{dec.$radius-pill};
+}
+
+// Utility classes, named like Quasar's own bg-* / text-* classes
+@each $name in ('page', 'sunken', 'panel', 'surface', 'raised', 'control') {
+    .bg-#{$name} {
+        background: var(--or-bg-#{$name}) !important;
+    }
+}
+
+@each $name in ('soft', 'muted', 'subtle', 'on-accent') {
+    .text-#{$name} {
+        color: var(--or-text-#{$name}) !important;
+    }
+}
+
+.border-default {
+    border: 1px solid var(--or-border);
+}
+
+@each $name in ('xs', 'sm', 'md', 'lg', 'xl', 'pill') {
+    .rounded-#{$name} {
+        border-radius: var(--or-radius-#{$name});
+    }
+}

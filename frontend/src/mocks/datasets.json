@@ -1,0 +1,269 @@
+{
+    "dataset": {
+        "version": "v0.1",
+        "clipSeconds": 30,
+        "audioFormat": "WAV (to confirm)",
+        "metadataStandards": ["Dublin Core", "AudioMD"],
+        "licence": "CC or MIT (to confirm)"
+    },
+    "tracks": [
+        {
+            "id": "synthetic-simple",
+            "name": "SyntheticSimple",
+            "description": "Every original clip comes with 21 degraded versions, in a fixed order.",
+            "versionsPerClip": "21, ordered",
+            "degradations": [
+                "lowpass",
+                "highpass",
+                "bandpass",
+                "reverb_real",
+                "reverb_synthetic",
+                "codec",
+                "neural_codec",
+                "clipping",
+                "distortion",
+                "bitcrush",
+                "resample",
+                "hum",
+                "noise_white",
+                "noise_pink",
+                "noise_ambient",
+                "dropouts_glitches",
+                "packet_loss",
+                "wow_flutter",
+                "compression",
+                "eq_tilt",
+                "phase_shift"
+            ],
+            "splits": [
+                {
+                    "id": "train",
+                    "clipCount": 20000,
+                    "sizeBytes": 2190000000000,
+                    "hidden": false,
+                    "parts": ["original", "degraded"],
+                    "samples": [
+                        {
+                            "id": "syntheticsimple_train_00012",
+                            "degradation": "bandpass",
+                            "severity": "low",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "syntheticsimple_train_00487",
+                            "degradation": "noise_ambient",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "syntheticsimple_train_01934",
+                            "degradation": "wow_flutter",
+                            "severity": "high",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "syntheticsimple_train_07211",
+                            "degradation": "neural_codec",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        }
+                    ]
+                },
+                {
+                    "id": "test",
+                    "clipCount": 2500,
+                    "sizeBytes": 274000000000,
+                    "hidden": false,
+                    "parts": ["original", "degraded"],
+                    "samples": [
+                        {
+                            "id": "syntheticsimple_0412",
+                            "degradation": "lowpass",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "syntheticsimple_0413",
+                            "degradation": "reverb_real",
+                            "severity": "high",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "syntheticsimple_0414",
+                            "degradation": "codec",
+                            "severity": "low",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "syntheticsimple_0415",
+                            "degradation": "clipping",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "synthetic-blind",
+            "name": "synthetic_blind",
+            "description": "Each clip gets a random mix of synthetic degradations. The mix is not given to the model.",
+            "versionsPerClip": "1, random",
+            "degradations": [
+                "lowpass",
+                "highpass",
+                "reverb_synthetic",
+                "codec",
+                "clipping",
+                "hum",
+                "noise_white",
+                "noise_pink",
+                "packet_loss",
+                "compression"
+            ],
+            "splits": [
+                {
+                    "id": "train",
+                    "clipCount": 20000,
+                    "sizeBytes": 104000000000,
+                    "hidden": false,
+                    "parts": ["original", "degraded"],
+                    "samples": [
+                        {
+                            "id": "synthetic_train_00031",
+                            "degradation": "random mix",
+                            "severity": "low",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "synthetic_train_00552",
+                            "degradation": "random mix",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "synthetic_train_04108",
+                            "degradation": "random mix",
+                            "severity": "high",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "synthetic_train_11873",
+                            "degradation": "random mix",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        }
+                    ]
+                },
+                {
+                    "id": "test",
+                    "clipCount": 2500,
+                    "sizeBytes": 13000000000,
+                    "hidden": false,
+                    "parts": ["original", "degraded"],
+                    "samples": [
+                        {
+                            "id": "synthetic_0087",
+                            "degradation": "random mix",
+                            "severity": "high",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "synthetic_0088",
+                            "degradation": "random mix",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "synthetic_0089",
+                            "degradation": "random mix",
+                            "severity": "low",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "synthetic_0090",
+                            "degradation": "random mix",
+                            "severity": "high",
+                            "durationSeconds": 30
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "real-blind",
+            "name": "real_blind",
+            "description": "Recordings with real, undocumented degradations. Original references exist only where a better source was found.",
+            "versionsPerClip": "1, real",
+            "degradations": [],
+            "splits": [
+                {
+                    "id": "train",
+                    "clipCount": 3000,
+                    "sizeBytes": 15600000000,
+                    "hidden": false,
+                    "parts": ["original", "degraded"],
+                    "samples": [
+                        {
+                            "id": "real_train_0007",
+                            "degradation": "unknown",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "real_train_0214",
+                            "degradation": "unknown",
+                            "severity": "high",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "real_train_1180",
+                            "degradation": "unknown",
+                            "severity": "low",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "real_train_2562",
+                            "degradation": "unknown",
+                            "severity": "medium",
+                            "durationSeconds": 30
+                        }
+                    ]
+                },
+                {
+                    "id": "test",
+                    "clipCount": 400,
+                    "sizeBytes": 2100000000,
+                    "hidden": false,
+                    "parts": ["original", "degraded"],
+                    "samples": [
+                        {
+                            "id": "real_0019",
+                            "degradation": "real",
+                            "severity": "unknown",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "real_0020",
+                            "degradation": "real",
+                            "severity": "unknown",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "real_0021",
+                            "degradation": "real",
+                            "severity": "unknown",
+                            "durationSeconds": 30
+                        },
+                        {
+                            "id": "real_0022",
+                            "degradation": "real",
+                            "severity": "unknown",
+                            "durationSeconds": 30
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

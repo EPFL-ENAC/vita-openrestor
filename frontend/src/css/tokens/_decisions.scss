@@ -1,0 +1,178 @@
+// Decision tokens: what each option is used for. Names describe the purpose, values come from
+// _options.scss. To change a design choice, change it here. To add a new raw value, add it to
+// _options.scss first.
+@use 'options' as opt;
+
+// Theme colors. theme.scss emits each key as a CSS custom property (--or-<key>).
+// A light theme adds a $theme-light map with the same keys.
+$theme-dark: (
+    // page background
+    'bg-page': opt.$grey-7,
+    // sidebar, desktop audio player, mobile bottom navigation
+    'bg-sunken': opt.$grey-4,
+    // side panels (compare, checks)
+    'bg-panel': opt.$grey-6,
+    // navigation items, podium cards, locked values, mobile audio player
+    'bg-surface': opt.$grey-11,
+    // cards: Dockerfile, model card, score summary
+    'bg-raised': opt.$grey-13,
+    // inputs, chips, secondary buttons
+    'bg-control': opt.$grey-16,
+    // method badges
+    'bg-badge': opt.$grey-19,
+    // dividers, card outlines
+    'border': opt.$grey-15,
+    // faint divider between sidebar sections
+    'border-subtle': opt.$white-8,
+    // outlined action buttons
+    'border-strong': opt.$grey-47,
+    // empty part of progress bars
+    'progress-track': opt.$grey-33,
+    'text': opt.$grey-100,
+    'text-soft': opt.$grey-87,
+    // secondary text, table headers
+    'text-muted': opt.$grey-67,
+    // section labels
+    'text-subtle': opt.$grey-55,
+    // input placeholders
+    'text-placeholder': opt.$grey-47,
+    // text on the white selected segment
+    'text-on-accent': opt.$grey-0,
+    'waveform': opt.$grey-53,
+    'waveform-dim': opt.$grey-47,
+    // waveform when nothing is playing
+    'waveform-idle': opt.$grey-31,
+    // winner podium card
+    'bg-winner': opt.$red-darkest,
+    // success notice (approved submission)
+    'bg-success': opt.$green-darkest,
+    'border-success': opt.$green-dark,
+    'text-success': opt.$green-light,
+    // locked badge outline
+    'border-locked': opt.$grey-45
+);
+
+// Brand and status colors
+$color-primary: opt.$red; // primary actions, active navigation, playback progress
+$color-positive: opt.$green;
+$color-warning: opt.$yellow;
+
+// Spacing
+$spacing-xxs: opt.$space-2;
+$spacing-xs: opt.$space-4;
+$spacing-sm: opt.$space-8;
+$spacing-sm-md: opt.$space-12;
+$spacing-md: opt.$space-16;
+$spacing-md-lg: opt.$space-20;
+$spacing-lg: opt.$space-24;
+$spacing-xl: opt.$space-32;
+
+// Corner radius
+$radius-xs: opt.$radius-2; // progress tracks
+$radius-sm: opt.$radius-4; // inputs, locked values
+$radius-md: opt.$radius-6; // list rows, navigation items
+$radius-lg: opt.$radius-8; // cards, panels
+$radius-xl: opt.$radius-10; // badges
+$radius-pill: opt.$radius-full; // buttons, chips, toggles
+
+// Buttons
+$button-padding-y: opt.$space-8;
+$button-padding-x: opt.$space-16;
+
+// Typography
+$font-body: opt.$font-inter;
+$font-display: opt.$font-roboto; // brand name and some titles
+$text-size-base: opt.$font-size-14;
+$text-line-height-base: opt.$line-height-125;
+
+$text-weights: (
+    'thin': opt.$font-weight-100,
+    'light': opt.$font-weight-300,
+    'regular': opt.$font-weight-400,
+    'medium': opt.$font-weight-500,
+    'semibold': opt.$font-weight-600,
+    'bold': opt.$font-weight-700,
+    'bolder': opt.$font-weight-800,
+    'black': opt.$font-weight-900,
+);
+
+// Text styles, desktop. quasar.variables.scss maps them to Quasar's h1 to overline.
+$text-page-title: (
+    size: opt.$font-size-48,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-tightest,
+    weight: opt.$font-weight-800,
+);
+$text-display-lg: (
+    size: opt.$font-size-24,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-tight,
+    weight: opt.$font-weight-900,
+);
+$text-display-md: (
+    size: opt.$font-size-22,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-snug,
+    weight: opt.$font-weight-900,
+);
+$text-section-title: (
+    size: opt.$font-size-20,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-snug,
+    weight: opt.$font-weight-800,
+);
+$text-card-title: (
+    size: opt.$font-size-18,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-default,
+    weight: opt.$font-weight-800,
+);
+$text-title-sm: (
+    size: opt.$font-size-16,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-default,
+    weight: opt.$font-weight-800,
+);
+$text-subtitle: (
+    size: opt.$font-size-16,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-default,
+    weight: opt.$font-weight-400,
+);
+$text-label: (
+    size: opt.$font-size-14,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-default,
+    weight: opt.$font-weight-700,
+);
+$text-body: (
+    size: opt.$font-size-14,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-default,
+    weight: opt.$font-weight-400,
+);
+$text-paragraph: (
+    size: opt.$font-size-13,
+    line-height: opt.$line-height-140,
+    letter-spacing: normal,
+    weight: opt.$font-weight-400,
+);
+$text-caption: (
+    size: opt.$font-size-12,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-default,
+    weight: opt.$font-weight-400,
+);
+$text-overline: (
+    size: opt.$font-size-11,
+    line-height: opt.$line-height-125,
+    letter-spacing: opt.$letter-spacing-wide,
+    weight: opt.$font-weight-700,
+); // uppercase
+
+// Text styles, mobile (the design's 390px frames use smaller titles)
+$text-mobile-page-title-size: opt.$font-size-32;
+$text-mobile-page-title-letter-spacing: opt.$letter-spacing-tighter;
+$text-mobile-display-md-size: opt.$font-size-19;
+$text-mobile-section-title-size: opt.$font-size-18;
+$text-mobile-subtitle-size: opt.$font-size-15;

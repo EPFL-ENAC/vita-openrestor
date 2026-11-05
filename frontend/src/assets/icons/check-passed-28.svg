@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Check status" clip-path="url(#clip0_0_1843)">
+<path id="Status circle" d="M27 14C27 21.1797 21.1797 27 14 27C6.8203 27 1 21.1797 1 14C1 6.8203 6.8203 1 14 1C21.1797 1 27 6.8203 27 14Z" fill="#42C78A" stroke-width="2" stroke="#42C78A"/>
+<path id="Passed" d="M7.5 14L12.2273 19.5L20.5 8.5" stroke-width="2.4" stroke="#111111"/>
+</g>
+<defs>
+<clipPath id="clip0_0_1843">
+<rect width="28" height="28" fill="white"/>
+</clipPath>
+</defs>
+</svg>
