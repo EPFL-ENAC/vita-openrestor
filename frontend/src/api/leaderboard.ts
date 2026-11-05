@@ -5,11 +5,12 @@ import audio from 'src/mocks/audio.json';
 import type { TrackLeaderboard } from 'src/types/leaderboard';
 import { respond } from './respond';
 
-// GET /leaderboard/:trackId: approved models scored on one track, with the test samples
-export function fetchLeaderboard(trackId: string): Promise<TrackLeaderboard> {
+// GET /leaderboard/:trackId: approved models scored on one track, with the test samples.
+// async, so every error below reaches the caller as a rejected promise, never a sync throw.
+export async function fetchLeaderboard(trackId: string): Promise<TrackLeaderboard> {
     const track = mock.tracks.find((t) => t.trackId === trackId);
     if (!track) {
-        return Promise.reject(new Error(`Unknown track "${trackId}"`));
+        throw new Error(`Unknown track "${trackId}"`);
     }
     const scores: Record<string, number[]> = track.scores;
     const sampleScores: Record<string, number[]> = track.sampleScores;
@@ -38,7 +39,7 @@ export function fetchLeaderboard(trackId: string): Promise<TrackLeaderboard> {
             audio: { original: audio.original, degraded: audio.degraded },
         })),
     };
-    return respond(result);
+    return await respond(result);
 }
 
 // GET /leaderboard/:trackId/models/:modelId/restored/:sampleId

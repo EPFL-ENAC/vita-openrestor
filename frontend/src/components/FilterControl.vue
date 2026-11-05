@@ -16,11 +16,8 @@
                     @click="toggle(option.value)"
                 >
                     <q-item-section v-if="multiple" side>
-                        <q-checkbox
-                            :model-value="isSelected(option.value)"
-                            dense
-                            @update:model-value="toggle(option.value)"
-                        />
+                        <!-- Display only: the click bubbles to the q-item, which toggles -->
+                        <q-checkbox :model-value="isSelected(option.value)" dense />
                     </q-item-section>
                     <q-item-section>{{ option.label }}</q-item-section>
                 </q-item>
