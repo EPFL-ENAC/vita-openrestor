@@ -1,11 +1,12 @@
 // Theme colors as CSS custom properties (--or-*), switched by Quasar's body--dark / body--light class.
-// The color values live in $theme-dark in quasar.variables.scss.
+// The values live in tokens/_decisions.scss.
 //
 // Adding a light theme:
-//   1. Add a $theme-light map with the same keys as $theme-dark in quasar.variables.scss.
+//   1. Add a $theme-light map with the same keys as $theme-dark in tokens/_decisions.scss.
 //   2. Emit it under body.body--light (same loop as below), and override the brand colors
 //      that come from the dark theme there (--q-secondary, --q-accent, --q-info).
 //   3. Change `framework.config.dark` in quasar.config.ts to 'auto', or toggle it with $q.dark.
+@use 'tokens/decisions' as dec;
 
 @mixin theme-vars($theme) {
     @each $name, $value in $theme {
@@ -14,16 +15,16 @@
 }
 
 body.body--dark {
-    @include theme-vars($theme-dark);
+    @include theme-vars(dec.$theme-dark);
 }
 
 :root {
-    --or-radius-xs: #{$radius-xs};
-    --or-radius-sm: #{$radius-sm};
-    --or-radius-md: #{$radius-md};
-    --or-radius-lg: #{$radius-lg};
-    --or-radius-xl: #{$radius-xl};
-    --or-radius-pill: #{$radius-pill};
+    --or-radius-xs: #{dec.$radius-xs};
+    --or-radius-sm: #{dec.$radius-sm};
+    --or-radius-md: #{dec.$radius-md};
+    --or-radius-lg: #{dec.$radius-lg};
+    --or-radius-xl: #{dec.$radius-xl};
+    --or-radius-pill: #{dec.$radius-pill};
 }
 
 // Utility classes, named like Quasar's own bg-* / text-* classes

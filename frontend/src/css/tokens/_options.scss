@@ -1,0 +1,92 @@
+// Option tokens: every raw value the design can use, and nothing else.
+// Names describe the value, never where it is used. Only _decisions.scss reads this file.
+// Values come from the Figma "Mockup" page (file 0199_OpenRestor).
+
+// Neutral colors. The number is the lightness in percent (grey-0 is black, grey-100 is white).
+$grey-0: #000000;
+$grey-4: #0b0b0b;
+$grey-6: #0f0f0f;
+$grey-7: #111111;
+$grey-11: #1b1b1b;
+$grey-13: #202020;
+$grey-15: #272727;
+$grey-16: #292929;
+$grey-19: #303030;
+$grey-31: #505050;
+$grey-33: #555555;
+$grey-45: #727272;
+$grey-47: #777777;
+$grey-53: #888888;
+$grey-55: #8c8c8c;
+$grey-67: #aaaaaa;
+$grey-87: #dddddd;
+$grey-100: #ffffff;
+$white-8: rgba(255, 255, 255, 0.08);
+
+// Brand and status colors
+$red: #ff0000;
+$red-darkest: #211515;
+$green: #42c78a;
+$green-light: #a8d9c0;
+$green-dark: #1f5c3f;
+$green-darkest: #0e1f17;
+$yellow: #f6cb55;
+
+// Spacing scale
+$space-2: 2px;
+$space-4: 4px;
+$space-8: 8px;
+$space-12: 12px;
+$space-16: 16px;
+$space-20: 20px;
+$space-24: 24px;
+$space-32: 32px;
+
+// Corner radius scale
+$radius-2: 2px;
+$radius-4: 4px;
+$radius-6: 6px;
+$radius-8: 8px;
+$radius-10: 10px;
+$radius-full: 100px;
+
+// Font families
+$font-inter: 'Inter', sans-serif;
+$font-roboto: 'Roboto', sans-serif;
+
+// Font sizes
+$font-size-11: 0.6875rem;
+$font-size-12: 0.75rem;
+$font-size-13: 0.8125rem;
+$font-size-14: 0.875rem;
+$font-size-15: 0.9375rem;
+$font-size-16: 1rem;
+$font-size-18: 1.125rem;
+$font-size-19: 1.1875rem;
+$font-size-20: 1.25rem;
+$font-size-22: 1.375rem;
+$font-size-24: 1.5rem;
+$font-size-32: 2rem;
+$font-size-48: 3rem;
+
+// Font weights
+$font-weight-100: 100;
+$font-weight-300: 300;
+$font-weight-400: 400;
+$font-weight-500: 500;
+$font-weight-600: 600;
+$font-weight-700: 700;
+$font-weight-800: 800;
+$font-weight-900: 900;
+
+// Line heights
+$line-height-125: 1.25;
+$line-height-140: 1.4;
+
+// Letter spacing
+$letter-spacing-tightest: -0.013em;
+$letter-spacing-tighter: -0.011em;
+$letter-spacing-tight: -0.009em;
+$letter-spacing-snug: -0.007em;
+$letter-spacing-default: -0.003em;
+$letter-spacing-wide: 0.06em;

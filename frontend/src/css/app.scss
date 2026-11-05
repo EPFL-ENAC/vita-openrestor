@@ -1,7 +1,5 @@
 // app global css in SCSS form
-
-$font-body: 'Inter', sans-serif;
-$font-display: 'Roboto', sans-serif;
+@use 'tokens/decisions' as dec;
 
 // Dark native controls; scrollbars blend into the page instead of the browser's light grey
 html {
@@ -13,7 +11,7 @@ html {
 }
 
 body {
-    font-family: $font-body;
+    font-family: dec.$font-body;
     user-select: none;
 }
 
@@ -23,7 +21,7 @@ h3,
 .text-h2,
 .text-h3,
 .font-display {
-    font-family: $font-display;
+    font-family: dec.$font-display;
 }
 
 .text-overline {
@@ -40,21 +38,21 @@ h3,
 @media (max-width: $breakpoint-xs-max) {
     h1,
     .text-h1 {
-        font-size: 2rem; // 32px
-        letter-spacing: -0.011em;
+        font-size: dec.$text-mobile-page-title-size;
+        letter-spacing: dec.$text-mobile-page-title-letter-spacing;
     }
 
     h3,
     .text-h3 {
-        font-size: 1.1875rem; // 19px
+        font-size: dec.$text-mobile-display-md-size;
     }
 
     h4,
     .text-h4 {
-        font-size: 1.125rem; // 18px
+        font-size: dec.$text-mobile-section-title-size;
     }
 
     .text-subtitle1 {
-        font-size: 0.9375rem; // 15px
+        font-size: dec.$text-mobile-subtitle-size;
     }
 }
