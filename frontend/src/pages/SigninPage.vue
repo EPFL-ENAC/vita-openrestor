@@ -1,8 +1,8 @@
 <template>
-    <div class="signin-page">
-        <section class="signin-panel">
-            <h1>{{ t('auth.signinTitle') }}</h1>
-            <p>{{ t('auth.signinSubtitle') }}</p>
+    <div class="signin-page row no-wrap items-center justify-center q-pa-lg">
+        <section class="signin-panel text-center">
+            <h1 class="signin-panel__title q-mt-none q-mb-sm">{{ t('auth.signinTitle') }}</h1>
+            <p class="text-muted q-mb-lg">{{ t('auth.signinSubtitle') }}</p>
             <q-btn
                 color="primary"
                 :icon="matLogin"
@@ -47,27 +47,17 @@ async function signin() {
 </script>
 
 <style scoped lang="scss">
+// Flex, spacing and colors come from the global classes in the template
 .signin-page {
-    align-items: center;
-    display: flex;
-    justify-content: center;
     min-height: 100vh;
-    padding: 24px;
 }
 
 .signin-panel {
     max-width: 420px;
-    text-align: center;
-}
 
-h1 {
-    font-size: 32px;
-    line-height: 1.2;
-    margin: 0 0 8px;
-}
-
-p {
-    color: #667085;
-    margin: 0 0 24px;
+    // 32px ($font-size-32) on every screen: no text class has this size on desktop
+    &__title {
+        font-size: 2rem;
+    }
 }
 </style>

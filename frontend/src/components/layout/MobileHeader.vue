@@ -1,19 +1,19 @@
 <template>
-    <div class="mobile-header">
+    <div class="mobile-header bg-page">
         <div class="release-accent" />
-        <div class="mobile-header__bar">
+        <div class="mobile-header__bar row no-wrap items-center justify-between q-px-md">
             <app-brand compact />
-            <div class="mobile-header__actions">
+            <div class="mobile-header__actions row no-wrap items-center">
                 <button
                     type="button"
-                    class="mobile-header__action"
+                    class="plain-button flex text-muted"
                     :aria-label="t('header.search')"
                 >
                     <app-icon :src="searchIcon" :size="20" />
                 </button>
                 <router-link
                     :to="{ name: 'submission-new' }"
-                    class="mobile-header__action"
+                    class="flex text-muted"
                     :aria-label="t('library.submitModel')"
                 >
                     <app-icon :src="plusIcon" :size="20" />
@@ -36,31 +36,16 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Flex, spacing and colors come from the global classes in the template
 .mobile-header {
-    background: var(--or-bg-page);
     border-bottom: 1px solid var(--or-border);
 
     &__bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         height: 52px;
-        padding: 0 16px;
     }
 
     &__actions {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-    }
-
-    &__action {
-        display: flex;
-        padding: 0;
-        border: 0;
-        background: none;
-        color: var(--or-text-muted);
-        cursor: pointer;
+        gap: var(--or-spacing-xl);
     }
 }
 </style>

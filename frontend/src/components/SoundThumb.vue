@@ -1,12 +1,13 @@
 <template>
     <span
-        class="sound-thumb"
+        class="sound-thumb row inline no-wrap items-center justify-center bg-control"
         :class="[`sound-thumb--${size}`, { 'sound-thumb--active': active }]"
         aria-hidden="true"
     >
         <span
             v-for="(height, index) in BARS[size]"
             :key="index"
+            class="sound-thumb__bar"
             :style="{ height: `${height}px` }"
         />
     </span>
@@ -27,23 +28,19 @@ const BARS = { 36: [7, 13, 18, 13, 7], 44: [9, 15, 22, 15, 9] } as const;
 </script>
 
 <style scoped lang="scss">
+// Flex and background come from the global classes in the template
 .sound-thumb {
-    display: inline-flex;
     flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    gap: 2.2px;
-    border-radius: 50%;
-    background: var(--or-bg-control);
+    gap: var(--or-spacing-xxs);
+    border-radius: var(--or-radius-pill);
 
-    span {
+    &__bar {
         width: 3px;
         border-radius: 1px;
         background: var(--or-text-soft);
     }
 
     &--36 {
-        gap: 1.8px;
         width: 36px;
         height: 36px;
     }
@@ -53,7 +50,7 @@ const BARS = { 36: [7, 13, 18, 13, 7], 44: [9, 15, 22, 15, 9] } as const;
         height: 44px;
     }
 
-    &--active span {
+    &--active .sound-thumb__bar {
         background: var(--q-primary);
     }
 }

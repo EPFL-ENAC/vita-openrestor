@@ -2,22 +2,25 @@
     <workspace-page flush>
         <template v-if="entry && track">
             <header
-                class="model-page__heading"
+                class="model-page__heading column no-wrap"
                 :class="{ 'model-page__heading--compact': !isDesktop }"
             >
                 <back-button :to="{ name: 'leaderboard' }" :label="t('pages.leaderboard.title')" />
-                <div class="model-page__identity">
+                <div class="model-page__identity row no-wrap items-center q-mb-md">
                     <model-avatar
                         :name="entry.model.name"
                         :mine="submissions.isMine(entry.model.id)"
                         :size="isDesktop ? 88 : 56"
                     />
-                    <div class="model-page__identity-text">
-                        <p class="model-page__eyebrow">
+                    <div class="model-page__identity-text col-shrink column no-wrap">
+                        <p
+                            class="text-body2 text-weight-bolder q-my-none"
+                            :class="{ 'text-primary': !isDesktop }"
+                        >
                             {{ t('leaderboard.model.eyebrow', { rank, track: track.name }) }}
                         </p>
-                        <h1 class="model-page__title">{{ entry.model.name }}</h1>
-                        <p class="model-page__attribution">
+                        <h1 class="text-h1 ellipsis q-my-none">{{ entry.model.name }}</h1>
+                        <p class="text-body1 q-my-none" :class="{ 'text-muted': !isDesktop }">
                             {{
                                 t('leaderboard.model.attribution', {
                                     lab: entry.model.lab,
@@ -33,11 +36,14 @@
                 </div>
             </header>
 
-            <div class="model-page__body" :class="{ 'model-page__body--compact': !isDesktop }">
-                <div class="model-page__actions">
+            <div
+                class="model-page__body column no-wrap"
+                :class="{ 'model-page__body--compact': !isDesktop }"
+            >
+                <div class="model-page__actions row items-center">
                     <button
                         type="button"
-                        class="model-page__play"
+                        class="model-page__play plain-button flex"
                         :aria-label="isSelectedPlaying ? t('player.pause') : t('player.play')"
                         @click="playSelected()"
                     >
@@ -49,21 +55,34 @@
                         :href="link.href"
                         target="_blank"
                         rel="noopener"
-                        class="model-page__link"
+                        class="model-page__link row inline no-wrap items-center q-px-sm-md text-subtitle2 bg-control"
                     >
                         {{ t(`leaderboard.model.links.${link.key}`) }} ↗
                     </a>
                 </div>
 
-                <div class="model-page__metadata">
-                    <div class="model-page__chips">
-                        <span class="model-page__track">
+                <div
+                    class="model-page__metadata row items-center justify-between"
+                    :class="{ 'no-wrap': isDesktop }"
+                >
+                    <div class="model-page__chips row text-caption text-weight-bold text-soft">
+                        <span class="model-page__track row inline no-wrap items-center">
                             <img :src="databaseIcon" width="12" height="12" alt="" />
                             {{ track.name }}
                         </span>
-                        <span class="model-page__chip">{{ entry.model.card.architecture }}</span>
-                        <span class="model-page__chip">{{ entry.model.card.parameters }}</span>
-                        <span class="model-page__chip">
+                        <span
+                            class="model-page__chip row inline no-wrap items-center q-px-sm text-no-wrap bg-control"
+                        >
+                            {{ entry.model.card.architecture }}
+                        </span>
+                        <span
+                            class="model-page__chip row inline no-wrap items-center q-px-sm text-no-wrap bg-control"
+                        >
+                            {{ entry.model.card.parameters }}
+                        </span>
+                        <span
+                            class="model-page__chip row inline no-wrap items-center q-px-sm text-no-wrap bg-control"
+                        >
                             {{
                                 t('leaderboard.model.trainedOn', {
                                     data: entry.model.card.trainedOn,
@@ -71,14 +90,19 @@
                             }}
                         </span>
                     </div>
-                    <div v-if="isDesktop" class="model-page__scores">
+                    <div
+                        v-if="isDesktop"
+                        class="model-page__scores row no-wrap items-center text-body1 text-no-wrap"
+                    >
                         <span
                             >{{ formatSnr(entry.snrGain) }}
                             {{ t('leaderboard.metrics.snrGain') }}</span
                         >
                         <span>
-                            <strong>{{ formatListening(entry.listening) }}</strong>
-                            <span class="text-muted"
+                            <strong class="text-weight-bolder">{{
+                                formatListening(entry.listening)
+                            }}</strong>
+                            <span class="text-body2 text-muted"
                                 >&nbsp;{{ t('leaderboard.listeningWord') }}</span
                             >
                         </span>
@@ -88,22 +112,26 @@
 
                 <template v-if="!isDesktop">
                     <div class="model-page__metric-cards">
-                        <div class="model-page__metric-card">
-                            <strong>{{ formatSnr(entry.snrGain) }}</strong>
+                        <div class="model-page__metric-card column no-wrap bg-surface text-body2">
+                            <strong class="text-h4">{{ formatSnr(entry.snrGain) }}</strong>
                             <span class="text-muted">{{ t('leaderboard.metrics.snrGain') }}</span>
                         </div>
-                        <div class="model-page__metric-card">
-                            <strong>{{ formatListening(entry.listening) }}</strong>
+                        <div class="model-page__metric-card column no-wrap bg-surface text-body2">
+                            <strong class="text-h4">{{ formatListening(entry.listening) }}</strong>
                             <span class="text-muted">{{ t('leaderboard.metrics.listening') }}</span>
                         </div>
                     </div>
 
-                    <div v-if="selected" class="model-page__compare-card">
-                        <strong>{{
+                    <div
+                        v-if="selected"
+                        class="model-page__compare-card column no-wrap bg-surface text-body2"
+                    >
+                        <strong class="text-subtitle2 text-weight-bolder">{{
                             t('leaderboard.compare.mobileTitle', { sample: selected.id })
                         }}</strong>
                         <span class="text-muted">{{ t('leaderboard.compare.mobileHint') }}</span>
                         <version-selector
+                            class="self-start q-mt-xs"
                             :model-value="isSelectedLoaded ? player.version : 'restored'"
                             :versions="AUDIO_VERSIONS"
                             @update:model-value="listen"
@@ -111,12 +139,12 @@
                     </div>
                 </template>
 
-                <section class="model-page__section">
-                    <div class="model-page__section-text">
-                        <h2 class="model-page__section-title">
+                <section class="model-page__section column no-wrap">
+                    <div class="model-page__section-text column no-wrap">
+                        <h2 class="text-h5 q-my-none">
                             {{ t('leaderboard.samples.title') }}
                         </h2>
-                        <p class="text-muted">
+                        <p class="text-body2 text-muted q-my-none">
                             {{
                                 t('leaderboard.samples.subtitle', { n: board?.samples.length ?? 0 })
                             }}
@@ -137,14 +165,14 @@
                 <section
                     v-if="metrics"
                     ref="metricsSection"
-                    class="model-page__section model-page__section--metrics"
+                    class="model-page__section model-page__section--metrics column no-wrap"
                 >
-                    <div class="model-page__metrics-heading">
-                        <div class="model-page__section-text">
-                            <h2 class="model-page__section-title">
+                    <div class="model-page__metrics-heading row items-end justify-between">
+                        <div class="model-page__section-text column no-wrap">
+                            <h2 class="text-h5 q-my-none">
                                 {{ t('leaderboard.metricsTable.title') }}
                             </h2>
-                            <p class="text-muted">
+                            <p class="text-body2 text-muted q-my-none">
                                 {{
                                     t('leaderboard.metricsTable.subtitle', {
                                         clips: n(metricSummary?.items ?? 0),
@@ -172,7 +200,7 @@
             </div>
         </template>
 
-        <p v-else-if="board" class="model-page__missing text-muted">
+        <p v-else-if="board" class="q-ma-lg text-muted">
             {{ t('leaderboard.model.notFound') }}
         </p>
 
@@ -377,247 +405,108 @@ function listen(version: AudioVersion) {
 </script>
 
 <style scoped lang="scss">
+// Typography, colors, flex and simple spacing come from the global classes in the template.
+// Only the gaps, grids, fixed sizes, borders and the paddings that change in compact mode stay here.
 .model-page {
     &__heading {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 24px 24px 0;
-        border-bottom: 1px solid var(--or-border);
+        gap: var(--or-spacing-md);
         min-height: 168px;
+        padding: var(--or-spacing-lg) var(--or-spacing-lg) 0;
+        border-bottom: 1px solid var(--or-border);
 
         &--compact {
             min-height: 0;
-            padding: 16px 16px 0;
+            padding: var(--or-spacing-md) var(--or-spacing-md) 0;
             border-bottom: 0;
-
-            .model-page__eyebrow {
-                color: var(--q-primary);
-            }
-
-            .model-page__title {
-                font-size: 32px;
-            }
-
-            .model-page__attribution {
-                color: var(--or-text-muted);
-            }
         }
     }
 
     &__identity {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 16px;
+        gap: var(--or-spacing-md-lg);
     }
 
     &__identity-text {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        min-width: 0;
-        line-height: 1.25;
-
-        p {
-            margin: 0;
-        }
-    }
-
-    &__eyebrow {
-        font-size: 13px;
-        font-weight: 800;
-    }
-
-    &__title {
-        margin: 0;
-        overflow: hidden;
-        font-size: 48px;
-        font-weight: 800;
-        line-height: 1.25;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__attribution {
-        font-size: 14px;
+        gap: var(--or-spacing-xxs);
     }
 
     &__body {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 20px 24px 24px;
+        gap: var(--or-spacing-md);
+        padding: var(--or-spacing-md-lg) var(--or-spacing-lg) var(--or-spacing-lg);
 
         &--compact {
-            padding: 16px 16px 24px;
-
-            .model-page__metadata {
-                flex-wrap: wrap;
-            }
+            padding: var(--or-spacing-md) var(--or-spacing-md) var(--or-spacing-lg);
         }
     }
 
     &__actions {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 16px;
+        gap: var(--or-spacing-md);
     }
 
     &__play {
-        display: flex;
-        padding: 0;
-        border: 0;
         border-radius: 50%;
-        background: none;
-        cursor: pointer;
     }
 
     &__link {
-        display: inline-flex;
-        align-items: center;
         height: 36px;
-        padding: 0 14px;
         border-radius: var(--or-radius-pill);
-        background: var(--or-bg-control);
         color: var(--or-text);
-        font-size: 14px;
-        font-weight: 700;
         text-decoration: none;
     }
 
-    &__metadata {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-    }
-
-    &__chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+    &__metadata,
+    &__chips,
+    &__scores {
+        gap: var(--or-spacing-sm);
     }
 
     &__track {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
+        gap: var(--or-spacing-xs);
         height: 22px;
-        padding: 0 8px 0 6px;
+        padding: 0 var(--or-spacing-sm) 0 var(--or-spacing-xs);
         border: 1px solid var(--or-border-strong);
         border-radius: var(--or-radius-sm);
-        color: var(--or-text-soft);
-        font-size: 12px;
-        font-weight: 700;
     }
 
     &__chip {
-        display: inline-flex;
-        align-items: center;
         height: 22px;
-        padding: 0 10px;
         border-radius: var(--or-radius-pill);
-        background: var(--or-bg-control);
-        color: var(--or-text-soft);
-        font-size: 12px;
-        font-weight: 700;
-        white-space: nowrap;
-    }
-
-    &__scores {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        white-space: nowrap;
-
-        strong {
-            font-weight: 800;
-        }
-
-        .text-muted {
-            font-size: 13px;
-        }
     }
 
     &__metric-cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        gap: var(--or-spacing-sm-md);
     }
 
     &__metric-card,
     &__compare-card {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        padding: 14px 16px;
+        gap: var(--or-spacing-xxs);
+        padding: var(--or-spacing-sm-md) var(--or-spacing-md);
         border-radius: var(--or-radius-lg);
-        background: var(--or-bg-surface);
-        font-size: 13px;
-
-        strong {
-            font-size: 20px;
-            font-weight: 800;
-        }
     }
 
     &__compare-card {
-        gap: 6px;
-
-        strong {
-            font-size: 14px;
-        }
-
-        .version-selector {
-            align-self: flex-start;
-            margin-top: 6px;
-        }
+        gap: var(--or-spacing-xs);
     }
 
     // Test samples, then metrics: same heading, a line and more room between them
     &__section {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: 16px;
+        gap: var(--or-spacing-sm-md);
+        margin-top: var(--or-spacing-md);
 
         &--metrics {
-            margin-top: 40px;
-            padding-top: 32px;
+            margin-top: var(--or-spacing-xl);
+            padding-top: var(--or-spacing-xl);
             border-top: 1px solid var(--or-border);
         }
     }
 
     &__section-text {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-
-        p {
-            margin: 0;
-            font-size: 13px;
-        }
-    }
-
-    &__section-title {
-        margin: 0;
-        font-size: 18px;
-        font-weight: 800;
+        gap: var(--or-spacing-xs);
     }
 
     &__metrics-heading {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 12px 16px;
-    }
-
-    &__missing {
-        margin: 24px;
+        gap: var(--or-spacing-sm-md) var(--or-spacing-md);
     }
 }
 </style>

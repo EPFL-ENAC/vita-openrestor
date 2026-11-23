@@ -1,7 +1,7 @@
 <template>
-    <div class="feedback-notice" :class="`feedback-notice--${tone}`">
-        <p class="feedback-notice__title">{{ title }}</p>
-        <p class="feedback-notice__body">{{ body }}</p>
+    <div class="feedback-notice q-pa-md rounded-lg" :class="`feedback-notice--${tone}`">
+        <p class="text-subtitle2 text-weight-bolder q-my-none">{{ title }}</p>
+        <p class="feedback-notice__body text-body2 q-mt-xs q-mb-none">{{ body }}</p>
     </div>
 </template>
 
@@ -19,28 +19,14 @@ withDefaults(
 </script>
 
 <style scoped lang="scss">
+// Typography and spacing come from the global classes in the template.
+// The background and body color stay here: the success tone swaps them, and the
+// bg-raised / text-muted classes (!important) would win over that.
 .feedback-notice {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 16px;
-    border-radius: var(--or-radius-lg);
     background: var(--or-bg-raised);
-
-    p {
-        margin: 0;
-    }
-
-    &__title {
-        font-size: 14px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
 
     &__body {
         color: var(--or-text-muted);
-        font-size: 13px;
-        line-height: 1.3;
     }
 
     &--success {

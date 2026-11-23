@@ -57,20 +57,20 @@ function pageStyle(offset: number, height: number) {
     grid-template-rows: 1fr auto;
 
     &__content {
-        padding: 20px 16px;
+        padding: var(--or-spacing-md-lg) var(--or-spacing-md);
     }
 
     &__aside {
-        padding: 0 16px 20px;
+        padding: 0 var(--or-spacing-md) var(--or-spacing-md-lg);
     }
 
     &--desktop {
         .workspace-page__content {
-            padding: 24px;
+            padding: var(--or-spacing-lg);
         }
 
         .workspace-page__aside {
-            padding: 20px 24px;
+            padding: var(--or-spacing-md-lg) var(--or-spacing-lg);
             background: var(--or-bg-panel);
             border-top: 1px solid var(--or-border);
         }

@@ -1,5 +1,8 @@
 <template>
-    <div class="metrics-table" :class="{ 'metrics-table--compact': compact }">
+    <div
+        class="metrics-table column no-wrap text-body1"
+        :class="{ 'metrics-table--compact': compact }"
+    >
         <!-- One tile per metric family, with its headline metric. A tile opens its family. -->
         <div class="metrics-table__tiles" role="tablist">
             <button
@@ -7,17 +10,17 @@
                 :key="group.key"
                 type="button"
                 role="tab"
-                class="metrics-table__tile"
+                class="metrics-table__tile plain-button column no-wrap q-pa-sm-md text-left"
                 :class="{ 'metrics-table__tile--selected': group.key === selectedKey }"
                 :aria-selected="group.key === selectedKey"
                 @click="selectedKey = group.key"
             >
-                <span class="metrics-table__tile-title">
+                <span class="text-overline text-muted">
                     {{ t(`leaderboard.metricsTable.groups.${group.key}.title`) }}
                 </span>
                 <!-- The improvement, as on the leaderboard; the restored value below -->
                 <span
-                    class="metrics-table__tile-value"
+                    class="metrics-table__tile-value text-h4 text-no-wrap"
                     :class="{
                         'text-negative': summary.metrics[HEADLINE[group.key]].improvement < 0,
                     }"
@@ -30,7 +33,7 @@
                         )
                     }}
                 </span>
-                <span class="metrics-table__tile-detail">
+                <span class="text-caption text-muted ellipsis">
                     {{
                         t('leaderboard.metricsTable.tileDetail', {
                             metric: HEADLINE_SHORT[group.key],
@@ -46,21 +49,28 @@
 
         <!-- Every metric of the selected family -->
         <div class="metrics-table__detail" role="tabpanel">
-            <p class="metrics-table__description text-muted">
+            <p class="text-body2 text-muted q-mt-none q-mb-xs">
                 {{ t(`leaderboard.metricsTable.groups.${selected.key}.description`) }}
             </p>
             <div role="table">
-                <div class="metrics-table__row metrics-table__head" role="row">
+                <div
+                    class="metrics-table__row metrics-table__head text-overline text-muted"
+                    role="row"
+                >
                     <span role="columnheader">{{
                         t('leaderboard.metricsTable.columns.metric')
                     }}</span>
-                    <span v-if="!compact" role="columnheader" class="metrics-table__number">
+                    <span
+                        v-if="!compact"
+                        role="columnheader"
+                        class="metrics-table__number text-right text-no-wrap"
+                    >
                         {{ t('leaderboard.metricsTable.columns.degraded') }}
                     </span>
-                    <span role="columnheader" class="metrics-table__number">
+                    <span role="columnheader" class="metrics-table__number text-right text-no-wrap">
                         {{ t('leaderboard.metricsTable.columns.restored') }}
                     </span>
-                    <span role="columnheader" class="metrics-table__number">
+                    <span role="columnheader" class="metrics-table__number text-right text-no-wrap">
                         {{ t('leaderboard.metricsTable.columns.improvement') }}
                     </span>
                 </div>
@@ -70,23 +80,34 @@
                     class="metrics-table__row metrics-table__metric"
                     role="row"
                 >
-                    <span class="metrics-table__name" role="cell">
+                    <span
+                        class="metrics-table__name column no-wrap q-py-xs text-weight-bold"
+                        role="cell"
+                    >
                         {{ t(`leaderboard.metricsTable.metrics.${key}`) }}
                         <!-- Which way the degraded and restored values get better -->
-                        <span class="metrics-table__direction text-muted">
+                        <span class="text-caption text-muted">
                             <span aria-hidden="true">{{
                                 summary.metrics[key].direction === 'higher' ? '↑' : '↓'
                             }}</span>
                             {{ directionLabel(key) }}
                         </span>
                     </span>
-                    <span v-if="!compact" class="metrics-table__number text-muted" role="cell">
+                    <span
+                        v-if="!compact"
+                        class="metrics-table__number text-right text-no-wrap text-muted"
+                        role="cell"
+                    >
                         {{ format(key, summary.metrics[key].degraded) }}
                     </span>
-                    <span class="metrics-table__number" role="cell">
+                    <span class="metrics-table__number text-right text-no-wrap" role="cell">
                         {{ format(key, summary.metrics[key].restored) }}
                     </span>
-                    <span class="metrics-table__number" :class="improvementClass(key)" role="cell">
+                    <span
+                        class="metrics-table__number text-right text-no-wrap"
+                        :class="improvementClass(key)"
+                        role="cell"
+                    >
                         {{ format(key, summary.metrics[key].improvement, true) }}
                     </span>
                 </div>
@@ -160,31 +181,25 @@ function format(key: MetricKey, value: number, signed = false): string {
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template.
+// Only the grids, the tile states and the row sizes stay here.
 .metrics-table {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    font-size: 14px;
+    gap: var(--or-spacing-md);
 
     &__tiles {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 8px;
+        gap: var(--or-spacing-sm);
     }
 
+    // Background and color stay here: the hover and selected states change them
     &__tile {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        gap: var(--or-spacing-xs);
         min-width: 0;
-        padding: 12px 14px;
         border: 1px solid transparent;
         border-radius: var(--or-radius-lg);
         background: var(--or-bg-raised);
         color: var(--or-text);
-        font: inherit;
-        text-align: left;
-        cursor: pointer;
 
         &:hover {
             background: var(--or-bg-control);
@@ -196,49 +211,21 @@ function format(key: MetricKey, value: number, signed = false): string {
         }
     }
 
-    &__tile-title {
-        color: var(--or-text-muted);
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-    }
-
     &__tile-value {
-        font-size: 20px;
-        font-weight: 800;
         font-variant-numeric: tabular-nums;
-        white-space: nowrap;
-    }
-
-    &__tile-detail {
-        overflow: hidden;
-        color: var(--or-text-muted);
-        font-size: 12px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__description {
-        margin: 0 0 4px;
-        font-size: 13px;
     }
 
     &__row {
         display: grid;
         grid-template-columns: minmax(160px, 1.6fr) repeat(3, minmax(90px, 1fr));
-        gap: 16px;
+        gap: var(--or-spacing-md);
         align-items: center;
-        padding: 0 16px;
+        padding: 0 var(--or-spacing-md);
     }
 
     &__head {
         height: 30px;
         border-bottom: 1px solid var(--or-border);
-        color: var(--or-text-muted);
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
     }
 
     &__metric {
@@ -247,35 +234,22 @@ function format(key: MetricKey, value: number, signed = false): string {
     }
 
     &__name {
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
+        gap: var(--or-spacing-xxs);
         min-width: 0;
-        padding: 6px 0;
-        font-weight: 700;
-    }
-
-    &__direction {
-        font-size: 12px;
-        font-weight: 400;
     }
 
     &__number {
         font-variant-numeric: tabular-nums;
-        text-align: right;
-        white-space: nowrap;
     }
 
     &--compact {
-        font-size: 13px;
-
         .metrics-table__tiles {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .metrics-table__row {
             grid-template-columns: minmax(0, 1fr) auto auto;
-            gap: 12px;
+            gap: var(--or-spacing-sm-md);
             padding: 0;
         }
     }

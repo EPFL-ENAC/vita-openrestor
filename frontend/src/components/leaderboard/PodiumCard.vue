@@ -1,6 +1,6 @@
 <template>
     <article
-        class="podium-card"
+        class="podium-card column no-wrap cursor-pointer"
         :class="[`podium-card--${layout}`, { 'podium-card--winner': rank === 1 }]"
         role="link"
         tabindex="0"
@@ -8,31 +8,39 @@
         @click="openModel"
         @keydown.enter.self="openModel"
     >
-        <div class="podium-card__rank">
-            <span class="podium-card__number">{{ rank }}</span>
-            <span class="podium-card__place">{{ t(`leaderboard.places.${rank}`) }}</span>
+        <div class="podium-card__rank row no-wrap items-baseline">
+            <span class="podium-card__number text-h2">{{ rank }}</span>
+            <span class="podium-card__place text-body2 text-weight-bold">
+                {{ t(`leaderboard.places.${rank}`) }}
+            </span>
             <model-avatar
-                class="podium-card__avatar"
+                class="self-center q-ml-auto"
                 :name="entry.model.name"
                 :mine="submissions.isMine(entry.model.id)"
                 :size="layout === 'compact' ? 28 : 36"
             />
         </div>
 
-        <div class="podium-card__identity">
-            <h3 class="podium-card__name">{{ entry.model.name }}</h3>
-            <span v-if="layout !== 'compact'" class="podium-card__lab text-muted">
+        <div class="podium-card__identity column no-wrap">
+            <!-- Smaller name on the narrow compact card -->
+            <h3
+                class="podium-card__name ellipsis q-my-none"
+                :class="layout === 'compact' ? 'text-h6' : 'text-h2'"
+            >
+                {{ entry.model.name }}
+            </h3>
+            <span v-if="layout !== 'compact'" class="text-body2 text-muted">
                 {{ entry.model.lab }}
             </span>
         </div>
 
         <div class="podium-card__divider" />
 
-        <div class="podium-card__summary">
+        <div class="podium-card__summary col row no-wrap items-center">
             <template v-if="layout === 'compact'">
-                <span class="podium-card__metric podium-card__metric--fill">
-                    <span class="podium-card__value">{{ formatSnr(entry.snrGain) }}</span>
-                    <span class="podium-card__label">
+                <span class="podium-card__metric col column no-wrap text-no-wrap">
+                    <span class="text-h6">{{ formatSnr(entry.snrGain) }}</span>
+                    <span class="text-caption text-muted">
                         {{
                             t('leaderboard.listeningShort', {
                                 value: formatListening(entry.listening),
@@ -42,18 +50,26 @@
                 </span>
             </template>
             <template v-else>
-                <span class="podium-card__metric podium-card__metric--snr">
-                    <span class="podium-card__value">{{ formatSnr(entry.snrGain) }}</span>
-                    <span class="podium-card__label">{{ t('leaderboard.metrics.snrGain') }}</span>
+                <span
+                    class="podium-card__metric podium-card__metric--snr column no-wrap text-no-wrap"
+                >
+                    <span class="text-h5">{{ formatSnr(entry.snrGain) }}</span>
+                    <span class="text-caption text-muted">
+                        {{ t('leaderboard.metrics.snrGain') }}
+                    </span>
                 </span>
-                <span class="podium-card__metric podium-card__metric--listening">
-                    <span class="podium-card__value">{{ formatListening(entry.listening) }}</span>
-                    <span class="podium-card__label">{{ t('leaderboard.metrics.listening') }}</span>
+                <span
+                    class="podium-card__metric podium-card__metric--listening column no-wrap text-no-wrap"
+                >
+                    <span class="text-h5">{{ formatListening(entry.listening) }}</span>
+                    <span class="text-caption text-muted">
+                        {{ t('leaderboard.metrics.listening') }}
+                    </span>
                 </span>
             </template>
             <button
                 type="button"
-                class="podium-card__play"
+                class="podium-card__play plain-button flex col-auto q-ml-auto"
                 :aria-label="
                     playing
                         ? t('leaderboard.pauseModel', { model: entry.model.name })
@@ -117,14 +133,13 @@ const playIcon = computed(() => {
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template.
+// Only the card frame, the winner colors and the per-layout sizes and spacing stay here.
 .podium-card {
-    display: flex;
-    flex-direction: column;
     min-width: 0;
     border: 1px solid var(--or-border);
     border-radius: var(--or-radius-lg);
     background: var(--or-bg-surface);
-    cursor: pointer;
 
     &--winner {
         border-color: var(--q-primary);
@@ -137,46 +152,16 @@ const playIcon = computed(() => {
     }
 
     &__rank {
-        display: flex;
-        align-items: baseline;
-        gap: 12px;
+        gap: var(--or-spacing-sm-md);
     }
 
-    &__number {
-        font-weight: 800;
-        line-height: 1;
-    }
-
+    // Not the text-muted class: its !important would beat the winner's red above
     &__place {
         color: var(--or-text-muted);
-        font-weight: 700;
-        line-height: 1.25;
-    }
-
-    &__avatar {
-        align-self: center;
-        margin-left: auto;
     }
 
     &__identity {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        min-width: 0;
-    }
-
-    &__name {
-        margin: 0;
-        overflow: hidden;
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1.25;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__lab {
-        font-size: 13px;
+        gap: var(--or-spacing-xs);
     }
 
     &__divider {
@@ -185,18 +170,11 @@ const playIcon = computed(() => {
     }
 
     &__summary {
-        display: flex;
-        flex: 1 1 auto;
-        align-items: center;
-        gap: 8px;
+        gap: var(--or-spacing-sm);
     }
 
     &__metric {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        line-height: 1.25;
-        white-space: nowrap;
+        gap: var(--or-spacing-xxs);
 
         &--snr {
             width: 90px;
@@ -205,57 +183,32 @@ const playIcon = computed(() => {
         &--listening {
             width: 80px;
         }
-
-        &--fill {
-            flex: 1 1 0;
-            min-width: 0;
-        }
-    }
-
-    &__value {
-        font-size: 18px;
-        font-weight: 800;
-    }
-
-    &__label {
-        color: var(--or-text-muted);
-        font-size: 12px;
     }
 
     &__play {
-        display: flex;
-        flex-shrink: 0;
-        margin-left: auto;
-        padding: 0;
-        border: 0;
         border-radius: 50%;
-        background: none;
-        cursor: pointer;
     }
 
     // Desktop: three equal cards
     &--desktop {
         height: 248px;
-        padding: 24px;
+        padding: var(--or-spacing-lg);
 
+        // Display number: no text class this size (text-h2 gives the weight)
         .podium-card__number {
-            font-size: 40px;
-        }
-
-        .podium-card__place {
-            font-size: 13px;
+            font-size: 32px;
         }
 
         .podium-card__identity {
-            padding: 15px 0 20px;
+            padding: var(--or-spacing-md) 0 var(--or-spacing-md-lg);
         }
 
         .podium-card__summary {
-            padding-top: 20px;
+            padding-top: var(--or-spacing-md-lg);
         }
 
         &.podium-card--winner .podium-card__rank {
-            gap: 18px;
+            gap: var(--or-spacing-md);
         }
     }
 
@@ -263,27 +216,23 @@ const playIcon = computed(() => {
     &--winner {
         &.podium-card--winner:not(.podium-card--desktop) {
             height: 226px;
-            padding: 20px;
+            padding: var(--or-spacing-md-lg);
 
             .podium-card__rank {
-                gap: 16px;
+                gap: var(--or-spacing-md);
             }
 
             .podium-card__number {
-                font-size: 36px;
-            }
-
-            .podium-card__place {
-                font-size: 13px;
+                font-size: 32px;
             }
 
             .podium-card__identity {
-                padding: 9px 0 18px;
+                padding: var(--or-spacing-sm) 0 var(--or-spacing-md);
             }
 
             .podium-card__summary {
-                gap: 16px;
-                padding-top: 14px;
+                gap: var(--or-spacing-md);
+                padding-top: var(--or-spacing-sm-md);
             }
         }
     }
@@ -291,30 +240,14 @@ const playIcon = computed(() => {
     // Mobile runners-up: two small cards side by side
     &--compact {
         height: 176px;
-        padding: 16px;
-
-        .podium-card__number {
-            font-size: 28px;
-        }
-
-        .podium-card__place {
-            font-size: 12px;
-        }
+        padding: var(--or-spacing-md);
 
         .podium-card__identity {
-            padding: 7px 0 12px;
-        }
-
-        .podium-card__name {
-            font-size: 17px;
-        }
-
-        .podium-card__value {
-            font-size: 16px;
+            padding: var(--or-spacing-sm) 0 var(--or-spacing-sm-md);
         }
 
         .podium-card__summary {
-            padding-top: 8px;
+            padding-top: var(--or-spacing-sm);
         }
     }
 }

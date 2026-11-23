@@ -1,13 +1,17 @@
 <template>
-    <section class="score-explanation">
-        <h2 class="score-explanation__title">{{ t('leaderboard.scores.title') }}</h2>
-        <div v-for="metric in METRICS" :key="metric" class="score-explanation__definition">
-            <span class="score-explanation__term">{{
-                t(`leaderboard.scores.${metric}.term`)
-            }}</span>
-            <p>{{ t(`leaderboard.scores.${metric}.definition`) }}</p>
+    <section class="score-explanation column no-wrap q-pa-md bg-raised text-body2">
+        <h2 class="text-subtitle2 text-weight-bolder q-my-none">
+            {{ t('leaderboard.scores.title') }}
+        </h2>
+        <div
+            v-for="metric in METRICS"
+            :key="metric"
+            class="score-explanation__definition column no-wrap"
+        >
+            <span class="text-weight-bold">{{ t(`leaderboard.scores.${metric}.term`) }}</span>
+            <p class="text-muted q-my-none">{{ t(`leaderboard.scores.${metric}.definition`) }}</p>
         </div>
-        <p>{{ t('leaderboard.scores.note') }}</p>
+        <p class="text-muted q-my-none">{{ t('leaderboard.scores.note') }}</p>
     </section>
 </template>
 
@@ -21,37 +25,13 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Typography, colors and flex come from the global classes in the template
 .score-explanation {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 16px;
+    gap: var(--or-spacing-sm-md);
     border-radius: var(--or-radius-lg);
-    background: var(--or-bg-raised);
-    font-size: 13px;
-
-    p {
-        margin: 0;
-        color: var(--or-text-muted);
-        line-height: 1.4;
-    }
-
-    &__title {
-        margin: 0;
-        font-size: 14px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
 
     &__definition {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    &__term {
-        font-weight: 700;
-        line-height: 1.25;
+        gap: var(--or-spacing-xxs);
     }
 }
 </style>

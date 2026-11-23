@@ -1,14 +1,22 @@
 <template>
-    <router-link to="/" class="app-brand" :class="{ 'app-brand--compact': compact }">
+    <router-link
+        to="/"
+        class="app-brand row inline no-wrap items-center"
+        :class="{ 'app-brand--compact': compact }"
+    >
         <!-- Signal bars of the brand mark, heights relative to the mark size -->
-        <span class="app-brand__mark" aria-hidden="true">
+        <span
+            class="app-brand__mark row no-wrap items-center justify-center bg-primary"
+            aria-hidden="true"
+        >
             <span class="app-brand__bar" style="height: 21%" />
             <span class="app-brand__bar" style="height: 45%" />
             <span class="app-brand__bar" style="height: 61%" />
             <span class="app-brand__bar" style="height: 30%" />
             <span class="app-brand__bar" style="height: 15%" />
         </span>
-        <span class="app-brand__wordmark text-h3">{{ t('appTitle') }}</span>
+        <!-- text-h3 is already smaller on phones -->
+        <span class="text-h3 text-no-wrap">{{ t('appTitle') }}</span>
     </router-link>
 </template>
 
@@ -16,7 +24,7 @@
 import { useI18n } from 'vue-i18n';
 
 defineProps<{
-    // Mobile header variant: smaller mark and wordmark
+    // Mobile header variant: smaller mark
     compact?: boolean;
 }>();
 
@@ -24,22 +32,17 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Typography, flex and the mark color come from the global classes in the template
 .app-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
+    gap: var(--or-spacing-sm);
     color: var(--or-text);
     text-decoration: none;
 
     &__mark {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2px;
+        gap: var(--or-spacing-xxs);
         width: 28px;
         height: 28px;
         border-radius: var(--or-radius-pill);
-        background: var(--q-primary);
     }
 
     &__bar {
@@ -47,21 +50,9 @@ const { t } = useI18n();
         background: var(--or-text-on-accent);
     }
 
-    &__wordmark {
-        white-space: nowrap;
-    }
-
-    &--compact {
-        gap: 8px;
-
-        .app-brand__mark {
-            width: 26px;
-            height: 26px;
-        }
-
-        .app-brand__wordmark {
-            font-size: 1.1875rem; // 19px
-        }
+    &--compact .app-brand__mark {
+        width: 26px;
+        height: 26px;
     }
 }
 </style>

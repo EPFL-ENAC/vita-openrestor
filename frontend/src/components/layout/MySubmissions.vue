@@ -1,6 +1,6 @@
 <template>
-    <section class="my-submissions">
-        <h2 class="my-submissions__title text-overline text-subtle">
+    <section class="my-submissions column no-wrap">
+        <h2 class="text-overline text-subtle q-mt-none q-mb-sm">
             {{ t('library.mySubmissions') }}
         </h2>
 
@@ -8,12 +8,12 @@
             v-for="submission in submissions"
             :key="submission.id"
             :to="{ name: 'submission', params: { id: submission.id } }"
-            class="my-submissions__entry"
+            class="my-submissions__entry row no-wrap items-center"
         >
             <model-avatar :name="submission.modelName" mine :size="28" />
-            <span class="my-submissions__text">
-                <span class="my-submissions__name text-subtitle2">{{ submission.modelName }}</span>
-                <span class="my-submissions__meta text-muted">
+            <span class="my-submissions__text col-shrink column no-wrap">
+                <span class="text-subtitle2">{{ submission.modelName }}</span>
+                <span class="text-body2 text-muted">
                     <span :class="statusClass(submission.status)">
                         {{ t(`library.status.${submission.status}`) }}
                     </span>
@@ -22,7 +22,7 @@
             </span>
         </router-link>
 
-        <p v-if="submissions.length === 0" class="my-submissions__empty text-muted">
+        <p v-if="submissions.length === 0" class="text-body2 text-muted q-my-none">
             {{ t('library.noSubmissions') }}
         </p>
     </section>
@@ -71,26 +71,18 @@ function hint(submission: Submission): string | null {
 </script>
 
 <style scoped lang="scss">
+// Typography, text colors and flex come from the global classes in the template
 .my-submissions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    &__title {
-        margin: 0 0 8px;
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 1.4;
-    }
+    gap: var(--or-spacing-sm);
 
     // Same box as the primary navigation items, so the open submission is marked the same way
     &__entry {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        gap: var(--or-spacing-sm);
         min-height: 44px;
-        margin: 0 -8px;
-        padding: 8px 12px 8px 5px;
+        margin: 0 calc(-1 * var(--or-spacing-sm));
+        // Left padding minus the 3px border, so the avatar lines up with the title
+        padding: var(--or-spacing-sm) var(--or-spacing-sm-md) var(--or-spacing-sm)
+            calc(var(--or-spacing-sm) - 3px);
         border-left: 3px solid transparent;
         border-radius: var(--or-radius-md);
         color: var(--or-text);
@@ -108,20 +100,7 @@ function hint(submission: Submission): string | null {
     }
 
     &__text {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-    }
-
-    &__meta {
-        font-size: 13px;
-        line-height: 1.25;
-    }
-
-    &__empty {
-        margin: 0;
-        font-size: 13px;
+        gap: var(--or-spacing-xxs);
     }
 }
 </style>

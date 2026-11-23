@@ -1,8 +1,8 @@
 <template>
-    <div class="compare-panel">
-        <div class="compare-panel__heading">
-            <h2 class="compare-panel__title">{{ t('leaderboard.compare.title') }}</h2>
-            <p class="text-muted">
+    <div class="compare-panel column no-wrap">
+        <div>
+            <h2 class="text-h6 q-mt-none q-mb-xs">{{ t('leaderboard.compare.title') }}</h2>
+            <p class="text-body2 text-muted q-ma-none">
                 {{
                     t('leaderboard.compare.description', {
                         sample: sample.id,
@@ -17,7 +17,7 @@
             v-for="source in AUDIO_VERSIONS"
             :key="source"
             type="button"
-            class="compare-panel__source"
+            class="compare-panel__source plain-button column no-wrap text-left rounded-lg q-pa-sm-md"
             :class="[
                 `compare-panel__source--${source}`,
                 { 'compare-panel__source--current': loaded && player.version === source },
@@ -25,7 +25,7 @@
             :aria-pressed="loaded && player.version === source"
             @click="emit('listen', source)"
         >
-            <span class="compare-panel__source-label">{{ t(`player.versions.${source}`) }}</span>
+            <span class="text-body2 text-weight-bolder">{{ t(`player.versions.${source}`) }}</span>
             <audio-waveform
                 :peaks="peaks"
                 :progress="loaded ? player.progress : 0"
@@ -34,8 +34,13 @@
             />
         </button>
 
-        <section v-if="others.length" class="compare-panel__others">
-            <h3 class="compare-panel__others-title">{{ t('leaderboard.compare.others') }}</h3>
+        <section
+            v-if="others.length"
+            class="compare-panel__others column no-wrap q-pa-md rounded-lg bg-raised"
+        >
+            <h3 class="text-subtitle2 text-weight-bolder q-ma-none">
+                {{ t('leaderboard.compare.others') }}
+            </h3>
             <router-link
                 v-for="other in others"
                 :key="other.entry.model.id"
@@ -44,15 +49,15 @@
                     params: { modelId: other.entry.model.id },
                     query: { sample: sample.id },
                 }"
-                class="compare-panel__other"
+                class="compare-panel__other row no-wrap items-center text-body2"
             >
                 <model-avatar
                     :name="other.entry.model.name"
                     :mine="submissions.isMine(other.entry.model.id)"
                     :size="28"
                 />
-                <span class="compare-panel__other-identity">
-                    <span class="compare-panel__other-name">{{ other.entry.model.name }}</span>
+                <span class="compare-panel__other-identity col column no-wrap">
+                    <span class="text-subtitle2">{{ other.entry.model.name }}</span>
                     <span class="text-muted">{{
                         t('leaderboard.rank', { rank: other.rank })
                     }}</span>
@@ -94,52 +99,18 @@ const player = usePlayerStore();
 
 <style scoped lang="scss">
 .compare-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-top: 6px;
-
-    p {
-        margin: 0;
-        font-size: 13px;
-        line-height: 1.4;
-    }
-
-    &__heading {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    &__title {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 800;
-    }
+    gap: var(--or-spacing-md);
+    padding-top: var(--or-spacing-xs);
 
     &__source {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        padding: 12px;
-        border: 0;
-        border-radius: var(--or-radius-lg);
-        background: transparent;
+        gap: var(--or-spacing-sm-md);
         color: var(--or-text-muted);
-        font: inherit;
-        text-align: left;
-        cursor: pointer;
 
         &:hover,
         &--current {
             background: var(--or-bg-control);
             color: var(--or-text);
         }
-    }
-
-    &__source-label {
-        font-size: 13px;
-        font-weight: 800;
     }
 
     // Each source keeps its colour; the played part stays red
@@ -161,40 +132,17 @@ const player = usePlayerStore();
     }
 
     &__others {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        padding: 16px;
-        border-radius: var(--or-radius-lg);
-        background: var(--or-bg-raised);
-    }
-
-    &__others-title {
-        margin: 0;
-        font-size: 14px;
-        font-weight: 800;
+        gap: var(--or-spacing-sm-md);
     }
 
     &__other {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        gap: var(--or-spacing-sm-md);
         color: var(--or-text);
-        font-size: 13px;
         text-decoration: none;
     }
 
     &__other-identity {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-    }
-
-    &__other-name {
-        font-size: 14px;
-        font-weight: 700;
+        gap: var(--or-spacing-xxs);
     }
 }
 </style>

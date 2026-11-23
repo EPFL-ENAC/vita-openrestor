@@ -1,5 +1,8 @@
 <template>
-    <router-link :to="to" class="back-button">
+    <router-link
+        :to="to"
+        class="back-button row inline no-wrap items-center self-start text-body2 text-weight-bold text-soft bg-control"
+    >
         <img :src="chevronLeftIcon" width="12" height="12" alt="" />
         {{ label }}
     </router-link>
@@ -18,18 +21,12 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
+// Typography, colors and flex come from the global classes in the template
 .back-button {
-    display: inline-flex;
-    align-items: center;
-    align-self: flex-start;
-    gap: 6px;
+    gap: var(--or-spacing-xs);
     height: 28px;
-    padding: 0 12px 0 8px;
+    padding: 0 var(--or-spacing-sm-md) 0 var(--or-spacing-sm);
     border-radius: var(--or-radius-pill);
-    background: var(--or-bg-control);
-    color: var(--or-text-soft);
-    font-size: 13px;
-    font-weight: 700;
     text-decoration: none;
 }
 </style>

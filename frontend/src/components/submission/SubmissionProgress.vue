@@ -1,17 +1,17 @@
 <template>
     <div class="submission-progress" :class="{ 'submission-progress--compact': compact }">
-        <div class="submission-progress__bars" aria-hidden="true">
+        <div class="submission-progress__bars row no-wrap q-mb-sm" aria-hidden="true">
             <span
                 v-for="stage in stages"
                 :key="stage.key"
-                class="submission-progress__bar"
+                class="submission-progress__bar col"
                 :class="`submission-progress__bar--${stage.state}`"
             />
         </div>
 
         <p
             v-if="compact"
-            class="submission-progress__summary"
+            class="text-subtitle2 q-my-none"
             :class="`submission-progress__label--${activeState}`"
         >
             {{
@@ -22,12 +22,15 @@
                 })
             }}
         </p>
-        <ol v-else class="submission-progress__labels">
+        <ol v-else class="submission-progress__labels row no-wrap q-ma-none q-pa-none">
             <li
                 v-for="stage in stages"
                 :key="stage.key"
-                class="submission-progress__label"
-                :class="`submission-progress__label--${stage.state}`"
+                class="submission-progress__label col text-caption"
+                :class="[
+                    `submission-progress__label--${stage.state}`,
+                    { 'text-weight-bold': stage.state !== 'todo' },
+                ]"
                 :aria-current="
                     stage.state === 'done' || stage.state === 'todo' ? undefined : 'step'
                 "
@@ -92,19 +95,15 @@ const stages = computed(() =>
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template.
+// The bar look and the colors of each stage state stay here.
 .submission-progress {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-
     &__bars,
     &__labels {
-        display: flex;
-        gap: 4px;
+        gap: var(--or-spacing-xs);
     }
 
     &__bar {
-        flex: 1 1 0;
         height: 3px;
         background: var(--or-progress-track);
 
@@ -122,20 +121,13 @@ const stages = computed(() =>
     }
 
     &__labels {
-        margin: 0;
-        padding: 0;
         list-style: none;
     }
 
+    // Also used by the mobile summary line for the current stage color
     &__label {
-        flex: 1 1 0;
-        min-width: 0;
-        font-size: 12px;
-        font-weight: 700;
-
         &--todo {
             color: var(--or-text-muted);
-            font-weight: 400;
         }
 
         &--active {
@@ -145,12 +137,6 @@ const stages = computed(() =>
         &--approved {
             color: var(--q-positive);
         }
-    }
-
-    &__summary {
-        margin: 0;
-        font-size: 14px;
-        font-weight: 700;
     }
 }
 </style>

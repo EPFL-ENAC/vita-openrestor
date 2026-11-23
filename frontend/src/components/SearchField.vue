@@ -1,10 +1,13 @@
 <template>
-    <label class="search-field" :class="{ 'search-field--block': block }">
+    <label
+        class="search-field row no-wrap items-center q-px-sm-md bg-control"
+        :class="{ 'search-field--block': block }"
+    >
         <app-icon :src="searchIcon" :size="16" class="text-muted" />
         <input
             :value="modelValue"
             type="search"
-            class="search-field__input"
+            class="search-field__input col text-body1"
             :placeholder="placeholder"
             :aria-label="placeholder"
             @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
@@ -28,16 +31,13 @@ const emit = defineEmits<{ 'update:modelValue': [value: string] }>();
 </script>
 
 <style scoped lang="scss">
+// Typography, flex and background come from the global classes in the template
 .search-field {
-    display: flex;
     flex-shrink: 0;
-    align-items: center;
-    gap: 8px;
+    gap: var(--or-spacing-sm);
     width: 96px;
     height: 40px;
-    padding: 0 12px;
     border-radius: var(--or-radius-pill);
-    background: var(--or-bg-control);
     transition: width 0.15s;
     cursor: text;
 
@@ -45,15 +45,13 @@ const emit = defineEmits<{ 'update:modelValue': [value: string] }>();
         width: 200px;
     }
 
+    // No native input look: the pill around it is the field
     &__input {
-        width: 100%;
-        min-width: 0;
         padding: 0;
         border: 0;
         outline: 0;
         background: transparent;
         color: var(--or-text);
-        font-size: 14px;
 
         &::placeholder {
             color: var(--or-text-placeholder);

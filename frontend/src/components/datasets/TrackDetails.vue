@@ -1,10 +1,18 @@
 <template>
-    <section class="track-details">
-        <h2 class="track-details__title">{{ track.name }}</h2>
-        <dl class="track-details__fields">
-            <div v-for="field in fields" :key="field.key" class="track-details__field">
-                <dt>{{ t(`datasets.fields.${field.key}`) }}</dt>
-                <dd :title="field.value">{{ field.value }}</dd>
+    <section class="track-details q-pa-md rounded-lg bg-raised">
+        <h2 class="text-subtitle2 text-weight-bolder q-mt-none q-mb-sm">{{ track.name }}</h2>
+        <dl class="q-ma-none">
+            <div
+                v-for="field in fields"
+                :key="field.key"
+                class="track-details__field row no-wrap items-center text-body1"
+            >
+                <dt class="track-details__label text-muted">
+                    {{ t(`datasets.fields.${field.key}`) }}
+                </dt>
+                <dd class="col ellipsis text-weight-bold q-ma-none" :title="field.value">
+                    {{ field.value }}
+                </dd>
             </div>
         </dl>
     </section>
@@ -49,42 +57,13 @@ const fields = computed(() => {
 
 <style scoped lang="scss">
 .track-details {
-    padding: 16px;
-    border-radius: var(--or-radius-lg);
-    background: var(--or-bg-raised);
-
-    &__title {
-        margin: 0 0 8px;
-        font-size: 15px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
-
-    &__fields {
-        margin: 0;
-    }
-
     &__field {
-        display: flex;
-        align-items: center;
         min-height: 37px;
         border-top: 1px solid var(--or-border);
-        font-size: 14px;
+    }
 
-        dt {
-            flex: 0 0 110px;
-            color: var(--or-text-muted);
-        }
-
-        dd {
-            flex: 1 1 0;
-            min-width: 0;
-            margin: 0;
-            overflow: hidden;
-            font-weight: 700;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    &__label {
+        flex: 0 0 110px;
     }
 }
 </style>

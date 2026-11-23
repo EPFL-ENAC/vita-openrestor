@@ -1,6 +1,6 @@
 <template>
-    <div class="app-sidebar">
-        <div class="app-sidebar__brand">
+    <div class="app-sidebar column no-wrap">
+        <div class="app-sidebar__brand row no-wrap items-center justify-between q-mb-sm">
             <app-brand />
             <account-menu />
         </div>
@@ -13,14 +13,14 @@
             <my-submissions v-if="submissions.list" :submissions="submissions.list" />
         </div>
 
-        <div class="app-sidebar__footer">
+        <div class="app-sidebar__footer row no-wrap q-mt-auto">
             <q-btn
                 unelevated
                 no-caps
                 color="primary"
                 text-color="black"
                 padding="8px 10px"
-                class="app-sidebar__submit"
+                class="app-sidebar__submit col text-caption text-weight-bold"
                 :to="{ name: 'submission-new' }"
                 :icon="symOutlinedDeployedCode"
                 :label="t('library.submitModel')"
@@ -53,43 +53,28 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template
 .app-sidebar {
-    display: flex;
-    flex-direction: column;
     min-height: 100%;
 
     // Logo, with the account menu (language, sign out) at the right
     &__brand {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         height: 60px;
-        padding: 12px 16px 0 24px;
-        margin-bottom: 8px;
+        padding: var(--or-spacing-sm-md) var(--or-spacing-md) 0 var(--or-spacing-lg);
     }
 
     &__library {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        padding: 27px 20px 24px;
+        padding: var(--or-spacing-lg) var(--or-spacing-md-lg);
     }
 
-    &__submit {
-        flex: 1 1 auto;
-        font-size: 12px;
-        font-weight: 700;
-
-        :deep(.q-icon) {
-            margin-right: 6px;
-            font-size: 18px;
-        }
+    &__submit :deep(.q-icon) {
+        margin-right: var(--or-spacing-xs);
+        font-size: 18px;
     }
 
+    // q-mt-auto keeps the submit button at the bottom of the sidebar
     &__footer {
-        display: flex;
-        margin-top: auto;
-        padding: 12px 20px;
+        padding: var(--or-spacing-sm-md) var(--or-spacing-md-lg);
     }
 }
 </style>

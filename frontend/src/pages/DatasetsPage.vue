@@ -8,8 +8,8 @@
             />
 
             <div
-                class="datasets-page__body"
-                :class="{ 'datasets-page__body--compact': !isDesktop }"
+                class="datasets-page__body column no-wrap"
+                :class="{ 'items-start': isDesktop, 'datasets-page__body--compact': !isDesktop }"
             >
                 <track-tabs
                     :tracks="catalog.tracks"
@@ -19,7 +19,7 @@
                 />
 
                 <template v-if="track">
-                    <p class="datasets-page__intro">
+                    <p class="text-body1 text-soft q-ma-none">
                         {{
                             t('datasets.trackIntro', {
                                 track: track.name,
@@ -28,9 +28,11 @@
                         }}
                     </p>
 
+                    <!-- Full width, while the tabs and intro keep their own width on desktop -->
                     <split-card
                         v-for="split in track.splits"
                         :key="split.id"
+                        class="self-stretch"
                         :track-id="track.id"
                         :split="split"
                         :compact="!isDesktop"
@@ -41,8 +43,8 @@
         </template>
 
         <template v-if="catalog && track" #aside>
-            <div class="datasets-page__panel">
-                <h2 class="datasets-page__panel-title">{{ t('datasets.trackDetails') }}</h2>
+            <div class="datasets-page__panel column no-wrap">
+                <h2 class="text-h6 q-ma-none">{{ t('datasets.trackDetails') }}</h2>
                 <track-details :track="track" :dataset="catalog.dataset" />
                 <action-button
                     block
@@ -115,42 +117,18 @@ function downloadRecipes() {
 <style scoped lang="scss">
 .datasets-page {
     &__body {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 24px;
-
-        > :deep(.split-card) {
-            align-self: stretch;
-        }
+        gap: var(--or-spacing-md);
+        padding: var(--or-spacing-lg);
 
         &--compact {
-            align-items: stretch;
-            gap: 12px;
-            padding: 0 16px 24px;
+            gap: var(--or-spacing-sm-md);
+            padding: 0 var(--or-spacing-md) var(--or-spacing-lg);
         }
-    }
-
-    &__intro {
-        margin: 0;
-        color: var(--or-text-soft);
-        font-size: 14px;
-        line-height: 1.4;
     }
 
     &__panel {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding-top: 6px;
-    }
-
-    &__panel-title {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 800;
-        line-height: 1.2;
+        gap: var(--or-spacing-md);
+        padding-top: var(--or-spacing-xs);
     }
 }
 </style>
