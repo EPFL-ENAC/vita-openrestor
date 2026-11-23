@@ -41,7 +41,7 @@
                     <span class="sample-table__number">{{ index + 1 }}</span>
                     <q-icon
                         class="sample-table__toggle"
-                        :name="sample.id === playingId ? 'pause' : 'play_arrow'"
+                        :name="sample.id === playingId ? matPause : matPlayArrow"
                         size="20px"
                     />
                 </span>
@@ -76,7 +76,7 @@
                 </span>
                 <span class="sample-table__snr">{{ formatSnr(snr[sample.id] ?? 0) }}</span>
                 <span v-if="!compact" class="sample-table__length text-muted">
-                    {{ formatDuration(sample.durationSeconds) }}
+                    {{ formatDuration(sample.durationSeconds, locale) }}
                 </span>
             </div>
         </div>
@@ -85,6 +85,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { matPause, matPlayArrow } from '@quasar/extras/material-icons';
 import SoundThumb from 'components/SoundThumb.vue';
 import { formatDuration, formatSnr } from './format';
 import type { TestSample } from 'src/types/leaderboard';
@@ -107,7 +108,7 @@ defineProps<{
 
 const emit = defineEmits<{ select: [sample: TestSample]; category: [category: string] }>();
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 </script>
 
 <style scoped lang="scss">
@@ -130,7 +131,7 @@ const { t } = useI18n();
         border-bottom: 1px solid var(--or-border);
         color: var(--or-text-muted);
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
     }
 
@@ -268,7 +269,7 @@ const { t } = useI18n();
     &__snr {
         flex: 0 0 116px;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
     }
 
     &__length {

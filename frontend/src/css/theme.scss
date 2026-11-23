@@ -18,7 +18,17 @@ body.body--dark {
     @include theme-vars(dec.$theme-dark);
 }
 
+// Spacing and corner radius are the same in every theme
 :root {
+    --or-spacing-xxs: #{dec.$spacing-xxs};
+    --or-spacing-xs: #{dec.$spacing-xs};
+    --or-spacing-sm: #{dec.$spacing-sm};
+    --or-spacing-sm-md: #{dec.$spacing-sm-md};
+    --or-spacing-md: #{dec.$spacing-md};
+    --or-spacing-md-lg: #{dec.$spacing-md-lg};
+    --or-spacing-lg: #{dec.$spacing-lg};
+    --or-spacing-xl: #{dec.$spacing-xl};
+
     --or-radius-xs: #{dec.$radius-xs};
     --or-radius-sm: #{dec.$radius-sm};
     --or-radius-md: #{dec.$radius-md};

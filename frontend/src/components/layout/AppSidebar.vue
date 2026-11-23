@@ -22,7 +22,7 @@
                 padding="8px 10px"
                 class="app-sidebar__submit"
                 :to="{ name: 'submission-new' }"
-                icon="sym_o_deployed_code"
+                :icon="symOutlinedDeployedCode"
                 :label="t('library.submitModel')"
             />
         </div>
@@ -31,6 +31,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import { symOutlinedDeployedCode } from '@quasar/extras/material-symbols-outlined';
 import { useI18n } from 'vue-i18n';
 import { useSubmissionsStore } from 'src/stores/submissions';
 import AppBrand from './AppBrand.vue';

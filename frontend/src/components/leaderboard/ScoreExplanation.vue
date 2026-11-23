@@ -38,7 +38,6 @@ const { t } = useI18n();
 
     &__title {
         margin: 0;
-        font-family: inherit;
         font-size: 14px;
         font-weight: 800;
         line-height: 1.25;

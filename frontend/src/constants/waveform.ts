@@ -1,4 +1,5 @@
-// Decorative waveform shown when nothing is playing (bar heights from the Figma empty player)
+// Decorative waveform shown when nothing is playing (bar heights from the Figma empty player).
+// Placeholder for now: a dynamic waveform that adapts to the currently playing sound will replace it.
 export const IDLE_WAVEFORM = [
     0.08, 0.462, 0.422, 0.119, 0.149, 0.487, 0.38, 0.502, 0.933, 0.51, 0.186, 0.095, 0.378, 0.121,
     0.722, 0.715, 0.166, 0.299, 0.139, 0.136, 0.244, 0.458, 0.305, 0.197, 0.305, 0.147, 0.089,

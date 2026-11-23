@@ -8,7 +8,11 @@ export function formatListening(value: number): string {
     return value.toFixed(2);
 }
 
-// Clip length as m:ss
-export function formatDuration(seconds: number): string {
-    return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+// Clip length as mm:ss. DurationFormat only takes whole numbers, so the length is rounded first.
+export function formatDuration(seconds: number, locale: string): string {
+    const total = Math.round(seconds);
+    return new Intl.DurationFormat(locale, { style: 'digital', hoursDisplay: 'auto' }).format({
+        minutes: Math.floor(total / 60),
+        seconds: total % 60,
+    });
 }

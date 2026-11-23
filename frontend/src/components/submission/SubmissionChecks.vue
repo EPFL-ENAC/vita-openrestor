@@ -19,7 +19,7 @@
                     role="img"
                     :aria-label="t('submission.checks.states.failed')"
                 >
-                    <q-icon name="close" size="18px" />
+                    <q-icon :name="matClose" size="18px" />
                 </span>
                 <span v-else-if="!step.icon" class="submission-checks__number">{{
                     index + 1
@@ -52,6 +52,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { matClose } from '@quasar/extras/material-icons';
 import passedIcon from 'assets/icons/check-passed-28.svg';
 import runningIcon from 'assets/icons/check-running-28.svg';
 import queuedIcon from 'assets/icons/check-queued-28.svg';
@@ -142,7 +143,6 @@ function detailOf(step: { key: string; state: CheckState }): string {
 
     &__title {
         margin: 0;
-        font-family: inherit;
         font-size: 16px;
         font-weight: 800;
         line-height: 1.25;

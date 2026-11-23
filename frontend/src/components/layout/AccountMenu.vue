@@ -1,5 +1,5 @@
 <template>
-    <q-btn flat round dense icon="more_horiz" class="text-muted" :aria-label="t('account.menu')">
+    <q-btn flat round dense :icon="matMoreHoriz" class="text-muted" :aria-label="t('account.menu')">
         <q-menu anchor="bottom right" self="top right" class="bg-surface">
             <q-list dense style="min-width: 160px">
                 <q-item-label header>{{ t('language.label') }}</q-item-label>
@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { matMoreHoriz } from '@quasar/extras/material-icons';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from 'src/stores/auth';
 

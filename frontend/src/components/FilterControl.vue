@@ -88,7 +88,6 @@ function selectAll() {
     border-radius: var(--or-radius-pill);
     background: var(--or-bg-control);
     color: var(--or-text);
-    font-family: 'Roboto', sans-serif;
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;

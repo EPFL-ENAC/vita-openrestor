@@ -17,7 +17,8 @@ $dark-page: map.get(dec.$theme-dark, 'bg-page');
 $dark: map.get(dec.$theme-dark, 'bg-surface');
 $separator-dark-color: map.get(dec.$theme-dark, 'border');
 
-// Typography. Font families and mobile sizes are set in app.scss.
+// Typography. Mobile sizes are set in app.scss.
+$typography-font-family: dec.$font-body;
 $body-font-size: dec.$text-size-base;
 $body-line-height: dec.$text-line-height-base;
 $h1: dec.$text-page-title;
@@ -103,3 +104,4 @@ $generic-border-radius: dec.$radius-sm;
 $button-border-radius: dec.$radius-pill;
 $button-rounded-border-radius: dec.$radius-pill;
 $button-padding: dec.$button-padding-y dec.$button-padding-x;
+$button-font-weight: dec.$button-font-weight;

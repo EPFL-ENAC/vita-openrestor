@@ -57,7 +57,7 @@ $color-primary: opt.$red; // primary actions, active navigation, playback progre
 $color-positive: opt.$green;
 $color-warning: opt.$yellow;
 
-// Spacing
+// Spacing. theme.scss emits each one as a CSS custom property (--or-spacing-<size>).
 $spacing-xxs: opt.$space-2;
 $spacing-xs: opt.$space-4;
 $spacing-sm: opt.$space-8;
@@ -78,22 +78,18 @@ $radius-pill: opt.$radius-full; // buttons, chips, toggles
 // Buttons
 $button-padding-y: opt.$space-8;
 $button-padding-x: opt.$space-16;
+$button-font-weight: opt.$font-weight-400;
 
 // Typography
 $font-body: opt.$font-inter;
-$font-display: opt.$font-roboto; // brand name and some titles
 $text-size-base: opt.$font-size-14;
 $text-line-height-base: opt.$line-height-125;
 
+// Quasar's text-weight-* classes, limited to the loaded weights
 $text-weights: (
-    'thin': opt.$font-weight-100,
-    'light': opt.$font-weight-300,
     'regular': opt.$font-weight-400,
-    'medium': opt.$font-weight-500,
-    'semibold': opt.$font-weight-600,
     'bold': opt.$font-weight-700,
     'bolder': opt.$font-weight-800,
-    'black': opt.$font-weight-900,
 );
 
 // Text styles, desktop. quasar.variables.scss maps them to Quasar's h1 to overline.
@@ -107,13 +103,13 @@ $text-display-lg: (
     size: opt.$font-size-24,
     line-height: opt.$line-height-125,
     letter-spacing: opt.$letter-spacing-tight,
-    weight: opt.$font-weight-900,
+    weight: opt.$font-weight-800,
 );
 $text-display-md: (
     size: opt.$font-size-22,
     line-height: opt.$line-height-125,
     letter-spacing: opt.$letter-spacing-snug,
-    weight: opt.$font-weight-900,
+    weight: opt.$font-weight-800,
 );
 $text-section-title: (
     size: opt.$font-size-20,

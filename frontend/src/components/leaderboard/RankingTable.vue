@@ -93,7 +93,7 @@ const submissions = useSubmissionsStore();
         border-bottom: 1px solid var(--or-border);
         color: var(--or-text-muted);
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
 
         // Same left edge as the numbers below
@@ -142,7 +142,7 @@ const submissions = useSubmissionsStore();
     &__snr {
         flex: 0 0 116px;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
     }
 
     &__listening {

@@ -19,7 +19,7 @@ const { t } = useI18n();
     border-radius: var(--or-radius-pill);
     color: var(--q-warning);
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     white-space: nowrap;
 }
 </style>

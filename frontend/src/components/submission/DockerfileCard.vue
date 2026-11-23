@@ -170,7 +170,6 @@ function drop(event: DragEvent) {
 
     &__title {
         margin: 0;
-        font-family: inherit;
         font-size: 18px;
         font-weight: 800;
         line-height: 1.25;
@@ -203,7 +202,7 @@ function drop(event: DragEvent) {
         background: var(--or-bg-control);
         color: var(--or-text-soft);
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 700;
         white-space: nowrap;
     }
 
@@ -265,7 +264,7 @@ function drop(event: DragEvent) {
         color: var(--or-text);
         font: inherit;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 400;
         text-decoration: underline;
         cursor: pointer;
     }

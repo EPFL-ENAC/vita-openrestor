@@ -143,7 +143,7 @@ const playIcon = computed(() => {
     }
 
     &__number {
-        font-weight: 900;
+        font-weight: 800;
         line-height: 1;
     }
 
@@ -169,7 +169,7 @@ const playIcon = computed(() => {
         margin: 0;
         overflow: hidden;
         font-size: 24px;
-        font-weight: 900;
+        font-weight: 800;
         line-height: 1.25;
         text-overflow: ellipsis;
         white-space: nowrap;

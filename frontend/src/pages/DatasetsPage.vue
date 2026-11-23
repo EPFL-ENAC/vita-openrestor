@@ -144,13 +144,12 @@ function downloadRecipes() {
         flex-direction: column;
         gap: 16px;
         padding-top: 6px;
-        font-family: 'Roboto', sans-serif;
     }
 
     &__panel-title {
         margin: 0;
         font-size: 16px;
-        font-weight: 900;
+        font-weight: 800;
         line-height: 1.2;
     }
 }

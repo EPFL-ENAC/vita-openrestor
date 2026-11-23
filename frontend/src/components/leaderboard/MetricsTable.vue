@@ -237,7 +237,7 @@ function format(key: MetricKey, value: number, signed = false): string {
         border-bottom: 1px solid var(--or-border);
         color: var(--or-text-muted);
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
     }
 

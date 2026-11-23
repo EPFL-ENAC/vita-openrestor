@@ -49,16 +49,12 @@ function pageStyle(offset: number, height: number) {
 </script>
 
 <style scoped lang="scss">
+// The grid places the page areas (main column and panel). Each page lays out its own content.
 .workspace-page {
-    display: flex;
-    flex-direction: column;
-
-    &__main {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        min-width: 0;
-    }
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    // The main column fills the page height, the panel sits below it
+    grid-template-rows: 1fr auto;
 
     &__content {
         padding: 20px 16px;
@@ -81,18 +77,18 @@ function pageStyle(offset: number, height: number) {
     }
 
     &--wide {
-        flex-direction: row;
+        // The auto column takes the panel width, and is empty on a page without a panel
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: minmax(0, 1fr);
 
         .workspace-page__main,
         .workspace-page__aside {
-            min-height: 0;
             overflow-y: auto;
         }
 
         .workspace-page__aside {
-            flex: 0 0 360px;
-            // Long values (checksums) must truncate instead of widening the panel
-            min-width: 0;
+            // A fixed width, so long values (checksums) truncate instead of widening the panel
+            width: 360px;
             border-top: 0;
             border-left: 1px solid var(--or-border);
         }
