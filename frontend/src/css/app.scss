@@ -18,14 +18,26 @@ body {
     text-transform: uppercase;
 }
 
+// Native <button> without the browser look. :where() keeps it at zero specificity,
+// so text classes and component rules override it.
+:where(.plain-button) {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
 // Thin red line at the top of the content (desktop) or of the mobile header
 .release-accent {
     height: 3px;
     background: var(--q-primary);
 }
 
-// Mobile (below Quasar's sm breakpoint): the design's 390px frames use smaller titles
-@media (max-width: $breakpoint-xs-max) {
+// Compact layout (below Quasar's md breakpoint, where pages switch with $q.screen.gt.sm):
+// the design's 390px frames use smaller titles
+@media (max-width: $breakpoint-sm-max) {
     h1,
     .text-h1 {
         font-size: dec.$text-mobile-page-title-size;

@@ -1,7 +1,7 @@
 <template>
     <!-- A slider when it seeks (the player); a picture otherwise (the comparison panel) -->
     <div
-        class="audio-waveform"
+        class="audio-waveform relative-position row no-wrap items-center justify-between overflow-hidden"
         :class="{ 'audio-waveform--idle': idle, 'audio-waveform--seekable': seekable }"
         :style="{ height: `${height}px` }"
         :role="seekable ? 'slider' : undefined"
@@ -104,12 +104,6 @@ function onKeydown(event: KeyboardEvent) {
 
 <style scoped lang="scss">
 .audio-waveform {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    overflow: hidden;
-
     &--seekable {
         cursor: pointer;
 

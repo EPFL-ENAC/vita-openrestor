@@ -1,17 +1,32 @@
 <template>
-    <nav class="primary-nav" :class="`primary-nav--${layout}`" :aria-label="t('nav.primary')">
+    <nav
+        class="primary-nav no-wrap"
+        :class="[`primary-nav--${layout}`, layout === 'sidebar' ? 'column' : 'row bg-sunken']"
+        :aria-label="t('nav.primary')"
+    >
         <router-link
             v-for="item in items"
             :key="item.route"
             :to="{ name: item.route }"
-            class="primary-nav__item"
-            :class="{ 'primary-nav__item--active': isActive(item.routes) }"
+            class="primary-nav__item no-wrap items-center"
+            :class="[
+                layout === 'sidebar' ? 'row' : 'col column',
+                { 'primary-nav__item--active': isActive(item.routes) },
+            ]"
         >
             <app-icon
                 :src="layout === 'sidebar' ? item.icon : item.iconSmall"
                 :size="layout === 'sidebar' ? 20 : 18"
             />
-            <span class="primary-nav__label">{{ t(item.labelKey) }}</span>
+            <span
+                :class="
+                    layout === 'sidebar'
+                        ? 'text-subtitle2 text-weight-bolder'
+                        : 'text-caption text-weight-bold'
+                "
+            >
+                {{ t(item.labelKey) }}
+            </span>
         </router-link>
     </nav>
 </template>
@@ -36,6 +51,8 @@ function isActive(routes: readonly string[]): boolean {
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template.
+// The colors stay here because the active state changes them.
 .primary-nav__item {
     color: var(--or-text-muted);
     text-decoration: none;
@@ -46,17 +63,13 @@ function isActive(routes: readonly string[]): boolean {
 }
 
 .primary-nav--sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 0 12px 12px;
+    gap: var(--or-spacing-xs);
+    padding: 0 var(--or-spacing-sm-md) var(--or-spacing-sm-md);
 
     .primary-nav__item {
-        display: flex;
-        align-items: center;
-        gap: 16px;
+        gap: var(--or-spacing-md);
         height: 44px;
-        padding: 0 12px;
+        padding: 0 var(--or-spacing-sm-md);
         border-left: 3px solid transparent;
         border-radius: var(--or-radius-md);
 
@@ -70,26 +83,15 @@ function isActive(routes: readonly string[]): boolean {
             border-radius: var(--or-radius-lg);
         }
     }
-
-    .primary-nav__label {
-        font-size: 14px;
-        font-weight: 800;
-    }
 }
 
 .primary-nav--bottom {
-    display: flex;
     height: 62px;
-    background: var(--or-bg-sunken);
     border-top: 1px solid var(--or-border);
 
     .primary-nav__item {
-        flex: 1 1 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        padding-top: 10px;
+        gap: var(--or-spacing-xs);
+        padding-top: var(--or-spacing-sm);
 
         &--active::after {
             content: '';
@@ -98,11 +100,6 @@ function isActive(routes: readonly string[]): boolean {
             border-radius: var(--or-radius-xs);
             background: var(--q-primary);
         }
-    }
-
-    .primary-nav__label {
-        font-size: 10px;
-        font-weight: 700;
     }
 }
 </style>

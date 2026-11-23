@@ -1,10 +1,11 @@
 <template>
     <workspace-page flush>
         <header
-            class="submission-page__heading"
+            class="submission-page__heading column no-wrap"
             :class="{
                 'submission-page__heading--compact': !isDesktop,
                 'submission-page__heading--draft': isDraft,
+                'justify-end': isDraft,
             }"
         >
             <back-button
@@ -12,14 +13,26 @@
                 :to="{ name: 'leaderboard' }"
                 :label="t('pages.leaderboard.title')"
             />
-            <div class="submission-page__identity">
+            <div
+                class="submission-page__identity row items-center"
+                :class="{ 'no-wrap': !isDesktop }"
+            >
                 <model-avatar v-if="!isDraft" :name="title" mine :size="isDesktop ? 88 : 56" />
-                <div class="submission-page__identity-text">
-                    <p class="submission-page__eyebrow">{{ eyebrow }}</p>
-                    <h1 class="submission-page__title">{{ title }}</h1>
+                <div class="submission-page__identity-text column no-wrap">
+                    <p
+                        class="q-my-none"
+                        :class="
+                            isDesktop
+                                ? 'text-body2 text-weight-bolder'
+                                : 'text-caption text-weight-bold text-primary'
+                        "
+                    >
+                        {{ eyebrow }}
+                    </p>
+                    <h1 class="text-h1 ellipsis q-my-none">{{ title }}</h1>
                     <p
                         v-if="isDesktop"
-                        class="submission-page__status"
+                        class="text-body2 text-weight-bold q-my-none"
                         :class="{
                             'text-positive': phase === 'approved',
                             'text-negative': failed,
@@ -29,7 +42,10 @@
                         {{ statusText }}
                     </p>
                 </div>
-                <div v-if="isDesktop" class="submission-page__actions">
+                <div
+                    v-if="isDesktop"
+                    class="submission-page__actions row no-wrap col-auto q-ml-auto"
+                >
                     <action-button
                         v-for="action in actions"
                         :key="action.key"
@@ -43,14 +59,16 @@
         </header>
 
         <div
-            class="submission-page__body"
+            class="submission-page__body column no-wrap"
             :class="{ 'submission-page__body--compact': !isDesktop }"
         >
+            <!-- Desktop: more room under the progress, as between the header line and it -->
             <submission-progress
                 :phase="phase"
                 :failed="failed"
                 :compact="!isDesktop"
                 :summary="statusText"
+                :class="{ 'q-mb-sm': isDesktop }"
             />
 
             <template v-if="!isDesktop">
@@ -75,7 +93,7 @@
             <template v-if="!isDesktop">
                 <feedback-notice v-bind="notice" />
                 <div
-                    class="submission-page__mobile-actions"
+                    class="submission-page__mobile-actions row"
                     :class="{ 'submission-page__mobile-actions--row': isDraft }"
                 >
                     <action-button
@@ -93,15 +111,16 @@
         </div>
 
         <template v-if="isDesktop" #aside>
-            <div class="submission-page__aside">
+            <div class="submission-page__aside column no-wrap">
                 <submission-checks :phase="phase" :failure="failure" />
                 <score-summary
                     v-if="hasScores"
                     :snr-gain="detail?.snrGain ?? null"
                     :listening="detail?.listening ?? null"
-                    class="submission-page__scores"
+                    class="q-mt-md"
                 />
-                <div class="submission-page__notice">
+                <!-- Pushed to the bottom; keeps some space when the panel is full -->
+                <div class="q-mt-auto q-pt-lg">
                     <feedback-notice v-bind="notice" />
                 </div>
             </div>
@@ -404,123 +423,66 @@ watch(
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template.
+// The header and body sizes, gaps and their mobile variants stay here.
 .submission-page {
     &__heading {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+        gap: var(--or-spacing-md);
         min-height: 168px;
-        padding: 24px 24px 16px;
+        padding: var(--or-spacing-lg) var(--or-spacing-lg) var(--or-spacing-md);
         border-bottom: 1px solid var(--or-border);
 
         &--draft {
-            justify-content: flex-end;
-            padding-bottom: 24px;
+            padding-bottom: var(--or-spacing-lg);
         }
 
+        // After --draft: on mobile the draft header has no bottom padding either
         &--compact {
-            gap: 12px;
+            gap: var(--or-spacing-sm-md);
             min-height: 0;
-            padding: 24px 16px 0;
+            padding: var(--or-spacing-lg) var(--or-spacing-md) 0;
             border-bottom: 0;
 
             .submission-page__identity {
-                flex-wrap: nowrap;
-                gap: 14px;
+                gap: var(--or-spacing-sm-md);
             }
 
             .submission-page__identity-text {
-                gap: 4px;
+                gap: var(--or-spacing-xs);
                 min-width: 0;
-            }
-
-            .submission-page__eyebrow {
-                color: var(--q-primary);
-                font-size: 12px;
-                font-weight: 700;
-                line-height: 1.35;
-            }
-
-            .submission-page__title {
-                font-size: 32px;
             }
         }
     }
 
     // The actions move under the title when both do not fit on one line
     &__identity {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 16px 20px;
+        gap: var(--or-spacing-md) var(--or-spacing-md-lg);
     }
 
+    // Not the `col` class: its min-width: 0 would compete with the min-width below
     &__identity-text {
-        display: flex;
         flex: 1 1 0;
-        flex-direction: column;
-        gap: 3px;
+        gap: var(--or-spacing-xxs);
         // Room for a short model name at 48px before the actions wrap
         min-width: min(100%, 340px);
-        line-height: 1.25;
-
-        p {
-            margin: 0;
-        }
-    }
-
-    &__eyebrow {
-        font-size: 13px;
-        font-weight: 800;
-    }
-
-    &__title {
-        margin: 0;
-        overflow: hidden;
-        font-size: 48px;
-        font-weight: 800;
-        line-height: 1.25;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__status {
-        font-size: 13px;
-        font-weight: 700;
     }
 
     &__actions {
-        display: flex;
-        flex-shrink: 0;
-        gap: 12px;
-        margin-left: auto;
+        gap: var(--or-spacing-sm-md);
     }
 
     &__body {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 24px;
-
-        // Room between the progress and the cards, as between the header line and the progress
-        > :first-child {
-            margin-bottom: 8px;
-        }
+        gap: var(--or-spacing-md);
+        padding: var(--or-spacing-lg);
 
         &--compact {
-            gap: 20px;
-            padding: 6px 16px 36px;
-
-            > :first-child {
-                margin-bottom: 0;
-            }
+            gap: var(--or-spacing-md-lg);
+            padding: var(--or-spacing-xs) var(--or-spacing-md) var(--or-spacing-xl);
         }
     }
 
     &__mobile-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px 8px;
+        gap: var(--or-spacing-md-lg) var(--or-spacing-sm);
 
         &--row .submission-page__mobile-action:last-child {
             flex: 1 1 0;
@@ -529,19 +491,7 @@ watch(
 
     // Checks at the top, the notice at the bottom of the panel
     &__aside {
-        display: flex;
-        flex-direction: column;
         min-height: 100%;
-    }
-
-    &__scores {
-        margin-top: 16px;
-    }
-
-    // Pushed to the bottom; keeps some space when the panel is full
-    &__notice {
-        margin-top: auto;
-        padding-top: 24px;
     }
 }
 </style>

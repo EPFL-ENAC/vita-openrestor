@@ -1,5 +1,8 @@
 <template>
-    <span class="sample-data-badge">{{ t('leaderboard.sampleData') }}</span>
+    <span
+        class="sample-data-badge row inline no-wrap items-center q-px-sm text-caption text-weight-bold text-warning text-no-wrap"
+        >{{ t('leaderboard.sampleData') }}</span
+    >
 </template>
 
 <script setup lang="ts">
@@ -10,16 +13,10 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Typography, color and flex come from the global classes in the template
 .sample-data-badge {
-    display: inline-flex;
-    align-items: center;
     height: 22px;
-    padding: 0 10px;
     border: 1px solid var(--q-warning);
     border-radius: var(--or-radius-pill);
-    color: var(--q-warning);
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
 }
 </style>

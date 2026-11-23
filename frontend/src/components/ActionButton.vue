@@ -4,7 +4,7 @@
         no-caps
         :color="tone === 'accent' ? 'primary' : undefined"
         :text-color="tone === 'accent' ? 'black' : undefined"
-        class="action-button"
+        class="action-button text-subtitle2"
         :class="[`action-button--${tone}`, { 'full-width': block }]"
         :label="label"
     />
@@ -25,11 +25,10 @@ withDefaults(
 </script>
 
 <style scoped lang="scss">
+// Typography comes from the global class in the template
 .action-button {
     min-height: 44px;
-    padding: 0 20px;
-    font-size: 14px;
-    font-weight: 700;
+    padding: 0 var(--or-spacing-md-lg);
     white-space: pre;
 
     &--neutral {

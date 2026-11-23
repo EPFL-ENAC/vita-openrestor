@@ -1,18 +1,23 @@
 <template>
-    <div class="score-summary" :class="{ 'score-summary--compact': compact }">
-        <div class="score-summary__scores">
-            <div class="score-summary__metric">
-                <strong>{{ snrGain === null ? '—' : formatSnr(snrGain) }}</strong>
-                <span>{{ t('leaderboard.metrics.snrGain') }}</span>
+    <div
+        class="score-summary no-wrap q-pa-md rounded-lg bg-raised"
+        :class="
+            compact ? 'score-summary--compact row items-start justify-between' : 'column reverse'
+        "
+    >
+        <div class="score-summary__scores row no-wrap">
+            <div class="score-summary__metric column no-wrap text-no-wrap">
+                <strong class="text-h5">{{ snrGain === null ? '—' : formatSnr(snrGain) }}</strong>
+                <span class="text-caption text-muted">{{ t('leaderboard.metrics.snrGain') }}</span>
             </div>
-            <div class="score-summary__metric">
-                <strong>{{
+            <div class="score-summary__metric column no-wrap text-no-wrap">
+                <strong class="text-h5">{{
                     listening === null ? t('submission.scores.pending') : formatListening(listening)
                 }}</strong>
-                <span>{{ t('submission.scores.listening') }}</span>
+                <span class="text-caption text-muted">{{ t('submission.scores.listening') }}</span>
             </div>
         </div>
-        <sample-data-badge class="score-summary__badge" />
+        <sample-data-badge :class="{ 'self-end': !compact }" />
     </div>
 </template>
 
@@ -34,50 +39,21 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Typography, flex and the card look come from the global classes in the template
+// (desktop: `column reverse` puts the badge above the scores). Only the gaps stay here.
 .score-summary {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 12px;
-    padding: 18px 16px;
-    border-radius: var(--or-radius-lg);
-    background: var(--or-bg-raised);
-
-    &__badge {
-        align-self: flex-end;
-    }
+    gap: var(--or-spacing-sm-md);
 
     &__scores {
-        display: flex;
-        gap: 24px;
+        gap: var(--or-spacing-lg);
     }
 
     &__metric {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        line-height: 1.25;
-        white-space: nowrap;
-
-        strong {
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        span {
-            color: var(--or-text-muted);
-            font-size: 12px;
-        }
+        gap: var(--or-spacing-xxs);
     }
 
     &--compact {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 24px;
-
-        .score-summary__badge {
-            align-self: flex-start;
-        }
+        gap: var(--or-spacing-lg);
     }
 }
 </style>

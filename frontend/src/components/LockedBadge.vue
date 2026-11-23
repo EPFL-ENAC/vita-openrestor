@@ -1,5 +1,8 @@
 <template>
-    <span class="locked-badge">{{ t('submission.locked') }}</span>
+    <span
+        class="locked-badge row inline no-wrap items-center q-px-sm bg-control text-soft text-caption text-weight-bold text-no-wrap"
+        >{{ t('submission.locked') }}</span
+    >
 </template>
 
 <script setup lang="ts">
@@ -10,18 +13,11 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Typography, colors and flex come from the global classes in the template
 .locked-badge {
-    display: inline-flex;
     flex-shrink: 0;
-    align-items: center;
     height: 22px;
-    padding: 0 10px;
     border: 1px solid var(--or-border-locked);
     border-radius: var(--or-radius-pill);
-    background: var(--or-bg-control);
-    color: var(--or-text-soft);
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
 }
 </style>

@@ -1,19 +1,28 @@
 <template>
     <workspace-page flush>
         <header
-            class="leaderboard-page__header"
-            :class="{ 'leaderboard-page__header--compact': !isDesktop }"
+            class="leaderboard-page__header column no-wrap"
+            :class="{ 'items-start': isDesktop, 'leaderboard-page__header--compact': !isDesktop }"
         >
-            <p class="leaderboard-page__release">
+            <p
+                class="q-my-none"
+                :class="
+                    isDesktop
+                        ? 'text-body2 text-weight-bolder'
+                        : 'text-caption text-weight-bold text-primary'
+                "
+            >
                 {{
                     isDesktop
                         ? t('leaderboard.release', { release: release })
                         : t('leaderboard.releaseShort', { release: release })
                 }}
             </p>
-            <div class="leaderboard-page__title-row">
+            <div
+                class="leaderboard-page__title-row row no-wrap items-end justify-between self-stretch"
+            >
                 <h1 class="text-h1 q-my-none">{{ t('pages.leaderboard.title') }}</h1>
-                <div v-if="isDesktop" class="leaderboard-page__filters">
+                <div v-if="isDesktop" class="leaderboard-page__filters row no-wrap items-center">
                     <sample-data-badge />
                     <filter-control
                         :label="sortLabel"
@@ -32,7 +41,7 @@
             />
             <div
                 v-if="!isDesktop"
-                class="leaderboard-page__filters leaderboard-page__filters--compact"
+                class="leaderboard-page__filters leaderboard-page__filters--compact row no-wrap items-start"
             >
                 <filter-control
                     :label="sortLabel"
@@ -81,8 +90,8 @@
                 </div>
             </div>
 
-            <section v-if="rest.length" class="leaderboard-page__ranking">
-                <h2 class="leaderboard-page__ranking-title">{{ t('leaderboard.fullRanking') }}</h2>
+            <section v-if="rest.length" class="leaderboard-page__ranking column no-wrap">
+                <h2 class="text-h4 q-my-none">{{ t('leaderboard.fullRanking') }}</h2>
                 <ranking-table
                     :entries="rest"
                     :first-rank="podium.length + 1"
@@ -92,17 +101,17 @@
             </section>
         </div>
 
-        <p v-else-if="leaderboard.board" class="leaderboard-page__empty text-muted">
+        <p v-else-if="leaderboard.board" class="q-ma-lg text-muted">
             {{ t('leaderboard.empty') }}
         </p>
 
         <template v-if="isDesktop" #aside>
-            <div class="leaderboard-page__panel">
-                <h2 class="leaderboard-page__panel-title">{{ t('leaderboard.nowPlaying') }}</h2>
-                <div class="leaderboard-page__track">
+            <div class="leaderboard-page__panel column no-wrap q-pt-xs">
+                <h2 class="text-h6 q-my-none">{{ t('leaderboard.nowPlaying') }}</h2>
+                <div class="leaderboard-page__track row no-wrap items-center q-pt-xxs">
                     <sound-thumb :active="leaderboard.nowPlaying !== null" />
-                    <span class="leaderboard-page__track-text">
-                        <span class="leaderboard-page__track-title">
+                    <span class="leaderboard-page__track-text col-shrink column no-wrap text-body1">
+                        <span class="text-h4 ellipsis">
                             {{
                                 leaderboard.nowPlaying
                                     ? player.track?.title
@@ -212,148 +221,80 @@ function play(entry: LeaderboardEntry) {
 </script>
 
 <style scoped lang="scss">
+// Typography, flex and simple spacing come from the global classes in the template.
+// Only the gaps, the grids and the paddings that change in compact mode stay here.
 .leaderboard-page {
     &__header {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        padding: 30px 24px 16px;
+        gap: var(--or-spacing-xs);
+        padding: var(--or-spacing-xl) var(--or-spacing-lg) var(--or-spacing-md);
         border-bottom: 1px solid var(--or-border);
 
         &--compact {
-            align-items: stretch;
-            padding: 20px 16px 0;
+            padding: var(--or-spacing-md-lg) var(--or-spacing-md) 0;
             border-bottom: 0;
-
-            .leaderboard-page__release {
-                color: var(--q-primary);
-                font-size: 12px;
-                font-weight: 700;
-            }
         }
     }
 
-    &__release {
-        margin: 0;
-        font-size: 13px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
-
     &__title-row {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        align-self: stretch;
-        gap: 16px;
+        gap: var(--or-spacing-md);
     }
 
     &__filters {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding-top: 8px;
-        padding-bottom: 6px;
+        gap: var(--or-spacing-sm);
+        padding: var(--or-spacing-sm) 0 var(--or-spacing-xs);
 
         &--compact {
-            align-items: flex-start;
-            padding: 20px 0;
+            padding: var(--or-spacing-md-lg) 0;
         }
     }
 
     &__body {
-        display: flex;
-        flex-direction: column;
         // Same 24px gap under the header line as on the sides
-        padding: 24px;
+        padding: var(--or-spacing-lg);
 
         &--compact {
-            padding: 0 16px 24px;
+            padding: 0 var(--or-spacing-md) var(--or-spacing-lg);
         }
     }
 
+    // Desktop: the three cards side by side. Compact: the winner above the two runners-up.
     &__podium {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
+        gap: var(--or-spacing-md);
 
         &--compact {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--or-spacing-md-lg);
         }
     }
 
     &__runners-up {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        gap: var(--or-spacing-sm-md);
     }
 
     &__ranking {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        padding-top: 40px;
-    }
-
-    &__ranking-title {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 800;
-        line-height: 1.25;
+        gap: var(--or-spacing-lg);
+        padding-top: var(--or-spacing-xl);
     }
 
     &__body--compact &__ranking {
-        gap: 4px;
-        padding-top: 26px;
-    }
-
-    &__body--compact &__ranking-title {
-        font-size: 18px;
-    }
-
-    &__empty {
-        margin: 24px;
+        gap: var(--or-spacing-xs);
+        padding-top: var(--or-spacing-lg);
     }
 
     &__panel {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding-top: 6px;
-    }
-
-    &__panel-title {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 800;
-        line-height: 1.25;
+        gap: var(--or-spacing-md);
     }
 
     &__track {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding-top: 3px;
+        gap: var(--or-spacing-sm-md);
     }
 
     &__track-text {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-        font-size: 14px;
-        line-height: 1.25;
-    }
-
-    &__track-title {
-        overflow: hidden;
-        font-size: 20px;
-        font-weight: 800;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        gap: var(--or-spacing-xxs);
     }
 }
 </style>

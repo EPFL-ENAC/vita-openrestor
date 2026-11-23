@@ -3,42 +3,57 @@
         class="submission-checks"
         :class="{
             'submission-checks--card': compact,
+            'q-pa-md rounded-lg bg-raised': compact,
             'submission-checks--numbered': notStarted,
         }"
     >
-        <h2 class="submission-checks__title">{{ t('submission.checks.title') }}</h2>
-        <p v-if="!compact" class="submission-checks__description">
+        <h2 class="text-h6 q-my-none">{{ t('submission.checks.title') }}</h2>
+        <p v-if="!compact" class="submission-checks__description text-body2 text-muted q-my-none">
             {{ t('submission.checks.description') }}
         </p>
 
-        <ol class="submission-checks__list">
-            <li v-for="(step, index) in steps" :key="step.key" class="submission-checks__step">
+        <ol class="submission-checks__list column no-wrap q-pa-none">
+            <li
+                v-for="(step, index) in steps"
+                :key="step.key"
+                class="submission-checks__step row no-wrap items-start"
+            >
                 <span
                     v-if="step.state === 'failed'"
-                    class="submission-checks__failed"
+                    class="submission-checks__failed row no-wrap items-center justify-center text-negative"
                     role="img"
                     :aria-label="t('submission.checks.states.failed')"
                 >
                     <q-icon :name="matClose" size="18px" />
                 </span>
-                <span v-else-if="!step.icon" class="submission-checks__number">{{
-                    index + 1
-                }}</span>
+                <span
+                    v-else-if="!step.icon"
+                    class="submission-checks__number row no-wrap items-center justify-center text-subtitle2 text-muted"
+                >
+                    {{ index + 1 }}
+                </span>
                 <img
                     v-else
                     :src="step.icon"
                     width="28"
                     height="28"
                     :alt="t(`submission.checks.states.${step.state}`)"
-                    class="submission-checks__status"
+                    class="col-auto"
                 />
-                <div class="submission-checks__text">
-                    <span class="submission-checks__name">
+                <div class="submission-checks__text col column no-wrap">
+                    <span class="text-subtitle2 text-weight-bolder">
                         {{ t(`submission.checks.steps.${step.key}.title`) }}
                     </span>
-                    <span class="submission-checks__detail">{{ detailOf(step) }}</span>
-                    <ul v-if="step.subSteps.length > 0" class="submission-checks__sub-steps">
-                        <li v-for="subStep in step.subSteps" :key="subStep">
+                    <span class="text-body2 text-muted">{{ detailOf(step) }}</span>
+                    <ul
+                        v-if="step.subSteps.length > 0"
+                        class="submission-checks__sub-steps column no-wrap q-ma-none"
+                    >
+                        <li
+                            v-for="subStep in step.subSteps"
+                            :key="subStep"
+                            class="submission-checks__sub-step row no-wrap items-center text-caption text-muted"
+                        >
                             <img :src="bulletIcon" width="4" height="4" alt="" />
                             {{ t(`submission.checks.steps.${step.key}.subSteps.${subStep}`) }}
                         </li>
@@ -137,128 +152,58 @@ function detailOf(step: { key: string; state: CheckState }): string {
 </script>
 
 <style scoped lang="scss">
+// Typography, flex and the mobile card look come from the global classes in the template.
+// The list spacing of each variant and the round step badges stay here.
 .submission-checks {
-    display: flex;
-    flex-direction: column;
-
-    &__title {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
-
-    &__description {
-        margin: 0;
-        color: var(--or-text-muted);
-        font-size: 13px;
-        line-height: 1.4;
-    }
-
     &__list {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        margin: 28px 0 0;
-        padding: 0;
+        gap: var(--or-spacing-lg);
+        margin: var(--or-spacing-lg) 0 0;
         list-style: none;
     }
 
     &__step {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
+        gap: var(--or-spacing-sm-md);
     }
 
-    &__status {
-        display: block;
+    // Round 28px badge: the step number, or a cross for the failed check.
+    // Not `col-auto`: its width: auto would compete with the width here.
+    &__number,
+    &__failed {
         flex-shrink: 0;
-    }
-
-    &__number {
-        display: flex;
-        flex-shrink: 0;
-        align-items: center;
-        justify-content: center;
         width: 28px;
         height: 28px;
         border: 2px solid var(--or-waveform-idle);
         border-radius: 50%;
-        color: var(--or-text-muted);
-        font-size: 14px;
-        font-weight: 700;
     }
 
     &__failed {
-        display: flex;
-        flex-shrink: 0;
-        align-items: center;
-        justify-content: center;
-        width: 28px;
-        height: 28px;
-        border: 2px solid var(--q-negative);
-        border-radius: 50%;
-        color: var(--q-negative);
+        border-color: var(--q-negative);
     }
 
     &__text {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        gap: 3px;
-        min-width: 0;
-    }
-
-    &__name {
-        font-size: 14px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
-
-    &__detail {
-        color: var(--or-text-muted);
-        font-size: 13px;
-        line-height: 1.4;
+        gap: var(--or-spacing-xxs);
     }
 
     &__sub-steps {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        margin: 0;
-        padding: 6px 0 0;
+        gap: var(--or-spacing-xs);
+        padding: var(--or-spacing-xs) 0 0;
         list-style: none;
+    }
 
-        li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--or-text-muted);
-            font-size: 12px;
-            line-height: 1.4;
-        }
+    &__sub-step {
+        gap: var(--or-spacing-sm);
     }
 
     // Mobile: a card above the Dockerfile, without the description
-    &--card {
-        padding: 16px;
-        border-radius: var(--or-radius-lg);
-        background: var(--or-bg-raised);
-
-        .submission-checks__title {
-            font-size: 14px;
-        }
-
-        .submission-checks__list {
-            gap: 22px;
-            margin-top: 16px;
-        }
+    &--card .submission-checks__list {
+        gap: var(--or-spacing-md-lg);
+        margin-top: var(--or-spacing-md);
     }
 
-    // Before the run: numbered rows separated by lines
+    // Before the run: numbered rows separated by lines. After --card, so it wins on mobile too.
     &--numbered {
         .submission-checks__description {
-            margin: 6px 0 18px;
+            margin: var(--or-spacing-xs) 0 var(--or-spacing-md);
         }
 
         .submission-checks__list {
@@ -267,12 +212,8 @@ function detailOf(step: { key: string; state: CheckState }): string {
         }
 
         .submission-checks__step {
-            padding: 12px 0 15px;
+            padding: var(--or-spacing-sm-md) 0 var(--or-spacing-md);
             border-top: 1px solid var(--or-border);
-        }
-
-        .submission-checks__text {
-            gap: 1px;
         }
     }
 }

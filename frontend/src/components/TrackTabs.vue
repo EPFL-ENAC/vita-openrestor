@@ -1,7 +1,7 @@
 <template>
     <div
-        class="track-tabs"
-        :class="{ 'track-tabs--block': block }"
+        class="track-tabs row no-wrap items-center q-pa-xxs bg-control"
+        :class="{ 'track-tabs--block': block, inline: !block }"
         role="tablist"
         :aria-label="t('tracks.label')"
     >
@@ -10,7 +10,7 @@
             :key="track.id"
             type="button"
             role="tab"
-            class="track-tabs__tab"
+            class="track-tabs__tab plain-button text-center text-caption text-weight-bolder text-no-wrap"
             :class="{ 'track-tabs__tab--selected': track.id === modelValue }"
             :aria-selected="track.id === modelValue"
             @click="emit('update:modelValue', track.id)"
@@ -39,25 +39,16 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Typography, flex and background come from the global classes in the template.
+// The tab colors stay here because the selected state changes them.
 .track-tabs {
-    display: inline-flex;
-    align-items: center;
-    padding: 2px;
     border-radius: var(--or-radius-pill);
-    background: var(--or-bg-control);
 
     &__tab {
         height: 36px;
-        padding: 0 16px;
-        border: 0;
+        padding: 0 var(--or-spacing-md);
         border-radius: var(--or-radius-pill);
-        background: transparent;
         color: var(--or-text-muted);
-        font: inherit;
-        font-size: 12px;
-        font-weight: 800;
-        white-space: nowrap;
-        cursor: pointer;
 
         &--selected {
             background: var(--q-accent);
@@ -65,13 +56,9 @@ const { t } = useI18n();
         }
     }
 
-    &--block {
-        display: flex;
-
-        .track-tabs__tab {
-            flex: 1 1 0;
-            padding: 0 8px;
-        }
+    &--block .track-tabs__tab {
+        flex: 1 1 0;
+        padding: 0 var(--or-spacing-sm);
     }
 }
 </style>

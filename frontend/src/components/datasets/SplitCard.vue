@@ -1,19 +1,21 @@
 <template>
     <section
-        class="split-card"
+        class="split-card column no-wrap rounded-lg bg-raised"
         :class="{ 'split-card--compact': compact, 'split-card--hidden': split.hidden }"
     >
-        <header class="split-card__heading">
-            <div class="split-card__identity">
-                <div class="split-card__name-row">
-                    <h2 class="split-card__name">{{ name }}</h2>
+        <header class="split-card__heading row items-start justify-between">
+            <div class="split-card__identity column no-wrap">
+                <div class="split-card__name-row row no-wrap items-center">
+                    <h2 class="text-h5 q-ma-none">{{ name }}</h2>
                     <locked-badge v-if="split.hidden" />
                 </div>
-                <p class="split-card__detail">{{ t(`datasets.splits.${split.id}.detail`) }}</p>
-                <p class="split-card__stats">{{ stats }}</p>
+                <p class="text-body1 text-soft q-ma-none">
+                    {{ t(`datasets.splits.${split.id}.detail`) }}
+                </p>
+                <p class="text-body2 text-muted q-ma-none">{{ stats }}</p>
             </div>
 
-            <div v-if="!split.hidden" class="split-card__downloads">
+            <div v-if="!split.hidden" class="split-card__downloads row">
                 <split-download
                     v-for="part in split.parts"
                     :key="part"
@@ -29,15 +31,15 @@
         </header>
 
         <div class="split-card__samples">
-            <div class="split-card__samples-heading">
-                <h3>{{ t('datasets.samples.title') }}</h3>
-            </div>
+            <h3 class="text-overline text-subtle q-mt-none q-mb-sm">
+                {{ t('datasets.samples.title') }}
+            </h3>
 
-            <ul class="split-card__list">
+            <ul class="split-card__list column no-wrap q-ma-none q-pa-none">
                 <li v-for="sample in split.samples" :key="sample.id">
                     <button
                         type="button"
-                        class="split-card__sample"
+                        class="split-card__sample plain-button row no-wrap items-center full-width text-left rounded-sm"
                         :class="{
                             'split-card__sample--loaded': loadedId === sample.id,
                             'split-card__sample--playing': playingId === sample.id,
@@ -54,22 +56,26 @@
                         @click="emit('play', split.id, sample)"
                     >
                         <!-- Sound thumb, replaced by play / pause while the row is hovered -->
-                        <span class="split-card__marker">
+                        <span class="relative-position flex col-auto">
                             <sound-thumb :size="36" :active="loadedId === sample.id" />
-                            <span class="split-card__toggle">
+                            <span
+                                class="split-card__toggle absolute-full items-center justify-center"
+                            >
                                 <q-icon
                                     :name="playingId === sample.id ? matPause : matPlayArrow"
                                     size="20px"
                                 />
                             </span>
                         </span>
-                        <span class="split-card__sample-identity">
-                            <span class="split-card__sample-name">{{ sample.id }}</span>
-                            <span class="split-card__sample-detail">
+                        <span class="split-card__sample-identity col column no-wrap">
+                            <span class="split-card__sample-name text-subtitle2 ellipsis">
+                                {{ sample.id }}
+                            </span>
+                            <span class="text-body2 text-muted">
                                 {{ sample.degradation }} · {{ sample.severity }}
                             </span>
                         </span>
-                        <span class="split-card__sample-length">
+                        <span class="split-card__sample-length col-auto text-body2 text-muted">
                             {{ formatDuration(sample.durationSeconds, locale) }}
                         </span>
                     </button>
@@ -143,112 +149,44 @@ const playingId = computed(() => (player.isPlaying ? loadedId.value : null));
 </script>
 
 <style scoped lang="scss">
+// Typography, flex, colors and radius come from the global classes in the template.
+// Only the gaps, row sizes and hover / loaded states of the card stay here.
 .split-card {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    border-radius: var(--or-radius-lg);
-    background: var(--or-bg-raised);
-
-    p,
-    h2,
-    h3 {
-        margin: 0;
-    }
+    gap: var(--or-spacing-md-lg);
+    padding: var(--or-spacing-md-lg);
 
     &__heading {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
+        gap: var(--or-spacing-md);
     }
 
     &__identity {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        gap: var(--or-spacing-xs);
         min-width: 0;
     }
 
     &__name-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    &__name {
-        font-size: 18px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
-
-    &__detail {
-        color: var(--or-text-soft);
-        font-size: 14px;
-        line-height: 1.4;
-    }
-
-    &__stats {
-        color: var(--or-text-muted);
-        font-size: 13px;
+        gap: var(--or-spacing-sm);
     }
 
     &__downloads {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        gap: var(--or-spacing-sm);
     }
 
     &__samples {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        padding-top: 16px;
+        padding-top: var(--or-spacing-md);
         border-top: 1px solid var(--or-border);
     }
 
-    &__samples-heading {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: 4px 10px;
-        margin-bottom: 4px;
-
-        h3 {
-            color: var(--or-text-subtle);
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.4;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-    }
-
     &__list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        margin: 0;
-        padding: 0;
+        gap: var(--or-spacing-xxs);
         list-style: none;
     }
 
     &__sample {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        width: 100%;
+        gap: var(--or-spacing-sm-md);
         min-height: 56px;
-        padding: 6px 12px;
-        border: 0;
-        border-radius: var(--or-radius-sm);
-        background: transparent;
+        padding: var(--or-spacing-xs) var(--or-spacing-sm-md);
         color: var(--or-text);
-        font: inherit;
-        text-align: left;
-        cursor: pointer;
 
         &:hover,
         &--loaded {
@@ -261,44 +199,16 @@ const playingId = computed(() => (player.isPlaying ? loadedId.value : null));
     }
 
     &__sample-identity {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-    }
-
-    &__sample-name {
-        overflow: hidden;
-        font-size: 14px;
-        font-weight: 700;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__sample-detail,
-    &__sample-length {
-        color: var(--or-text-muted);
-        font-size: 13px;
+        gap: var(--or-spacing-xxs);
     }
 
     &__sample-length {
-        flex-shrink: 0;
         font-variant-numeric: tabular-nums;
     }
 
-    &__marker {
-        position: relative;
-        display: flex;
-        flex-shrink: 0;
-    }
-
+    // Hidden until the row is hovered (display is switched in &__sample:hover)
     &__toggle {
-        position: absolute;
-        inset: 0;
         display: none;
-        align-items: center;
-        justify-content: center;
         border-radius: 50%;
         background: var(--or-text);
         color: var(--or-text-on-accent);
@@ -316,15 +226,11 @@ const playingId = computed(() => (player.isPlaying ? loadedId.value : null));
     }
 
     &--compact {
-        gap: 16px;
-        padding: 16px;
-
-        .split-card__name {
-            font-size: 16px;
-        }
+        gap: var(--or-spacing-md);
+        padding: var(--or-spacing-md);
 
         .split-card__sample {
-            padding: 6px 8px;
+            padding: var(--or-spacing-xs) var(--or-spacing-sm);
         }
     }
 }

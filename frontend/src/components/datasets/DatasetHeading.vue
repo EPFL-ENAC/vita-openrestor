@@ -1,5 +1,5 @@
 <template>
-    <header class="dataset-heading" :class="{ 'dataset-heading--compact': compact }">
+    <header class="dataset-heading column no-wrap" :class="{ 'dataset-heading--compact': compact }">
         <p class="dataset-heading__description text-subtitle2 q-my-none">
             {{ t('datasets.kind') }} · {{ t('datasets.subtitle') }}
         </p>
@@ -38,8 +38,6 @@ const metadata = computed(() => {
 
 <style scoped lang="scss">
 .dataset-heading {
-    display: flex;
-    flex-direction: column;
     gap: var(--or-spacing-xs);
     padding: var(--or-spacing-xl) var(--or-spacing-lg) var(--or-spacing-lg);
     border-bottom: 1px solid var(--or-border);

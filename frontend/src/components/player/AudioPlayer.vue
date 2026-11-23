@@ -1,12 +1,16 @@
 <template>
     <section
-        class="audio-player"
-        :class="compact ? 'audio-player--mobile' : 'audio-player--desktop'"
+        class="audio-player no-wrap"
+        :class="
+            compact
+                ? 'audio-player--mobile column bg-surface'
+                : 'audio-player--desktop row items-center bg-sunken'
+        "
     >
-        <div class="audio-player__track">
+        <div class="audio-player__track row no-wrap items-center">
             <button
                 type="button"
-                class="audio-player__playback"
+                class="audio-player__playback plain-button flex col-auto"
                 :aria-disabled="!player.track"
                 :aria-label="player.isPlaying ? t('player.pause') : t('player.play')"
                 @click="player.track && player.toggle()"
@@ -14,11 +18,11 @@
                 <img :src="playbackIcon" :width="buttonSize" :height="buttonSize" alt="" />
             </button>
 
-            <div class="audio-player__identity">
-                <span class="audio-player__title">{{
+            <div class="audio-player__identity col column no-wrap">
+                <span class="text-subtitle2 text-weight-bolder ellipsis">{{
                     player.track?.title ?? t('player.nothingPlaying')
                 }}</span>
-                <span class="audio-player__attribution text-muted">
+                <span class="text-caption text-muted ellipsis">
                     {{ player.track?.attribution ?? t('player.addFiles') }}
                 </span>
             </div>
@@ -26,7 +30,7 @@
             <button
                 v-if="compact && player.track"
                 type="button"
-                class="audio-player__version-badge"
+                class="audio-player__version-badge plain-button col-auto rounded-pill bg-accent text-on-accent text-caption text-weight-bolder"
                 :aria-label="t('player.version')"
                 @click="cycleVersion"
             >
@@ -37,7 +41,7 @@
             <button
                 v-if="compact && player.muted"
                 type="button"
-                class="audio-player__volume audio-player__volume--muted"
+                class="audio-player__volume audio-player__volume--muted plain-button flex col-auto"
                 :aria-label="t('player.unmute')"
                 :aria-pressed="true"
                 @click="player.toggleMute()"
@@ -46,7 +50,7 @@
             </button>
         </div>
 
-        <div class="audio-player__timeline">
+        <div class="audio-player__timeline column no-wrap" :class="{ col: !compact }">
             <audio-waveform
                 :peaks="player.track?.peaks ?? IDLE_WAVEFORM"
                 :progress="player.progress"
@@ -62,7 +66,10 @@
                 :step="player.duration > 0 ? SEEK_STEP_SECONDS / player.duration : undefined"
                 @seek="player.seek"
             />
-            <div v-if="!compact" class="audio-player__times">
+            <div
+                v-if="!compact"
+                class="audio-player__times row no-wrap justify-between text-caption"
+            >
                 <template v-if="player.track">
                     <span class="text-primary">{{ formatTime(player.currentTime) }}</span>
                     <span>{{ formatTime(player.duration) }}</span>
@@ -79,7 +86,7 @@
             />
             <button
                 type="button"
-                class="audio-player__volume"
+                class="audio-player__volume plain-button flex col-auto"
                 :class="{ 'audio-player__volume--muted': player.muted }"
                 :aria-label="player.muted ? t('player.unmute') : t('player.mute')"
                 :aria-pressed="player.muted"
@@ -139,128 +146,63 @@ function formatTime(seconds: number): string {
 </script>
 
 <style scoped lang="scss">
+// Typography, flex and backgrounds come from the global classes in the template.
+// Only the sizes, gaps and the muted state of the player stay here.
 .audio-player {
     border-top: 1px solid var(--or-border);
     color: var(--or-text);
 
     &__track {
-        display: flex;
-        align-items: center;
+        gap: var(--or-spacing-sm-md);
     }
 
-    &__playback {
-        display: flex;
-        flex-shrink: 0;
-        padding: 0;
-        border: 0;
-        background: none;
-        cursor: pointer;
-
-        &[aria-disabled='true'] {
-            cursor: default;
-        }
+    &__playback[aria-disabled='true'] {
+        cursor: default;
     }
 
     &__identity {
-        display: flex;
-        flex: 1 1 0;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-        line-height: 1.25;
-        white-space: nowrap;
+        gap: var(--or-spacing-xxs);
     }
 
-    &__title {
-        overflow: hidden;
-        font-size: 14px;
-        font-weight: 800;
-        text-overflow: ellipsis;
-    }
-
-    &__attribution {
-        overflow: hidden;
-        font-size: 12px;
-        text-overflow: ellipsis;
+    &__timeline {
+        gap: var(--or-spacing-sm);
     }
 
     &__times {
-        display: flex;
-        justify-content: space-between;
         height: 15px;
-        font-size: 12px;
-        line-height: 1.25;
     }
 
-    &__volume {
-        display: flex;
-        flex-shrink: 0;
-        padding: 0;
-        border: 0;
-        background: none;
-        color: var(--or-text);
-        cursor: pointer;
-
-        &--muted {
-            color: var(--or-text-subtle);
-        }
+    &__volume--muted {
+        color: var(--or-text-subtle);
     }
 
     &__version-badge {
-        flex-shrink: 0;
         height: 22px;
-        padding: 0 10px;
-        border: 0;
-        border-radius: var(--or-radius-pill);
-        background: var(--q-accent);
-        color: var(--or-text-on-accent);
-        font: inherit;
-        font-size: 12px;
-        font-weight: 800;
-        cursor: pointer;
+        padding: 0 var(--or-spacing-sm);
     }
 
     &--desktop {
-        display: flex;
-        align-items: center;
-        gap: 24px;
+        gap: var(--or-spacing-lg);
         height: 120px;
-        padding: 0 24px;
-        background: var(--or-bg-sunken);
+        padding: 0 var(--or-spacing-lg);
 
         .audio-player__track {
-            gap: 14px;
             width: 304px;
             flex-shrink: 0;
         }
 
-        .audio-player__timeline {
-            display: flex;
-            flex: 1 1 0;
-            flex-direction: column;
-            gap: 8px;
-            min-width: 0;
-        }
-
-        // Bottom margin equal to the time row and its gap under the waveform, so the
-        // version selector and volume sit on the waveform's centre line
+        // Bottom margin close to the time row and its gap under the waveform, so the
+        // version selector and volume sit near the waveform's centre line
         .version-selector,
         .audio-player__volume {
-            margin-bottom: 18px;
+            margin-bottom: var(--or-spacing-md);
         }
     }
 
     &--mobile {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+        gap: var(--or-spacing-sm);
         height: 98px;
-        padding: 10px 16px 0;
-        background: var(--or-bg-surface);
-
-        .audio-player__track {
-            gap: 12px;
-        }
+        padding: var(--or-spacing-sm) var(--or-spacing-md) 0;
     }
 }
 </style>

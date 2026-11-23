@@ -1,14 +1,27 @@
 <template>
-    <section class="dockerfile-card" :class="{ 'dockerfile-card--compact': compact }">
-        <div class="dockerfile-card__heading">
-            <h2 class="dockerfile-card__title">{{ t('submission.dockerfile.title') }}</h2>
+    <section
+        class="dockerfile-card column no-wrap bg-raised"
+        :class="{ 'dockerfile-card--compact': compact }"
+    >
+        <div class="dockerfile-card__heading row no-wrap items-center justify-between">
+            <h2
+                class="q-my-none"
+                :class="compact ? 'text-subtitle2 text-weight-bolder' : 'text-h5'"
+            >
+                {{ t('submission.dockerfile.title') }}
+            </h2>
             <template v-if="!compact">
-                <span v-if="!locked" class="dockerfile-card__target">
+                <span
+                    v-if="!locked"
+                    class="dockerfile-card__target row no-wrap items-center text-body2 text-weight-bold text-no-wrap bg-control"
+                >
                     {{ t('submission.dockerfile.target', { release }) }}
                     <img :src="expandIcon" width="8" height="4" alt="" />
                 </span>
-                <span v-else class="dockerfile-card__chips">
-                    <span class="dockerfile-card__chip">
+                <span v-else class="dockerfile-card__chips row no-wrap">
+                    <span
+                        class="dockerfile-card__chip row no-wrap items-center text-caption text-weight-bold text-soft text-no-wrap bg-control"
+                    >
                         {{ t('submission.dockerfile.target', { release }) }}
                     </span>
                     <locked-badge />
@@ -17,34 +30,36 @@
         </div>
 
         <template v-if="locked">
-            <div class="dockerfile-card__file">
+            <div
+                class="dockerfile-card__file row no-wrap items-center justify-between text-subtitle2"
+            >
                 <span>{{ fileSummary }}</span>
                 <locked-badge v-if="compact" />
             </div>
-            <p v-if="!compact" class="dockerfile-card__hint">
+            <p v-if="!compact" class="q-my-none text-body2 text-muted">
                 {{ t('submission.dockerfile.hiddenAudio') }}
             </p>
         </template>
 
-        <div v-else class="dockerfile-card__upload">
+        <div v-else class="dockerfile-card__upload items-center">
             <div
-                class="dockerfile-card__drop"
+                class="dockerfile-card__drop column no-wrap items-center justify-center self-stretch text-center"
                 :class="{ 'dockerfile-card__drop--over': dragging }"
                 @dragover.prevent="dragging = true"
                 @dragleave="dragging = false"
                 @drop.prevent="drop"
             >
                 <template v-if="file">
-                    <strong>{{ file.name }}</strong>
-                    <span class="dockerfile-card__hint">{{ fileSummary }}</span>
+                    <strong class="text-subtitle2 text-weight-bolder">{{ file.name }}</strong>
+                    <span class="text-body2 text-muted">{{ fileSummary }}</span>
                 </template>
                 <template v-else>
-                    <strong>{{
+                    <strong class="text-subtitle2 text-weight-bolder">{{
                         compact
                             ? t('submission.dockerfile.addMobile')
                             : t('submission.dockerfile.drop')
                     }}</strong>
-                    <span class="dockerfile-card__hint">{{
+                    <span class="text-body2 text-muted">{{
                         compact
                             ? t('submission.dockerfile.dropHintMobile')
                             : t('submission.dockerfile.dropHint')
@@ -59,21 +74,27 @@
                     "
                     @click="input?.click()"
                 />
-                <button v-if="compact" type="button" class="dockerfile-card__link">
+                <button
+                    v-if="compact"
+                    type="button"
+                    class="dockerfile-card__link plain-button text-body2"
+                >
                     {{ t('submission.dockerfile.downloadTemplate') }}
                 </button>
                 <input
                     ref="input"
                     type="file"
-                    class="dockerfile-card__input"
+                    class="hidden"
                     :aria-label="t('submission.dockerfile.browse')"
                     @change="pick"
                 />
             </div>
 
-            <div v-if="!compact" class="dockerfile-card__instructions">
-                <strong>{{ t('submission.dockerfile.howItWorks') }}</strong>
-                <p v-for="step in INSTRUCTIONS" :key="step">
+            <div v-if="!compact" class="dockerfile-card__instructions column no-wrap items-start">
+                <strong class="text-subtitle2 text-weight-bolder">
+                    {{ t('submission.dockerfile.howItWorks') }}
+                </strong>
+                <p v-for="step in INSTRUCTIONS" :key="step" class="q-my-none text-body2 text-muted">
                     {{ t(`submission.dockerfile.instructions.${step}`) }}
                 </p>
                 <!-- No template is published yet: the button does nothing for now -->
@@ -152,148 +173,69 @@ function drop(event: DragEvent) {
 </script>
 
 <style scoped lang="scss">
+// Typography, colors and flex come from the global classes in the template.
+// Only the card's sizes, gaps, the upload grid and the drop zone border stay here.
 .dockerfile-card {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
+    gap: var(--or-spacing-sm);
+    padding: var(--or-spacing-md-lg);
     border-radius: var(--or-radius-lg);
-    background: var(--or-bg-raised);
 
     &__heading {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
+        gap: var(--or-spacing-sm);
         min-height: 22px;
     }
 
-    &__title {
-        margin: 0;
-        font-size: 18px;
-        font-weight: 800;
-        line-height: 1.25;
-    }
-
     &__target {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
+        gap: var(--or-spacing-sm);
         height: 36px;
-        padding: 0 14px;
+        padding: 0 var(--or-spacing-sm-md);
         border-radius: var(--or-radius-pill);
-        background: var(--or-bg-control);
-        font-size: 13px;
-        font-weight: 700;
-        white-space: nowrap;
     }
 
     &__chips {
-        display: flex;
-        gap: 8px;
+        gap: var(--or-spacing-sm);
     }
 
     &__chip {
-        display: inline-flex;
-        align-items: center;
         height: 22px;
-        padding: 0 10px;
+        padding: 0 var(--or-spacing-sm);
         border-radius: var(--or-radius-pill);
-        background: var(--or-bg-control);
-        color: var(--or-text-soft);
-        font-size: 11px;
-        font-weight: 700;
-        white-space: nowrap;
     }
 
     &__file {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        font-size: 14px;
-        font-weight: 700;
-    }
-
-    &__hint {
-        margin: 0;
-        color: var(--or-text-muted);
-        font-size: 13px;
-        line-height: 1.4;
+        gap: var(--or-spacing-sm);
     }
 
     &__upload {
         display: grid;
         grid-template-columns: minmax(0, 9fr) minmax(0, 8fr);
-        gap: 20px;
-        align-items: center;
-        margin-top: 4px;
+        gap: var(--or-spacing-md-lg);
+        margin-top: var(--or-spacing-xs);
     }
 
     &__drop {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        align-self: stretch;
-        padding: 24px 16px;
+        gap: var(--or-spacing-sm);
+        padding: var(--or-spacing-lg) var(--or-spacing-md);
         border: 2px dashed var(--or-waveform-idle);
         border-radius: var(--or-radius-lg);
-        text-align: center;
         transition: border-color 0.15s;
-
-        strong {
-            font-size: 14px;
-            font-weight: 800;
-        }
 
         &--over {
             border-color: var(--or-text);
         }
     }
 
-    &__input {
-        display: none;
-    }
-
     &__link {
-        padding: 0;
-        border: 0;
-        background: none;
         color: var(--or-text);
-        font: inherit;
-        font-size: 13px;
-        font-weight: 400;
         text-decoration: underline;
-        cursor: pointer;
     }
 
     &__instructions {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-
-        strong {
-            font-size: 14px;
-            font-weight: 800;
-        }
-
-        p {
-            margin: 0;
-            color: var(--or-text-muted);
-            font-size: 13px;
-            line-height: 1.4;
-        }
+        gap: var(--or-spacing-sm);
     }
 
     &--compact {
-        padding: 16px;
-
-        .dockerfile-card__title {
-            font-size: 14px;
-        }
+        padding: var(--or-spacing-md);
 
         .dockerfile-card__upload {
             display: flex;

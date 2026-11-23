@@ -3,10 +3,13 @@
         class="ranking-table"
         :class="{ 'ranking-table--compact': compact, 'ranking-table--loading': loading }"
     >
-        <div v-if="!compact" class="ranking-table__row ranking-table__head">
+        <div
+            v-if="!compact"
+            class="ranking-table__row ranking-table__head row no-wrap items-start text-overline text-muted"
+        >
             <span class="ranking-table__rank">#</span>
             <span class="ranking-table__marker" />
-            <span class="ranking-table__identity">{{ t('leaderboard.columns.model') }}</span>
+            <span class="col">{{ t('leaderboard.columns.model') }}</span>
             <span class="ranking-table__snr">{{ t('leaderboard.columns.snrGain') }}</span>
             <span class="ranking-table__listening">{{ t('leaderboard.columns.listening') }}</span>
         </div>
@@ -16,22 +19,26 @@
                 v-for="(entry, index) in entries"
                 :key="entry.model.id"
                 :to="{ name: 'leaderboard-model', params: { modelId: entry.model.id } }"
-                class="ranking-table__row ranking-table__link"
+                class="ranking-table__row ranking-table__link row no-wrap items-center"
             >
-                <span class="ranking-table__rank">{{ firstRank + index }}</span>
-                <span class="ranking-table__marker">
+                <span class="ranking-table__rank text-subtitle1 text-muted">
+                    {{ firstRank + index }}
+                </span>
+                <span class="ranking-table__marker flex">
                     <model-avatar
                         :name="entry.model.name"
                         :mine="submissions.isMine(entry.model.id)"
                         :size="compact ? 32 : 36"
                     />
                 </span>
-                <span class="ranking-table__identity">
-                    <span class="ranking-table__name">{{ entry.model.name }}</span>
-                    <span class="ranking-table__lab text-muted">{{ entry.model.lab }}</span>
+                <span class="ranking-table__identity col column no-wrap">
+                    <span class="text-subtitle2 ellipsis">{{ entry.model.name }}</span>
+                    <span class="text-body2 text-muted">{{ entry.model.lab }}</span>
                 </span>
-                <span class="ranking-table__snr">{{ formatSnr(entry.snrGain) }}</span>
-                <span v-if="!compact" class="ranking-table__listening">
+                <span class="ranking-table__snr text-subtitle2">
+                    {{ formatSnr(entry.snrGain) }}
+                </span>
+                <span v-if="!compact" class="ranking-table__listening text-body1 text-muted">
                     {{ formatListening(entry.listening) }}
                 </span>
             </router-link>
@@ -61,9 +68,9 @@ const submissions = useSubmissionsStore();
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template.
+// Only the column widths, row sizes and hover of this table stay here.
 .ranking-table {
-    display: flex;
-    flex-direction: column;
     transition: opacity 0.15s;
 
     &--loading {
@@ -71,10 +78,8 @@ const submissions = useSubmissionsStore();
     }
 
     &__row {
-        display: flex;
-        align-items: center;
         height: 56px;
-        padding: 0 16px;
+        padding: 0 var(--or-spacing-md);
     }
 
     &__link {
@@ -89,72 +94,31 @@ const submissions = useSubmissionsStore();
 
     &__head {
         height: 30px;
-        align-items: flex-start;
         border-bottom: 1px solid var(--or-border);
-        color: var(--or-text-muted);
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-
-        // Same left edge as the numbers below
-        .ranking-table__rank {
-            color: inherit;
-            font-size: 12px;
-        }
     }
 
     &__rows {
-        padding-top: 8px;
+        padding-top: var(--or-spacing-sm);
     }
 
     &__rank {
         flex: 0 0 44px;
-        color: var(--or-text-muted);
-        font-size: 16px;
     }
 
     &__marker {
-        display: flex;
         flex: 0 0 48px;
     }
 
     &__identity {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-        line-height: 1.25;
-    }
-
-    &__name {
-        overflow: hidden;
-        font-size: 14px;
-        font-weight: 700;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__lab {
-        font-size: 13px;
+        gap: var(--or-spacing-xxs);
     }
 
     &__snr {
         flex: 0 0 116px;
-        font-size: 14px;
-        font-weight: 700;
     }
 
     &__listening {
         flex: 0 0 96px;
-        color: var(--or-text-muted);
-        font-size: 14px;
-    }
-
-    &__head &__snr,
-    &__head &__listening {
-        color: inherit;
-        font-size: 12px;
     }
 
     &--compact {
@@ -163,23 +127,18 @@ const submissions = useSubmissionsStore();
         }
 
         .ranking-table__row {
-            gap: 12px;
+            gap: var(--or-spacing-sm-md);
             height: 60px;
-            padding: 0 4px;
+            padding: 0 var(--or-spacing-xs);
             border-bottom: 1px solid var(--or-bg-surface);
         }
 
         .ranking-table__rank {
             flex-basis: 20px;
-            font-size: 15px;
         }
 
         .ranking-table__marker {
             flex-basis: auto;
-        }
-
-        .ranking-table__lab {
-            font-size: 12px;
         }
 
         .ranking-table__snr {

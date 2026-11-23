@@ -1,11 +1,12 @@
 <template>
-    <div class="sample-table" :class="{ 'sample-table--compact': compact }">
-        <div v-if="!compact" class="sample-table__row sample-table__head">
+    <div class="sample-table column no-wrap" :class="{ 'sample-table--compact': compact }">
+        <div
+            v-if="!compact"
+            class="sample-table__row sample-table__head row no-wrap items-start q-mt-xs text-overline text-muted"
+        >
             <span class="sample-table__index">#</span>
             <span class="sample-table__marker" />
-            <span class="sample-table__identity">{{
-                t('leaderboard.samples.columns.sample')
-            }}</span>
+            <span class="col">{{ t('leaderboard.samples.columns.sample') }}</span>
             <span class="sample-table__degradation">
                 {{ t('leaderboard.samples.columns.degradation') }}
             </span>
@@ -13,11 +14,12 @@
             <span class="sample-table__length">{{ t('leaderboard.samples.columns.length') }}</span>
         </div>
 
-        <div class="sample-table__rows">
+        <!-- One block for the rows, so the gap above only separates them from the head -->
+        <div>
             <div
                 v-for="(sample, index) in samples"
                 :key="sample.id"
-                class="sample-table__row sample-table__sample"
+                class="sample-table__row sample-table__sample row no-wrap items-center relative-position cursor-pointer"
                 :class="{
                     'sample-table__sample--selected': sample.id === selectedId,
                     'sample-table__sample--playing': sample.id === playingId,
@@ -27,7 +29,7 @@
                      degradation tag, which sits above it -->
                 <button
                     type="button"
-                    class="sample-table__hit"
+                    class="sample-table__hit plain-button absolute-full"
                     :aria-pressed="sample.id === selectedId"
                     :aria-label="
                         sample.id === playingId
@@ -37,7 +39,10 @@
                     @click="emit('select', sample)"
                 />
                 <!-- Number, replaced by play / pause while the row is hovered -->
-                <span v-if="!compact" class="sample-table__index">
+                <span
+                    v-if="!compact"
+                    class="sample-table__index row no-wrap items-center text-subtitle1 text-muted"
+                >
                     <span class="sample-table__number">{{ index + 1 }}</span>
                     <q-icon
                         class="sample-table__toggle"
@@ -45,12 +50,12 @@
                         size="20px"
                     />
                 </span>
-                <span class="sample-table__marker">
+                <span class="sample-table__marker flex">
                     <sound-thumb :size="36" :active="sample.id === selectedId" />
                 </span>
-                <span class="sample-table__identity">
-                    <span class="sample-table__name">{{ sample.id }}</span>
-                    <span class="sample-table__detail text-muted">
+                <span class="sample-table__identity col column no-wrap">
+                    <span class="sample-table__name text-subtitle2 ellipsis">{{ sample.id }}</span>
+                    <span class="text-body2 text-muted">
                         {{
                             compact
                                 ? `${sample.degradation} · ${sample.severity}`
@@ -62,7 +67,7 @@
                     <button
                         v-if="categoryOf?.(sample.degradation)"
                         type="button"
-                        class="sample-table__badge sample-table__badge--link"
+                        class="sample-table__badge sample-table__badge--link plain-button text-caption text-weight-bold"
                         :title="
                             t('leaderboard.samples.showCategory', {
                                 category: categoryOf(sample.degradation),
@@ -72,10 +77,14 @@
                     >
                         {{ sample.degradation }}
                     </button>
-                    <span v-else class="sample-table__badge">{{ sample.degradation }}</span>
+                    <span v-else class="sample-table__badge text-caption text-weight-bold">
+                        {{ sample.degradation }}
+                    </span>
                 </span>
-                <span class="sample-table__snr">{{ formatSnr(snr[sample.id] ?? 0) }}</span>
-                <span v-if="!compact" class="sample-table__length text-muted">
+                <span class="sample-table__snr text-subtitle2">
+                    {{ formatSnr(snr[sample.id] ?? 0) }}
+                </span>
+                <span v-if="!compact" class="sample-table__length text-body1 text-muted">
                     {{ formatDuration(sample.durationSeconds, locale) }}
                 </span>
             </div>
@@ -112,40 +121,24 @@ const { t, locale } = useI18n();
 </script>
 
 <style scoped lang="scss">
+// Typography and flex come from the global classes in the template.
+// Only the column widths, row sizes, the badge and the hover / selected / playing states stay here.
 .sample-table {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    gap: var(--or-spacing-sm);
 
     &__row {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        padding: 0 16px;
+        padding: 0 var(--or-spacing-md);
     }
 
     &__head {
         height: 30px;
-        align-items: flex-start;
-        margin-top: 6px;
         border-bottom: 1px solid var(--or-border);
-        color: var(--or-text-muted);
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    &__rows {
-        display: flex;
-        flex-direction: column;
     }
 
     &__sample {
-        position: relative;
         height: 56px;
         border-radius: var(--or-radius-md);
         color: var(--or-text);
-        cursor: pointer;
 
         &:hover {
             background: var(--or-bg-surface);
@@ -166,29 +159,15 @@ const { t, locale } = useI18n();
     }
 
     &__hit {
-        position: absolute;
-        inset: 0;
-        padding: 0;
-        border: 0;
         border-radius: inherit;
         outline: 0;
-        background: transparent;
-        cursor: pointer;
     }
 
     &__index {
-        display: flex;
         flex: 0 0 44px;
-        align-items: center;
-        color: var(--or-text-muted);
-        font-size: 16px;
     }
 
-    // Same left edge as the numbers below
-    &__head &__index {
-        font-size: 12px;
-    }
-
+    // -2px: optical nudge so the icon's left edge lines up with the numbers
     &__toggle {
         display: none;
         margin-left: -2px;
@@ -212,50 +191,29 @@ const { t, locale } = useI18n();
     }
 
     &__marker {
-        display: flex;
         flex: 0 0 48px;
     }
 
     &__identity {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-        line-height: 1.25;
-    }
-
-    &__name {
-        overflow: hidden;
-        font-size: 14px;
-        font-weight: 700;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    &__detail {
-        font-size: 13px;
+        gap: var(--or-spacing-xxs);
     }
 
     &__degradation {
         flex: 0 0 156px;
     }
 
+    // Colors stay here, not in classes: the link's hover changes them
     &__badge {
-        padding: 3px 8px;
+        padding: var(--or-spacing-xxs) var(--or-spacing-sm);
         border-radius: var(--or-radius-xl);
         background: var(--or-bg-badge);
         color: var(--or-text-soft);
-        font-size: 12px;
-        font-weight: 700;
 
         // Above the row's play button: shows the metrics of this degradation's category
         &--link {
             position: relative;
             z-index: 1;
             border: 1px solid transparent;
-            font-family: inherit;
-            cursor: pointer;
 
             &:hover,
             &:focus-visible {
@@ -268,38 +226,25 @@ const { t, locale } = useI18n();
 
     &__snr {
         flex: 0 0 116px;
-        font-size: 14px;
-        font-weight: 700;
     }
 
     &__length {
         flex: 0 0 60px;
-        font-size: 14px;
-    }
-
-    &__head &__snr,
-    &__head &__length {
-        color: inherit;
-        font-size: 12px;
     }
 
     &--compact {
         gap: 0;
 
         .sample-table__sample {
-            gap: 12px;
+            gap: var(--or-spacing-sm-md);
             height: 60px;
-            padding: 0 4px;
+            padding: 0 var(--or-spacing-xs);
             border-bottom: 1px solid var(--or-bg-surface);
             border-radius: 0;
         }
 
         .sample-table__marker {
             flex-basis: auto;
-        }
-
-        .sample-table__detail {
-            font-size: 12px;
         }
 
         .sample-table__snr {
