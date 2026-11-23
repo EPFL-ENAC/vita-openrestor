@@ -78,7 +78,6 @@ function hint(submission: Submission): string | null {
 
     &__title {
         margin: 0 0 8px;
-        font-family: inherit;
         font-size: 12px;
         font-weight: 700;
         line-height: 1.4;

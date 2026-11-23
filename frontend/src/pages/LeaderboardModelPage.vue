@@ -510,7 +510,7 @@ function listen(version: AudioVersion) {
         border-radius: var(--or-radius-sm);
         color: var(--or-text-soft);
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
     }
 
     &__chip {
@@ -522,7 +522,7 @@ function listen(version: AudioVersion) {
         background: var(--or-bg-control);
         color: var(--or-text-soft);
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         white-space: nowrap;
     }
 
@@ -604,7 +604,6 @@ function listen(version: AudioVersion) {
 
     &__section-title {
         margin: 0;
-        font-family: inherit;
         font-size: 18px;
         font-weight: 800;
     }

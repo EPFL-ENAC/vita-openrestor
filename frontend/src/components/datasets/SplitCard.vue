@@ -58,7 +58,7 @@
                             <sound-thumb :size="36" :active="loadedId === sample.id" />
                             <span class="split-card__toggle">
                                 <q-icon
-                                    :name="playingId === sample.id ? 'pause' : 'play_arrow'"
+                                    :name="playingId === sample.id ? matPause : matPlayArrow"
                                     size="20px"
                                 />
                             </span>
@@ -70,7 +70,7 @@
                             </span>
                         </span>
                         <span class="split-card__sample-length">
-                            {{ formatDuration(sample.durationSeconds) }}
+                            {{ formatDuration(sample.durationSeconds, locale) }}
                         </span>
                     </button>
                 </li>
@@ -82,6 +82,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { matPause, matPlayArrow } from '@quasar/extras/material-icons';
 import { sampleTrackId } from 'src/stores/datasets';
 import { usePlayerStore } from 'src/stores/player';
 import LockedBadge from 'components/LockedBadge.vue';
@@ -178,7 +179,6 @@ const playingId = computed(() => (player.isPlaying ? loadedId.value : null));
     }
 
     &__name {
-        font-family: inherit;
         font-size: 18px;
         font-weight: 800;
         line-height: 1.25;
@@ -218,7 +218,6 @@ const playingId = computed(() => (player.isPlaying ? loadedId.value : null));
 
         h3 {
             color: var(--or-text-subtle);
-            font-family: inherit;
             font-size: 12px;
             font-weight: 700;
             line-height: 1.4;

@@ -53,7 +53,6 @@ const emit = defineEmits<{ 'update:modelValue': [value: string] }>();
         outline: 0;
         background: transparent;
         color: var(--or-text);
-        font-family: 'Roboto', sans-serif;
         font-size: 14px;
 
         &::placeholder {

@@ -50,9 +50,8 @@ $radius-8: 8px;
 $radius-10: 10px;
 $radius-full: 100px;
 
-// Font families
+// Font family. index.html loads it from Google Fonts.
 $font-inter: 'Inter', sans-serif;
-$font-roboto: 'Roboto', sans-serif;
 
 // Font sizes
 $font-size-11: 0.6875rem;
@@ -69,15 +68,10 @@ $font-size-24: 1.5rem;
 $font-size-32: 2rem;
 $font-size-48: 3rem;
 
-// Font weights
-$font-weight-100: 100;
-$font-weight-300: 300;
+// Font weights. index.html loads only these three.
 $font-weight-400: 400;
-$font-weight-500: 500;
-$font-weight-600: 600;
 $font-weight-700: 700;
 $font-weight-800: 800;
-$font-weight-900: 900;
 
 // Line heights
 $line-height-125: 1.25;

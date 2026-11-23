@@ -11,17 +11,7 @@ html {
 }
 
 body {
-    font-family: dec.$font-body;
     user-select: none;
-}
-
-// The design sets the brand name and some titles in Roboto Black
-h2,
-h3,
-.text-h2,
-.text-h3,
-.font-display {
-    font-family: dec.$font-display;
 }
 
 .text-overline {

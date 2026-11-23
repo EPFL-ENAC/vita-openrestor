@@ -5,7 +5,7 @@
             <p>{{ t('auth.signinSubtitle') }}</p>
             <q-btn
                 color="primary"
-                icon="login"
+                :icon="matLogin"
                 :label="t('auth.signin')"
                 :loading="loading"
                 @click="signin"
@@ -18,6 +18,7 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { matLogin } from '@quasar/extras/material-icons';
 import { useAuthStore } from 'src/stores/auth';
 
 const route = useRoute();

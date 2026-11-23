@@ -300,7 +300,6 @@ function play(entry: LeaderboardEntry) {
 
     &__ranking-title {
         margin: 0;
-        font-family: inherit;
         font-size: 20px;
         font-weight: 800;
         line-height: 1.25;
@@ -328,7 +327,6 @@ function play(entry: LeaderboardEntry) {
 
     &__panel-title {
         margin: 0;
-        font-family: inherit;
         font-size: 16px;
         font-weight: 800;
         line-height: 1.25;

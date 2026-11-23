@@ -141,7 +141,6 @@ function update(field: keyof ModelCardFields, value: string) {
 
     &__title {
         margin: 0;
-        font-family: inherit;
         font-size: 18px;
         font-weight: 800;
         line-height: 1.25;
@@ -245,7 +244,7 @@ function update(field: keyof ModelCardFields, value: string) {
 
         a {
             color: var(--or-text);
-            font-weight: 500;
+            font-weight: 400;
         }
     }
 

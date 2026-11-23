@@ -52,12 +52,11 @@ const fields = computed(() => {
     padding: 16px;
     border-radius: var(--or-radius-lg);
     background: var(--or-bg-raised);
-    font-family: 'Roboto', sans-serif;
 
     &__title {
         margin: 0 0 8px;
         font-size: 15px;
-        font-weight: 900;
+        font-weight: 800;
         line-height: 1.25;
     }
 

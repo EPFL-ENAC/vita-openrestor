@@ -21,7 +21,7 @@ const { t } = useI18n();
     background: var(--or-bg-control);
     color: var(--or-text-soft);
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     white-space: nowrap;
 }
 </style>

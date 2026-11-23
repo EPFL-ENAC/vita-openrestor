@@ -1,7 +1,12 @@
 <template>
     <router-link to="/" class="app-brand" :class="{ 'app-brand--compact': compact }">
+        <!-- Signal bars of the brand mark, heights relative to the mark size -->
         <span class="app-brand__mark" aria-hidden="true">
-            <span v-for="(height, index) in BAR_HEIGHTS" :key="index" :style="{ height }" />
+            <span class="app-brand__bar" style="height: 21%" />
+            <span class="app-brand__bar" style="height: 45%" />
+            <span class="app-brand__bar" style="height: 61%" />
+            <span class="app-brand__bar" style="height: 30%" />
+            <span class="app-brand__bar" style="height: 15%" />
         </span>
         <span class="app-brand__wordmark text-h3">{{ t('appTitle') }}</span>
     </router-link>
@@ -14,9 +19,6 @@ defineProps<{
     // Mobile header variant: smaller mark and wordmark
     compact?: boolean;
 }>();
-
-// Signal bars of the brand mark, relative to the mark size
-const BAR_HEIGHTS = ['21%', '45%', '61%', '30%', '15%'];
 
 const { t } = useI18n();
 </script>
@@ -38,11 +40,11 @@ const { t } = useI18n();
         height: 28px;
         border-radius: var(--or-radius-pill);
         background: var(--q-primary);
+    }
 
-        span {
-            width: 1.5px;
-            background: var(--or-text-on-accent);
-        }
+    &__bar {
+        width: 1.5px;
+        background: var(--or-text-on-accent);
     }
 
     &__wordmark {

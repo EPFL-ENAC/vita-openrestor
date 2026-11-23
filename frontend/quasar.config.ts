@@ -17,25 +17,14 @@ export default defineConfig((ctx) => {
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
         css: ['theme.scss', 'app.scss'],
 
-        // https://github.com/quasarframework/quasar/tree/dev/extras
-        extras: [
-            // 'ionicons-v4',
-            // 'mdi-v7',
-            // 'fontawesome-v6',
-            // 'eva-icons',
-            // 'themify',
-            // 'line-awesome',
-            // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-            'material-icons', // optional, you are not bound to it
-            'material-symbols-rounded',
-            'material-symbols-outlined',
-        ],
+        // No icon fonts: icons are SVG, from src/assets/icons or imported from @quasar/extras
+        extras: [],
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#build
         build: {
             target: {
-                browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
+                // Oldest versions with Intl.DurationFormat (clip lengths)
+                browser: ['es2022', 'firefox136', 'chrome129', 'safari16.4'],
                 node: 'node20',
             },
 
@@ -110,7 +99,8 @@ export default defineConfig((ctx) => {
                 dark: true,
             },
 
-            // iconSet: 'material-icons', // Quasar icon set
+            // Icons drawn by Quasar components themselves, as SVG (no icon font)
+            iconSet: 'svg-material-icons',
             // lang: 'en-US', // Quasar language pack
 
             // For special cases outside of where the auto-import strategy can have an impact

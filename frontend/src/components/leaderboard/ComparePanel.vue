@@ -113,7 +113,6 @@ const player = usePlayerStore();
 
     &__title {
         margin: 0;
-        font-family: inherit;
         font-size: 16px;
         font-weight: 800;
     }
@@ -172,7 +171,6 @@ const player = usePlayerStore();
 
     &__others-title {
         margin: 0;
-        font-family: inherit;
         font-size: 14px;
         font-weight: 800;
     }
